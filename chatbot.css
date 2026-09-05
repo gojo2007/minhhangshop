@@ -1,0 +1,22 @@
+// GIAO DIỆN CHAT BOT
+#ai-chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 10005; font-family: 'Poppins', sans-serif; }
+#chat-toggle { background: #1A1A1A; color: #FAFAFA; padding: 12px 20px; border-radius: 30px; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.2); transition: 0.3s; border: 1px solid #EAEAEA;}
+#chat-toggle:hover { background: #D4AF37; color: #111; transform: translateY(-3px); }
+#chat-box { display: none; width: 350px; height: 450px; background: #FFFFFF; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); flex-direction: column; overflow: hidden; position: absolute; bottom: 60px; right: 0; border: 1px solid #EAEAEA; }
+.chat-header { background: #1A1A1A; color: #FAFAFA; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold;}
+.chat-body { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #FAFAFA; }
+.chat-body::-webkit-scrollbar { width: 5px; }
+.chat-body::-webkit-scrollbar-thumb { background: #D4AF37; }
+.bot-msg, .user-msg { max-width: 80%; padding: 10px 15px; border-radius: 12px; font-size: 0.9rem; line-height: 1.4; word-wrap: break-word;}
+.bot-msg { background: #FFFFFF; color: #1A1A1A; align-self: flex-start; border: 1px solid #EAEAEA; border-bottom-left-radius: 0; }
+.user-msg { background: #D4AF37; color: #111; align-self: flex-end; border-bottom-right-radius: 0; }
+.chat-input-area { display: flex; padding: 10px; background: #FFFFFF; border-top: 1px solid #EAEAEA; }
+.chat-input-area input { flex: 1; padding: 10px; border: 1px solid #EAEAEA; border-radius: 6px; outline: none; background: #FAFAFA; color: #1A1A1A;}
+.chat-input-area button { background: #1A1A1A; color: #FAFAFA; border: none; padding: 0 15px; margin-left: 10px; border-radius: 6px; cursor: pointer; font-weight: bold;}
+
+@media (max-width: 480px) {
+    #ai-chat-widget { bottom: 80px; right: 15px; }
+    #chat-toggle span { display: none; }
+    #chat-toggle { padding: 12px; border-radius: 50%; }
+    #chat-box { width: 300px; right: 0; }
+}
