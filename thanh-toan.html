@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Chính Sách Thanh Toán - Minh Hằng Store</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="chatbot.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS DÀNH RIÊNG CHO MEGA MENU FULL MÀN HÌNH -->
+    <style>
+        @media (min-width: 993px) {
+            header.sticky-header { 
+                position: relative !important; 
+            }
+            nav.nav-container, ul.main-menu, li.has-mega { 
+                position: static !important; 
+            }
+            
+            .mega-menu { 
+                position: absolute !important; 
+                left: 0 !important; 
+                right: 0 !important; 
+                width: 100% !important; 
+                transform: none !important; 
+                padding: 40px 0 !important; 
+                background: #fff !important; 
+                border-top: 1px solid #eaeaea; 
+                box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
+                z-index: 999;
+            }
+            
+            .mega-container {
+                max-width: 1200px !important;
+                margin: 0 auto !important;
+                padding: 0 20px !important;
+                text-align: left !important;
+                display: grid !important;
+                gap: 30px !important;
+            }
+
+            .mega-col h4 { 
+                font-family: 'Poppins', sans-serif; 
+                font-size: 0.85rem !important; 
+                font-weight: 700 !important; 
+                text-transform: uppercase; 
+                margin-bottom: 20px !important; 
+                color: #111 !important; 
+                letter-spacing: 0.5px; 
+            }
+            .mega-col ul { 
+                display: flex; 
+                flex-direction: column; 
+                gap: 12px !important; 
+                list-style: none; 
+                padding: 0; 
+                margin: 0; 
+            }
+            .mega-col ul li a { 
+                font-size: 0.9rem !important; 
+                color: #666 !important; 
+                transition: 0.2s; 
+                font-weight: 400 !important; 
+                text-decoration: none; 
+                cursor: pointer; 
+            }
+            .mega-col ul li a:hover { 
+                color: var(--gold, #d4af37) !important; 
+                font-weight: 500 !important; 
+                transform: translateX(5px); 
+                display: inline-block; 
+            }
+        }
+    </style>
+
+    <!-- CSS DÀNH RIÊNG CHO TRANG CHÍNH SÁCH -->
+    <style>
+        .policy-page-wrapper {
+            background-color: #fdfdfd;
+            padding: 60px 20px 100px 20px;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .policy-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .policy-title {
+            font-family: var(--font-heading, 'Playfair Display');
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: #111;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .policy-content h3 {
+            font-size: 1.4rem;
+            color: #111;
+            font-weight: 600;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+
+        .policy-content h4 {
+            font-size: 1.1rem;
+            color: #222;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .policy-content p {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: #555;
+            text-align: justify;
+        }
+
+        .policy-content ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .policy-content li {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #555;
+            text-align: justify;
+        }
+
+        .policy-content li b {
+            color: #111;
+        }
+
+        .policy-highlight {
+            font-weight: 600;
+            color: var(--accent-red, #d9534f);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toast" role="alert" aria-live="assertive"></div>
+    <div id="sidebar-overlay" aria-hidden="true" onclick="closeSidebars()"></div>
+
+    <!-- SIDEBAR GIỎ HÀNG -->
+    <div id="cart-sidebar" class="sidebar" role="dialog" aria-modal="true">
+        <div class="sidebar-header">
+            <h3>Giỏ Hàng (Cart)</h3>
+            <span class="close-sidebar" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="sidebar-content" id="cart-items"></div>
+        <div class="sidebar-footer">
+            <div class="cart-total">Tổng thanh toán: <span id="cart-total-price">0đ</span></div>
+            <button class="btn" style="width: 100%; background: var(--text-main); color: var(--bg-color); padding: 18px; border-radius: 8px;" onclick="window.location.href='index.html'">TIẾN HÀNH THANH TOÁN</button>
+        </div>
+    </div>
+
+    <!-- SIDEBAR YÊU THÍCH -->
+    <div id="wishlist-sidebar" class="sidebar" role="dialog" aria-modal="true">
+        <div class="sidebar-header">
+            <h3>Mục Yêu Thích</h3>
+            <span class="close-sidebar" onclick="toggleWishlist()">&times;</span>
+        </div>
+        <div class="sidebar-content" id="wishlist-items"></div>
+    </div>
+
+    <!-- TOP BAR -->
+    <div class="announcement-bar" role="complementary">
+        <div class="top-bar-inner" style="justify-content: flex-end;">
+            <div class="top-bar-utilities">
+                <div class="top-bar-item" onclick="toggleTheme()">☀️ Theme</div>
+                <div class="top-bar-item" onclick="window.location.href='huong-dan-chon-size.html'">📏 Size Guide</div>
+                <div class="top-bar-item" onclick="window.location.href='index.html'">🚚 Tra cứu</div>
+                <div class="top-bar-item" onclick="toggleWishlist()">❤️ Yêu thích <span id="wishlist-count" class="wishlist-badge">0</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- HEADER -->
+    <header class="sticky-header" role="banner">
+        <nav class="nav-container" role="navigation">
+            <div class="hamburger" onclick="toggleMobileNav()">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+            
+            <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" onclick="toggleMobileNav()"></div>
+
+            <!-- MENU DI ĐỘNG -->
+            <div class="mobile-nav-overlay" id="mobile-nav" role="dialog">
+                <div class="mobile-nav-header-drawer">
+                    <span class="mobile-close-btn" onclick="toggleMobileNav()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </span>
+                    <div class="logo" style="margin: 0; font-size: 1.2rem;" onclick="window.location.href='index.html'">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold">M</text>
+                        </svg>
+                        <span style="border-left: 1px solid var(--gold); padding-left: 5px; margin-left: 5px;">MinhHang</span>
+                    </div>
+                </div>
+                <ul class="accordion-menu">
+                    <li class="accordion-item"><div class="accordion-header" onclick="window.location.href='index.html'">TRANG CHỦ</div></li>
+                    <li class="accordion-item"><div class="accordion-header" onclick="window.location.href='index.html'">BỘ SƯU TẬP</div></li>
+                    <li class="accordion-item"><div class="accordion-header" onclick="window.location.href='index.html'">ÁO & QUẦN</div></li>
+                    <li class="accordion-item" style="border: none;"><div class="accordion-header" style="color: var(--gold);" onclick="window.location.href='index.html'">VIP - ĐĂNG NHẬP</div></li>
+                </ul>
+            </div>
+
+            <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold">M</text>
+                </svg>
+                <span>MINHHANG</span>
+            </div>
+
+            <!-- MEGA MENU BUNG FULL WIDTH CHUẨN XÁC -->
+            <ul class="main-menu">
+                <li class="sale-tag"><a href="index.html">SALE</a></li>
+                <li class="has-mega"><a href="index.html">BỘ SƯU TẬP ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-container">
+                            <div class="mega-col">
+                                <h4>THIẾT YẾU</h4>
+                                <ul><li><a href="index.html">BST Non-Branded</a></li><li><a href="index.html">BST Seventy Seven</a></li><li><a href="index.html">BST The Worker</a></li></ul>
+                                <h4 style="margin-top: 25px;">THỂ THAO</h4>
+                                <ul><li><a href="index.html">BST The Beginner</a></li><li><a href="index.html">BST The Trainer</a></li></ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>CÔNG NGHỆ</h4>
+                                <ul><li><a href="index.html">BST The Minimalist</a></li><li><a href="index.html">BST The CEO</a></li></ul>
+                                <h4 style="margin-top: 25px;">SIGNATURE</h4>
+                                <ul><li><a href="index.html">Khám Phá Signature</a></li></ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>TẬN HƯỞNG</h4>
+                                <ul><li><a href="index.html">BST The No Style</a></li><li><a href="index.html">BST The Weekend</a></li><li><a href="index.html">BST The Home Body</a></li></ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>JEAN (DENIM)</h4>
+                                <ul><li><a href="index.html">BST The Original Jean</a></li><li><a href="index.html">BST Tek Black Jean</a></li><li><a href="index.html">BST Multi Color Jean</a></li></ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="has-mega"><a href="index.html">ÁO ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-container" style="grid-template-columns: repeat(3, 1fr);">
+                            <div class="mega-col"><h4>👕 ÁO NAM</h4><ul><li><a href="index.html">Áo Thun / Polo</a></li><li><a href="index.html">Áo Sơ Mi</a></li><li><a href="index.html">Áo Khoác</a></li></ul></div>
+                            <div class="mega-col"><h4>👗 ÁO NỮ</h4><ul><li><a href="index.html">Áo Thun / Croptop</a></li><li><a href="index.html">Áo Sơ Mi / Blouse</a></li><li><a href="index.html">Áo Khoác Tweed</a></li></ul></div>
+                            <div class="mega-col"><h4>👫 ÁO ĐỒ ĐÔI</h4><ul><li><a href="index.html">Áo Thun Đôi</a></li><li><a href="index.html">Áo Khoác / Len Đôi</a></li></ul></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="has-mega"><a href="index.html">QUẦN ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-container" style="grid-template-columns: repeat(3, 1fr);">
+                            <div class="mega-col"><h4>👖 QUẦN NAM</h4><ul><li><a href="index.html">Quần Jeans</a></li><li><a href="index.html">Quần Tây / Chino</a></li><li><a href="index.html">Quần Short</a></li></ul></div>
+                            <div class="mega-col"><h4>👖 QUẦN & VÁY NỮ</h4><ul><li><a href="index.html">Quần Tây Công Sở</a></li><li><a href="index.html">Chân Váy</a></li><li><a href="index.html">Đầm Dạ Hội</a></li></ul></div>
+                            <div class="mega-col"><h4>👖 QUẦN UNISEX</h4><ul><li><a href="index.html">Quần Thể Thao Đôi</a></li><li><a href="index.html">Quần Jean Ống Thụng</a></li></ul></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="has-mega"><a href="index.html" style="color: var(--accent-red); font-weight: bold;">PHỤ KIỆN ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-container" style="grid-template-columns: repeat(4, 1fr);">
+                            <div class="mega-col"><h4>🧢 NÓN</h4><ul><li><a href="index.html">Nón Các Loại</a></li></ul><h4 style="margin-top: 25px;">🔗 DÂY NỊT</h4><ul><li><a href="index.html">Dây Nịt Da</a></li></ul></div>
+                            <div class="mega-col"><h4>👝 TÚI ĐEO</h4><ul><li><a href="index.html">Túi Đeo Chéo / Tote</a></li></ul><h4 style="margin-top: 25px;">🧦 VỚ</h4><ul><li><a href="index.html">Vớ Basic</a></li></ul></div>
+                            <div class="mega-col"><h4>🎒 BALO</h4><ul><li><a href="index.html">Balo Da / Laptop</a></li></ul><h4>🕶️ KÍNH MẮT</h4><ul><li><a href="index.html">Kính Phân Cực</a></li></ul></div>
+                            <div class="mega-col"><h4>🪪 VÍ & ĐỒNG HỒ</h4><ul><li><a href="index.html">Trang Sức / Đồng Hồ</a></li></ul><h4 style="margin-top: 25px;">👞 GIÀY</h4><ul><li><a href="index.html">Giày Oxford / Sneaker</a></li></ul></div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="index.html">CỬA HÀNG</a></li>
+            </ul>
+            
+            <div class="nav-icons" style="display: flex; gap: 15px;">
+                <svg title="Tài khoản" onclick="window.location.href='index.html'" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="cursor: pointer;">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <div style="position: relative; display: flex; align-items: center; cursor: pointer;" onclick="toggleCart()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="8" width="18" height="14" rx="2" ry="2"></rect>
+                        <path d="M8 8V6a4 4 0 0 1 8 0v2"></path>
+                    </svg>
+                    <span id="cart-count" class="cart-badge-svg">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- NỘI DUNG CHÍNH: CHÍNH SÁCH THANH TOÁN -->
+    <main class="policy-page-wrapper">
+        <div class="policy-container">
+            <a href="index.html" style="display: inline-block; color: var(--gold); text-decoration: none; font-size: 0.95rem; font-weight: 500; margin-bottom: 20px;">
+                ← Trở về Trang Chủ
+            </a>
+            <h1 class="policy-title">Chính Sách Thanh Toán</h1>
+
+            <div class="policy-content">
+                <p>Chính sách thanh toán được áp dụng cho tất cả các khách hàng mua sắm tại website Minh Hằng Store.</p>
+                <p>Chúng tôi hiện đang cung cấp các phương thức thanh toán an toàn và tiện lợi sau đây:</p>
+
+                <h3>1. Thanh toán khi nhận hàng (COD - Cash On Delivery)</h3>
+                <p>Đây là hình thức thanh toán bằng tiền mặt trực tiếp cho nhân viên giao hàng ngay khi quý khách nhận được sản phẩm.</p>
+                
+                <h4>Quy trình thanh toán COD:</h4>
+                <ul>
+                    <li><b>Bước 1:</b> Quý khách chọn sản phẩm và tiến hành đặt hàng trên website.</li>
+                    <li><b>Bước 2:</b> Tại trang thanh toán, quý khách chọn phương thức "Thanh toán khi nhận hàng (COD)".</li>
+                    <li><b>Bước 3:</b> Sau khi nhân viên chăm sóc khách hàng xác nhận đơn hàng, Minh Hằng Store sẽ tiến hành đóng gói và giao hàng.</li>
+                    <li><b>Bước 4:</b> Quý khách kiểm tra sản phẩm (theo chính sách đồng kiểm) và thanh toán bằng tiền mặt trực tiếp cho nhân viên giao hàng.</li>
+                </ul>
+
+                <h3>2. Thanh toán online qua ví điện tử ZaloPay</h3>
+                <p>Đây là hình thức thanh toán trực tuyến nhanh chóng, tiện lợi và an toàn giúp quý khách hoàn tất đơn hàng ngay tại website thông qua ứng dụng ZaloPay (bằng số dư ví, tài khoản ngân hàng liên kết hoặc thẻ nội địa/quốc tế).</p>
+                
+                <h4>Quy trình thanh toán online qua ZaloPay:</h4>
+                <ul>
+                    <li><b>Bước 1:</b> Quý khách chọn sản phẩm và tiến hành đặt hàng trên website.</li>
+                    <li><b>Bước 2:</b> Tại trang thanh toán, quý khách chọn phương thức "Thanh toán online qua cổng thanh toán ZaloPay".</li>
+                    <li><b>Bước 3:</b> Hệ thống sẽ hiển thị mã QR thanh toán (nếu mua bằng máy tính) hoặc tự động chuyển hướng sang ứng dụng ZaloPay (nếu mua bằng điện thoại). Quý khách quét mã hoặc xác nhận thanh toán trên ứng dụng.</li>
+                    <li><b>Bước 4:</b> Sau khi giao dịch thành công, hệ thống Minh Hằng Store sẽ tự động ghi nhận đơn hàng và tiến hành đóng gói, giao hàng cho quý khách.</li>
+                </ul>
+
+                <h3>3. Chính sách bảo mật thanh toán</h3>
+                <p>Minh Hằng Store cam kết áp dụng các tiêu chuẩn bảo mật nghiêm ngặt để bảo vệ thông tin giao dịch của khách hàng:</p>
+                <ul>
+                    <li><b>Không lưu trữ thông tin thẻ/tài khoản:</b> Hệ thống của Minh Hằng Store không trực tiếp lưu trữ thông tin tài khoản ngân hàng hoặc thông tin ví điện tử của khách hàng. Toàn bộ quá trình thanh toán trực tuyến đều được xử lý và bảo mật bởi đối tác cổng thanh toán ZaloPay (đạt tiêu chuẩn bảo mật quốc tế PCI DSS).</li>
+                    <li><b>Mã hóa dữ liệu:</b> Mọi thông tin giao dịch phát sinh giữa website Minh Hằng Store và thiết bị của khách hàng đều được mã hóa bằng giao thức SSL (Secure Sockets Layer) để chống đánh cắp dữ liệu.</li>
+                </ul>
+
+                <h3>4. Giải quyết sự cố giao dịch và Chính sách hoàn tiền</h3>
+                <p>Trong trường hợp xảy ra lỗi hệ thống khi thanh toán online (ví dụ: Khách hàng đã bị trừ tiền trong ví/tài khoản nhưng hệ thống Minh Hằng Store hiển thị đơn hàng chưa thành công):</p>
+                <ul>
+                    <li><b>Bước 1:</b> Quý khách vui lòng liên hệ ngay với Hotline <b>(028) 7307 1441</b> hoặc chụp màn hình giao dịch gửi về Email <b>cskh@minhhang.vn</b>.</li>
+                    <li><b>Bước 2:</b> Minh Hằng Store sẽ chủ động phối hợp với đối tác ZaloPay để tra soát giao dịch trong vòng 24 giờ làm việc.</li>
+                    <li><b>Bước 3:</b> Sau khi xác định lỗi hệ thống, Minh Hằng Store sẽ tiến hành tạo đơn hàng thủ công để giao cho quý khách, hoặc thực hiện lệnh hoàn tiền trực tiếp vào tài khoản/ví mà quý khách đã dùng để thanh toán.</li>
+                </ul>
+                <p><b>Thời gian nhận lại tiền hoàn:</b> Từ 3 - 5 ngày làm việc (đối với Ví điện tử/Thẻ nội địa) hoặc 7 - 15 ngày làm việc (đối với Thẻ quốc tế Visa/Mastercard), tùy thuộc vào quy trình xử lý của ngân hàng chủ quản.</p>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER CHUẨN XÁC, ĐẦY ĐỦ NHẤT -->
+    <footer class="mh-mega-footer">
+        <style>
+            .mh-mega-footer { 
+                background-color: #0b0b0b; 
+                color: #fff; 
+                padding: 50px 0 40px; 
+                font-family: 'Poppins', sans-serif; 
+                border-top: 1px solid #222; 
+            }
+            .mh-footer-container { 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 0 20px; 
+            }
+            .mh-footer-features { 
+                display: grid; 
+                grid-template-columns: repeat(4, 1fr); 
+                gap: 20px; 
+                border-bottom: 1px solid #222; 
+                padding-bottom: 40px; 
+                margin-bottom: 40px; 
+            }
+            @media(max-width: 992px) { 
+                .mh-footer-features { grid-template-columns: repeat(2, 1fr); row-gap: 30px; } 
+            }
+            @media(max-width: 576px) { 
+                .mh-footer-features { grid-template-columns: 1fr; } 
+            }
+            .mh-feat-item { 
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+                gap: 15px; 
+            }
+            .mh-feat-text h5 { 
+                font-size: 1rem; 
+                font-weight: 700; 
+                text-transform: uppercase; 
+                margin: 0 0 3px 0; 
+                letter-spacing: 0.5px; 
+            }
+            .mh-feat-text p { 
+                font-size: 0.85rem; 
+                color: #888; 
+                margin: 0; 
+            }
+            .mh-footer-grid { 
+                display: grid; 
+                grid-template-columns: 1.2fr 1.2fr 1.5fr 1.2fr 1.5fr; 
+                gap: 30px; 
+            }
+            @media(max-width: 1024px) { 
+                .mh-footer-grid { grid-template-columns: repeat(3, 1fr); } 
+            }
+            @media(max-width: 768px) { 
+                .mh-footer-grid { grid-template-columns: repeat(2, 1fr); } 
+            }
+            @media(max-width: 480px) { 
+                .mh-footer-grid { grid-template-columns: 1fr; } 
+            }
+            .mh-footer-col h4 { 
+                font-size: 1.1rem; 
+                margin-bottom: 25px; 
+                font-weight: 700; 
+                color: #fff; 
+                text-transform: capitalize; 
+            }
+            .mh-footer-col ul { 
+                list-style: none; 
+                padding: 0; 
+                margin: 0; 
+            }
+            .mh-footer-col ul li { 
+                margin-bottom: 12px; 
+            }
+            .mh-footer-col a { 
+                color: #a0a0a0; 
+                text-decoration: none; 
+                font-size: 0.9rem; 
+                transition: color 0.3s ease; 
+                cursor: pointer; 
+                display: inline-block; 
+            }
+            .mh-footer-col a:hover { 
+                color: #fff; 
+                transform: translateX(3px); 
+            }
+            .mh-sub-heading { 
+                color: #fff; 
+                font-size: 0.85rem; 
+                font-weight: 700; 
+                text-transform: uppercase; 
+                margin: 25px 0 10px 0; 
+                letter-spacing: 1px; 
+            }
+            .mh-sub-heading:first-of-type { 
+                margin-top: 0; 
+            }
+            .mh-social-icons { 
+                display: flex; 
+                gap: 15px; 
+                margin-top: 15px; 
+            }
+            .mh-social-icons svg { 
+                width: 22px; 
+                height: 22px; 
+                color: #fff; 
+                cursor: pointer; 
+                transition: 0.3s; 
+            }
+            .mh-social-icons svg:hover { 
+                color: var(--gold, #D4AF37); 
+                transform: translateY(-3px); 
+            }
+        </style>
+
+        <div class="mh-footer-container">
+            <div class="mh-footer-features">
+                <div class="mh-feat-item">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                    <div class="mh-feat-text">
+                        <h5>MIỄN PHÍ SHIP</h5>
+                        <p>Toàn quốc</p>
+                    </div>
+                </div>
+                <div class="mh-feat-item">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <polyline points="9 12 11 14 15 10"></polyline>
+                    </svg>
+                    <div class="mh-feat-text">
+                        <h5>BẢO HÀNH</h5>
+                        <p>365 ngày</p>
+                    </div>
+                </div>
+                <div class="mh-feat-item">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <div class="mh-feat-text">
+                        <h5>ĐỊA CHỈ</h5>
+                        <p>Cửa hàng Minh Hằng</p>
+                    </div>
+                </div>
+                <div class="mh-feat-item">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    <div class="mh-feat-text">
+                        <h5>TẠP CHÍ</h5>
+                        <p>Thông tin thời trang</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mh-footer-grid">
+                <div class="mh-footer-col">
+                    <h4>Quần Áo</h4>
+                    <ul>
+                        <li><a href="index.html">Áo Thun Cổ Tròn</a></li>
+                        <li><a href="index.html">Áo Polo</a></li>
+                        <li><a href="index.html">Áo Khoác</a></li>
+                        <li><a href="index.html">Áo Sơ Mi</a></li>
+                        <li><a href="index.html">Quần Dài</a></li>
+                        <li><a href="index.html">Quần Short</a></li>
+                        <li><a href="index.html">Quần Jeans</a></li>
+                        <li><a href="index.html">Quần Lót</a></li>
+                    </ul>
+                </div>
+
+                <div class="mh-footer-col">
+                    <h4>Phụ Kiện</h4>
+                    <ul>
+                        <li><a href="index.html">Balo</a></li>
+                        <li><a href="index.html">Túi Đeo</a></li>
+                        <li><a href="index.html">Nón</a></li>
+                        <li><a href="index.html">Ví</a></li>
+                        <li><a href="index.html">Dây Nịt</a></li>
+                        <li><a href="index.html">Vớ</a></li>
+                        <li><a href="index.html">Giày</a></li>
+                        <li><a href="index.html">Dép</a></li>
+                        <li><a href="index.html">Phụ Kiện Cá Nhân</a></li>
+                        <li><a href="index.html">Phụ Kiện Thể Thao</a></li>
+                    </ul>
+                </div>
+
+                <div class="mh-footer-col">
+                    <h4>Trang Phục</h4>
+                    <div class="mh-sub-heading">THIẾT YẾU</div>
+                    <ul>
+                        <li><a href="index.html">BST Non-Branded</a></li>
+                        <li><a href="index.html">BST Seventy Seven</a></li>
+                        <li><a href="index.html">BST The Worker</a></li>
+                    </ul>
+                    
+                    <div class="mh-sub-heading">CÔNG NGHỆ</div>
+                    <ul>
+                        <li><a href="index.html">BST The Minimalist</a></li>
+                        <li><a href="index.html">BST The CEO</a></li>
+                    </ul>
+
+                    <div class="mh-sub-heading">TẬN HƯỞNG</div>
+                    <ul>
+                        <li><a href="index.html">BST The No Style</a></li>
+                        <li><a href="index.html">BST The Weekend</a></li>
+                        <li><a href="index.html">BST The Home Body</a></li>
+                    </ul>
+
+                    <div class="mh-sub-heading">JEAN (DENIM)</div>
+                    <ul>
+                        <li><a href="index.html">BST The Original Jean</a></li>
+                        <li><a href="index.html">BST Tek Black Jean</a></li>
+                        <li><a href="index.html">BST Multi-Color Jean</a></li>
+                    </ul>
+
+                    <div class="mh-sub-heading">THỂ THAO</div>
+                    <ul>
+                        <li><a href="index.html">BST The Beginner</a></li>
+                        <li><a href="index.html">BST The Trainer</a></li>
+                    </ul>
+                </div>
+
+                <div class="mh-footer-col">
+                    <h4>Chính Sách</h4>
+                    <ul>
+                        <li><a href="dieu-khoan.html">Điều Khoản Dịch Vụ</a></li>
+                        <li><a href="index.html">Khách Hàng VIP</a></li>
+                        <li><a href="van-chuyen.html">Vận Chuyển</a></li>
+                        <li><a href="chinh-sach-bao-mat.html">Bảo Mật</a></li>
+                        <!-- 🚀 ĐÃ CẬP NHẬT LINK CHÍNH SÁCH THANH TOÁN 🚀 -->
+                        <li><a href="thanh-toan.html">Thanh Toán</a></li>
+                        <li><a href="chinh-sach-doi-tra.html">Đổi Trả</a></li>
+                        <li><a href="chinh-sach-bao-hanh.html">Bảo Hành</a></li>
+                        <li><a href="gioi-thieu.html">Giới Thiệu</a></li>
+                        <li><a href="cua-hang.html">Cửa Hàng</a></li>
+                        <li><a href="lien-he.html">Khiếu Nại/Góp Ý</a></li>
+                    </ul>
+                </div>
+
+                <div class="mh-footer-col">
+                    <h4>Blog</h4>
+                    <ul>
+                        <li><a href="gioi-thieu-san-pham.html">Giới Thiệu Sản Phẩm Minh Hằng</a></li>
+                        <li><a href="thong-tin-bo-suu-tap.html">Thông Tin Bộ Sưu Tập</a></li>
+                        <li><a href="huong-dan-mac-dep.html">Hướng Dẫn Mặc Đẹp</a></li>
+                        <li><a href="mac-sao-cho-dung-gu.html">Mặc Sao Cho Đúng Gu</a></li>
+                        <li><a href="huong-dan-giat-ui.html">Hướng Dẫn Giặt, Ủi</a></li>
+                        <li><a href="ho-tro-tin-tuc.html">Hỗ Trợ Và Tin Tức</a></li>
+                        <li><a href="huong-dan-chon-size.html">Hướng Dẫn Chọn Size</a></li>
+                    </ul>
+
+                    <h4 style="margin-top: 35px; margin-bottom: 10px;">Cộng đồng Minh Hằng</h4>
+                    <div class="mh-social-icons">
+                        <svg onclick="window.open('https://facebook.com', '_blank')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        <svg onclick="window.open('https://tiktok.com', '_blank')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                        <svg onclick="window.open('https://youtube.com', '_blank')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                        <svg onclick="window.open('https://instagram.com', '_blank')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px; padding-top: 25px; border-top: 1px solid #222; font-size: 0.8rem; color: #666; display: flex; flex-direction: column; gap: 8px; line-height: 1.5;">
+                <span>© 2026 - CÔNG TY TNHH MINH HẰNG STORE. Mã số DN: 0310874914 – Đăng ký lần đầu: 24/05/2011.</span>
+                <span>Địa chỉ trụ sở chính: Quận 4, TP.HCM. Điện thoại: (028) 3868 4857 - Mua hàng: (028) 7307 1441 - Email: cskh@minhhang.vn</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- THANH ĐIỀU HƯỚNG DƯỚI CÙNG CHO MOBILE -->
+    <div class="mobile-bottom-nav">
+        <div class="mobile-bottom-nav-inner">
+            <div class="bottom-nav-item" onclick="window.location.href='index.html'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span>Trang chủ</span>
+            </div>
+            <div class="bottom-nav-item" onclick="toggleMobileNav()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                <span>Menu</span>
+            </div>
+            <div class="bottom-nav-item" onclick="toggleCart()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="14" rx="2" ry="2"></rect><path d="M8 8V6a4 4 0 0 1 8 0v2"></path></svg>
+                <span>Giỏ hàng</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- KHUNG CHATBOT AI -->
+    <div id="chatbot-widget" class="chatbot-container" style="position: fixed; bottom: 30px; right: 30px; z-index: 10000; display: flex; flex-direction: column; align-items: flex-end;">
+        <button id="chatbot-toggle-btn" class="chatbot-toggle-btn" onclick="toggleChat()" aria-label="Mở chat" style="background-color: var(--gold); color: #111; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); border: none; outline: none; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </button>
+        <div id="chat-box" class="chatbot-window" style="width: 350px; max-width: calc(100vw - 40px); height: 500px; background: var(--card-bg); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; flex-direction: column; overflow: hidden; margin-bottom: 15px; border: 1px solid var(--border-color); position: relative;">
+            <div class="chatbot-header" style="background: var(--text-main); color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); z-index: 5;">
+                <div>
+                    <h4 style="margin: 0; color: #fff; font-size: 1rem;">CSKH Minh Hằng</h4>
+                </div>
+                <button class="chatbot-close" onclick="toggleChat()" style="background: transparent; border: none; color: #fff; cursor: pointer; display: flex; transition: 0.3s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#fff'">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div id="chat-body" class="chatbot-messages" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; background: var(--bg-color); font-size: 0.9rem; scroll-behavior: smooth;">
+                <div class="chat-msg bot-msg" style="padding: 12px 16px; border-radius: 16px; max-width: 85%; line-height: 1.5; background: #EAEAEA; color: #111; align-self: flex-start; border-bottom-left-radius: 4px;">
+                    Dạ, nếu Quý khách có bất kỳ thắc mắc nào về chính sách thanh toán, hãy nhắn tin cho bên em nhé!
+                </div>
+            </div>
+            <div class="chatbot-input-area" style="position: relative; display: flex; padding: 10px 15px; background: var(--card-bg); border-top: 1px solid var(--border-color); align-items: center; z-index: 5;">
+                <input type="text" id="chat-input" placeholder="Nhập câu hỏi..." autocomplete="off" onkeypress="if(event.key === 'Enter') sendChatMessage()" style="flex: 1; border: none; padding: 10px; font-family: var(--font-body); font-size: 0.95rem; outline: none; background: transparent; color: var(--text-main);">
+                <button id="chatbot-send-btn" onclick="sendChatMessage()" aria-label="Gửi tin nhắn" style="background: var(--text-main); border: none; color: #fff; cursor: pointer; padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='var(--gold)'; this.style.color='#111'" onmouseout="this.style.background='var(--text-main)'; this.style.color='#fff'">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <button id="scroll-top-btn" aria-label="Cuộn lên đầu trang" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">↑</button>
+
+    <script src="data.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="chatbot.js" defer></script>
+</body>
+</html> 
