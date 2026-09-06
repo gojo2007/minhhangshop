@@ -249,49 +249,14 @@
         }
         .vip-alt-method a:hover { color: #fff; }
         
-        .vip-benefits-list { 
-            margin-top: 60px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 25px; 
-        }
-        .vip-benefit-item { 
-            display: flex; 
-            align-items: flex-start; 
-            gap: 15px; 
-        }
-        .vip-benefit-icon { 
-            color: #fff; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            width: 24px; 
-            height: 24px; 
-            margin-top: 2px; 
-        }
-        .vip-benefit-info h5 { 
-            font-size: 1rem; 
-            color: #fff; 
-            font-weight: 600; 
-            margin: 0 0 5px 0; 
-        }
-        .vip-benefit-info p { 
-            font-size: 0.85rem; 
-            color: #888; 
-            margin: 0; 
-            line-height: 1.5; 
-        }
+        .vip-benefits-list { margin-top: 60px; display: flex; flex-direction: column; gap: 25px; }
+        .vip-benefit-item { display: flex; align-items: flex-start; gap: 15px; }
+        .vip-benefit-icon { color: #fff; display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; margin-top: 2px; }
+        .vip-benefit-info h5 { font-size: 1rem; color: #fff; font-weight: 600; margin: 0 0 5px 0; }
+        .vip-benefit-info p { font-size: 0.85rem; color: #888; margin: 0; line-height: 1.5; }
         
-        .vip-footer-text { 
-            font-size: 0.75rem; 
-            color: #666; 
-            margin-top: 40px; 
-            line-height: 1.6; 
-        }
-        .vip-footer-text a { 
-            color: #888; 
-            text-decoration: underline; 
-        }
+        .vip-footer-text { font-size: 0.75rem; color: #666; margin-top: 40px; line-height: 1.6; }
+        .vip-footer-text a { color: #888; text-decoration: underline; }
         
         .vip-absolute-footer { 
             border-top: 1px solid #222; 
@@ -303,11 +268,7 @@
             color: #555; 
             margin-top: 50px; 
         }
-        .vip-absolute-footer a { 
-            color: #555; 
-            text-decoration: none; 
-            transition: 0.2s; 
-        }
+        .vip-absolute-footer a { color: #555; text-decoration: none; transition: 0.2s; }
         .vip-absolute-footer a:hover { color: #888; }
     </style>
 </head>
@@ -866,7 +827,7 @@
                 <span>MINHHANG</span>
             </div>
 
-            <!-- MEGA MENU BUNG FULL WIDTH CHUẨN XÁC -->
+            <!-- MENU DESKTOP BUNG FULL WIDTH -->
             <ul class="main-menu">
                 <li class="sale-tag">
                     <a onclick="filterByCategory('all', 'Khuyến Mãi & Flash Sale', 'flash-sale')">SALE</a>
@@ -1215,6 +1176,7 @@
                     </div>
                 </div>
 
+                <!-- KHU VỰC ẢNH ZALOPAY ĐƯỢC CHỈNH DẤU "./" -->
                 <div id="qr-payment-box" class="qr-box-container" style="display: none; text-align: center; margin-bottom: 20px; background: var(--bg-color); padding: 20px; border-radius: 12px; border: 1.5px solid var(--gold); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.1);">
                     <p style="font-weight: 600; color: var(--text-main); margin-bottom: 10px;">Quét mã QR để thanh toán</p>
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ZaloPay:0337278528" alt="QR ZaloPay" class="qr-image" style="width: 160px; height: 160px; border-radius: 8px; border: 2px solid var(--border-color); margin-bottom: 10px; padding: 5px; background: #fff;" loading="lazy">
@@ -1500,24 +1462,23 @@
                         <li><a role="button" tabindex="0" onclick="openVipAuthPage()">Khách Hàng VIP</a></li>
                         <li><a href="van-chuyen.html">Vận Chuyển</a></li>
                         <li><a href="chinh-sach-bao-mat.html">Bảo Mật</a></li>
-                        <li><a role="button" tabindex="0" onclick="handleFooterLink('Thanh toán')">Thanh Toán</a></li>
+                        <li><a href="index.html">Thanh Toán</a></li>
                         <li><a href="chinh-sach-doi-tra.html">Đổi Trả</a></li>
                         <li><a href="chinh-sach-bao-hanh.html">Bảo Hành</a></li>
                         <li><a href="gioi-thieu.html">Giới Thiệu</a></li>
                         <li><a href="cua-hang.html">Cửa Hàng</a></li>
-                        <li><a role="button" tabindex="0" onclick="openVipAuthPage()">Đăng Nhập VIP</a></li>
                         <li><a href="lien-he.html">Khiếu Nại/Góp Ý</a></li>
                     </ul>
                 </div>
 
+                <!-- 🚀 CỘT BLOG ĐÃ SỬA CHUẨN 100% LINK THẬT 🚀 -->
                 <div class="mh-footer-col">
-                    <!-- 🚀 ĐÃ XÓA STYLE "PHÁT SÁNG" VÀ CẬP NHẬT ĐẦY ĐỦ CÁC LINK MỚI 🚀 -->
                     <h4>Blog</h4>
                     <ul>
                         <li><a href="gioi-thieu-san-pham.html">Giới Thiệu Sản Phẩm Minh Hằng</a></li>
-                        <li><a role="button" tabindex="0" onclick="handleFooterLink('Thông Tin Bộ Sưu Tập')">Thông Tin Bộ Sưu Tập</a></li>
+                        <li><a href="thong-tin-bo-suu-tap.html">Thông Tin Bộ Sưu Tập</a></li>
+                        <li><a href="huong-dan-mac-dep.html">Hướng Dẫn Mặc Đẹp</a></li>
                         <li><a href="mac-sao-cho-dung-gu.html">Mặc Sao Cho Đúng Gu</a></li>
-                        <li><a role="button" tabindex="0" onclick="handleFooterLink('Kiến Thức Thời Trang')">Kiến Thức Thời Trang</a></li>
                         <li><a href="huong-dan-giat-ui.html">Hướng Dẫn Giặt, Ủi</a></li>
                         <li><a href="ho-tro-tin-tuc.html">Hỗ Trợ Và Tin Tức</a></li>
                         <li><a href="huong-dan-chon-size.html">Hướng Dẫn Chọn Size</a></li>
@@ -1525,10 +1486,10 @@
 
                     <h4 style="margin-top: 35px; margin-bottom: 10px;">Cộng đồng Minh Hằng</h4>
                     <div class="mh-social-icons">
-                        <svg onclick="handleFooterLink('Facebook')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-                        <svg onclick="handleFooterLink('TikTok')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
-                        <svg onclick="handleFooterLink('YouTube')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-                        <svg onclick="handleFooterLink('Instagram')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        <svg onclick="window.open('https://facebook.com', '_blank')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        <svg onclick="window.open('https://tiktok.com', '_blank')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                        <svg onclick="window.open('https://youtube.com', '_blank')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                        <svg onclick="window.open('https://instagram.com', '_blank')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                     </div>
                 </div>
             </div>

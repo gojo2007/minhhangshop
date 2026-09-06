@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Thông Tin Bộ Sưu Tập - Minh Hằng Store</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="chatbot.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS DÀNH RIÊNG CHO MEGA MENU FULL MÀN HÌNH -->
+    <style>
+        @media (min-width: 993px) {
+            header.sticky-header { position: relative !important; }
+            nav.nav-container, ul.main-menu, li.has-mega { position: static !important; }
+            .mega-menu { 
+                position: absolute !important; 
+                left: 0 !important; 
+                right: 0 !important; 
+                width: 100% !important; 
+                transform: none !important; 
+                padding: 40px 0 !important; 
+                background: #fff !important; 
+                border-top: 1px solid #eaeaea; 
+                box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important; 
+                z-index: 999; 
+            }
+            .mega-container { 
+                max-width: 1200px !important; 
+                margin: 0 auto !important; 
+                padding: 0 20px !important; 
+                text-align: left !important; 
+                display: grid !important; 
+                gap: 30px !important; 
+            }
+            .mega-col h4 { 
+                font-family: 'Poppins', sans-serif; 
+                font-size: 0.85rem !important; 
+                font-weight: 700 !important; 
+                text-transform: uppercase; 
+                margin-bottom: 20px !important; 
+                color: #111 !important; 
+                letter-spacing: 0.5px; 
+            }
+            .mega-col ul { 
+                display: flex; 
+                flex-direction: column; 
+                gap: 12px !important; 
+                list-style: none; 
+                padding: 0; 
+                margin: 0; 
+            }
+            .mega-col ul li a { 
+                font-size: 0.9rem !important; 
+                color: #666 !important; 
+                transition: 0.2s; 
+                font-weight: 400 !important; 
+                text-decoration: none; 
+                cursor: pointer; 
+            }
+            .mega-col ul li a:hover { 
+                color: var(--gold, #d4af37) !important; 
+                font-weight: 500 !important; 
+                transform: translateX(5px); 
+                display: inline-block; 
+            }
+        }
+    </style>
+
+    <!-- CSS DÀNH RIÊNG CHO TRANG TẠP CHÍ -->
+    <style>
+        .magazine-page-wrapper {
+            background-color: #f8f9fa;
+            padding: 40px 20px 80px 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .magazine-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .page-main-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: #111;
+            margin-bottom: 40px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .magazine-hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .hero-main-article {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+        
+        .hero-main-article:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+        }
+
+        .hero-main-article img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .hero-main-title {
+            font-size: 1.5rem;
+            color: #111;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-top: 20px;
+            transition: 0.2s;
+        }
+
+        .hero-main-article:hover .hero-main-title { 
+            color: var(--gold); 
+        }
+
+        .hero-side-list { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+        }
+
+        .side-article {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            background: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+
+        .side-article:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transform: translateX(5px);
+        }
+
+        .side-article img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .side-article-title {
+            font-size: 0.95rem;
+            color: #222;
+            font-weight: 500;
+            line-height: 1.5;
+            transition: 0.2s;
+        }
+
+        .side-article:hover .side-article-title { 
+            color: var(--gold); 
+        }
+
+        .magazine-v-list { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+        }
+
+        .v-list-item {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .v-list-item:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+        }
+
+        .v-list-item img {
+            width: 280px;
+            height: 180px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .v-list-title {
+            padding: 30px;
+            font-size: 1.15rem;
+            color: #111;
+            font-weight: 500;
+            line-height: 1.5;
+            transition: 0.2s;
+        }
+
+        .v-list-item:hover .v-list-title { 
+            color: var(--gold); 
+        }
+
+        @media (max-width: 768px) {
+            .magazine-hero-grid { grid-template-columns: 1fr; }
+            .v-list-item { flex-direction: column; align-items: stretch; }
+            .v-list-item img { width: 100%; height: 200px; }
+            .v-list-title { padding: 20px; font-size: 1.05rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="announcement-bar" role="complementary">
+        <div class="top-bar-inner" style="justify-content: flex-end;">
+            <div class="top-bar-utilities">
+                <div class="top-bar-item" onclick="toggleTheme()">☀️ Theme</div>
+                <div class="top-bar-item" onclick="window.location.href='huong-dan-chon-size.html'">📏 Size Guide</div>
+                <div class="top-bar-item" onclick="window.location.href='index.html'">🚚 Tra cứu</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- HEADER CHÍNH -->
+    <header class="sticky-header" role="banner">
+        <nav class="nav-container" role="navigation">
+            <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold">M</text>
+                </svg>
+                <span>MINHHANG</span>
+            </div>
+            <ul class="main-menu">
+                <li class="sale-tag"><a href="index.html">SALE</a></li>
+                <li class="has-mega"><a href="index.html">BỘ SƯU TẬP ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-container">
+                            <div class="mega-col">
+                                <h4>THIẾT YẾU</h4>
+                                <ul>
+                                    <li><a href="index.html">BST Non-Branded</a></li>
+                                    <li><a href="index.html">BST Seventy Seven</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>CÔNG NGHỆ</h4>
+                                <ul>
+                                    <li><a href="index.html">BST The Minimalist</a></li>
+                                    <li><a href="index.html">BST The CEO</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>TẬN HƯỞNG</h4>
+                                <ul>
+                                    <li><a href="index.html">BST The No Style</a></li>
+                                    <li><a href="index.html">BST The Weekend</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>JEAN (DENIM)</h4>
+                                <ul>
+                                    <li><a href="index.html">BST The Original Jean</a></li>
+                                    <li><a href="index.html">BST Tek Black Jean</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="index.html">CỬA HÀNG</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <main class="magazine-page-wrapper">
+        <div class="magazine-container">
+            <a href="index.html" style="display: inline-block; color: var(--gold); text-decoration: none; font-size: 0.95rem; font-weight: 500; margin-bottom: 20px; transition: 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+                ← Trở về Trang Chủ
+            </a>
+            <h1 class="page-main-title">Thông Tin Bộ Sưu Tập</h1>
+
+            <!-- Hero Grid -->
+            <div class="magazine-hero-grid">
+                <div class="hero-main-article">
+                    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=600" alt="Áo nỉ chui đầu nam">
+                    <h2 class="hero-main-title">Bảng xếp hạng áo nỉ nam chui đầu giữ ấm cực tốt cho mùa đông 2026.</h2>
+                </div>
+                
+                <div class="hero-side-list">
+                    <div class="side-article">
+                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=300" alt="Túi balo đa năng">
+                        <h3 class="side-article-title">Túi và balo đa năng cân mọi địa hình nắng mưa, quăng lóc không sợ rách viền.</h3>
+                    </div>
+                    <div class="side-article">
+                        <img src="https://images.unsplash.com/photo-1521369909029-2afed882ba28?auto=format&fit=crop&q=80&w=300" alt="Nón lượn lờ dạo phố">
+                        <h3 class="side-article-title">Nón đội siêu thông hơi lưới tản nhiệt/Kaki đứng form, lượn lờ dạo phố cuối tuần đầu óc mát mẻ.</h3>
+                    </div>
+                    <div class="side-article">
+                        <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&q=80&w=300" alt="Quần kaki nam túi hộp">
+                        <h3 class="side-article-title">5 mẫu quần kaki nam túi hộp tiện lợi, vải dày đắp lớp chống rách 2026.</h3>
+                    </div>
+                    <div class="side-article">
+                        <img src="https://images.unsplash.com/photo-1554342872-034a06541bad?auto=format&fit=crop&q=80&w=300" alt="Túi trống thể thao">
+                        <h3 class="side-article-title">Loạt túi trống đa năng đáy sâu: Vừa ném đồ tập gym, vừa dư sức làm hành lý xách tay đi du lịch.</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vertical List -->
+            <div class="magazine-v-list">
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400" alt="Áo polo văn phòng">
+                    <h3 class="v-list-title">Top áo polo nam giá rẻ dưới 300 cành mặc đi làm gọn gàng, sếp ưng 2026.</h3>
+                </div>
+
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1512353087810-2580f451f7bb?auto=format&fit=crop&q=80&w=400" alt="Thời trang đường phố">
+                    <h3 class="v-list-title">Thời trang đường phố nam 2026: Mặc sao cho ngầu mà không bị lôi thôi?</h3>
+                </div>
+
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=400" alt="Màu áo thun dễ phối">
+                    <h3 class="v-list-title">Cập nhật những màu áo thun nam dễ phối đồ, không kén da nhất 2026.</h3>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER MỚI NHẤT Y HỆT INDEX -->
+    <footer class="mh-mega-footer" style="background-color: #0b0b0b; color: #fff; padding: 50px 0 40px; font-family: 'Poppins', sans-serif; border-top: 1px solid #222;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+                <div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 25px; font-weight: 700; color: #fff;">Quần Áo</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Áo Thun / Polo</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Áo Khoác</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Quần Jeans / Quần Tây</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Quần Lót</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 25px; font-weight: 700; color: #fff;">Phụ Kiện</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Balo / Túi Đeo</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Giày / Dép</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Nón / Thắt Lưng / Ví</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 25px; font-weight: 700; color: #fff;">Blog</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 12px;"><a href="thong-tin-bo-suu-tap.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Thông Tin Bộ Sưu Tập</a></li>
+                        <li style="margin-bottom: 12px;"><a href="mac-sao-cho-dung-gu.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Mặc Sao Cho Đúng Gu</a></li>
+                        <li style="margin-bottom: 12px;"><a href="huong-dan-giat-ui.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Hướng Dẫn Giặt, Ủi</a></li>
+                        <li style="margin-bottom: 12px;"><a href="ho-tro-tin-tuc.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Hỗ Trợ Và Tin Tức</a></li>
+                        <li style="margin-bottom: 12px;"><a href="huong-dan-chon-size.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Hướng Dẫn Chọn Size</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px; padding-top: 25px; border-top: 1px solid #222; font-size: 0.8rem; color: #666;">
+                <span>© 2026 - CÔNG TY TNHH MINH HẰNG STORE.</span>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js" defer></script>
+</body>
+</html>
