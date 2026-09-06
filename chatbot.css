@@ -20,3 +20,125 @@
     #chat-toggle { padding: 12px; border-radius: 50%; }
     #chat-box { width: 300px; right: 0; }
 }
+/* =========================================================
+   HIỆU ỨNG VÀ GIAO DIỆN CỦA EMOJI PICKER & TRACK ORDER
+========================================================= */
+
+/* Hiệu ứng trượt và mờ */
+@keyframes slideUpChat { 
+    from { transform: translateY(20px); opacity: 0; } 
+    to { transform: translateY(0); opacity: 1; } 
+}
+@keyframes fadeInChat { 
+    from { opacity: 0; } 
+    to { opacity: 1; } 
+}
+
+/* 1. Bảng thả Emoji */
+.emoji-picker-container {
+    display: none; 
+    position: absolute; 
+    bottom: 65px; 
+    left: 15px; 
+    width: 260px; 
+    background: #fff; 
+    border: 1px solid #eaeaea; 
+    border-radius: 12px; 
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.15); 
+    padding: 15px; 
+    z-index: 20; 
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 8px; 
+    animation: slideUpChat 0.2s ease;
+}
+.emoji-item { 
+    font-size: 1.5rem; 
+    cursor: pointer; 
+    text-align: center; 
+    transition: transform 0.2s; 
+    user-select: none; 
+}
+.emoji-item:hover { transform: scale(1.3); }
+
+/* 2. Khung Track Order bên trong Chatbot */
+.chat-track-overlay {
+    display: none; 
+    position: absolute; 
+    inset: 0; 
+    background: rgba(0,0,0,0.4); 
+    z-index: 15; 
+    align-items: flex-end; 
+    justify-content: center; 
+    animation: fadeInChat 0.3s ease;
+}
+.chat-track-box {
+    background: #fff; 
+    width: 100%; 
+    border-radius: 20px 20px 0 0; 
+    padding: 25px 25px 35px 25px; 
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.2); 
+    position: relative; 
+    animation: slideUpChat 0.3s ease;
+}
+.chat-track-close {
+    position: absolute; 
+    right: 20px; 
+    top: 20px; 
+    cursor: pointer; 
+    font-size: 1.5rem; 
+    color: #555; 
+    line-height: 1;
+}
+.chat-track-box h4 {
+    text-align: center; 
+    color: #111; 
+    margin-bottom: 20px; 
+    font-size: 1.1rem; 
+    font-family: var(--font-heading, serif);
+}
+.chat-track-group {
+    margin-bottom: 15px;
+}
+.chat-track-group label {
+    display: block; 
+    font-size: 0.8rem; 
+    color: #555; 
+    margin-bottom: 5px;
+}
+.chat-track-group input {
+    width: 100%; 
+    padding: 12px 15px; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    font-family: inherit; 
+    font-size: 0.95rem; 
+    outline: none; 
+    transition: 0.3s;
+}
+.chat-track-group input:focus { border-color: var(--text-main, #111); }
+.chat-track-radio-group {
+    display: flex; 
+    gap: 20px; 
+    margin-bottom: 15px; 
+    font-size: 0.85rem; 
+    color: #333;
+}
+.chat-track-radio-group label {
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+    cursor: pointer;
+}
+.chat-track-radio-group input[type="radio"] { accent-color: #111; }
+.chat-track-submit {
+    width: 100%; 
+    padding: 14px; 
+    background: #111; 
+    color: #fff; 
+    border: none; 
+    border-radius: 8px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: 0.2s;
+}
+.chat-track-submit:hover { background: var(--gold, #D4AF37); color: #111; }

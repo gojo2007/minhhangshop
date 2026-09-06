@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Điều Khoản Dịch Vụ - Minh Hằng Store</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="chatbot.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS DÀNH RIÊNG CHO MEGA MENU -->
+    <style>
+        @media (min-width: 993px) {
+            header.sticky-header { position: relative !important; }
+            nav.nav-container, ul.main-menu, li.has-mega { position: static !important; }
+            
+            .mega-menu { 
+                position: absolute !important; 
+                left: 0 !important; 
+                right: 0 !important; 
+                width: 100% !important; 
+                transform: none !important; 
+                padding: 40px 0 !important; 
+                background: #fff !important; 
+                border-top: 1px solid #eaeaea; 
+                box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
+                z-index: 999;
+            }
+            
+            .mega-container {
+                max-width: 1200px !important;
+                margin: 0 auto !important;
+                padding: 0 20px !important;
+                text-align: left !important;
+                display: grid !important;
+                gap: 30px !important;
+            }
+
+            .mega-col h4 { font-family: 'Poppins', sans-serif; font-size: 0.85rem !important; font-weight: 700 !important; text-transform: uppercase; margin-bottom: 20px !important; color: #111 !important; letter-spacing: 0.5px; }
+            .mega-col ul { display: flex; flex-direction: column; gap: 12px !important; list-style: none; padding: 0; margin: 0; }
+            .mega-col ul li a { font-size: 0.9rem !important; color: #666 !important; transition: 0.2s; font-weight: 400 !important; text-decoration: none; cursor: pointer; }
+            .mega-col ul li a:hover { color: var(--gold, #d4af37) !important; font-weight: 500 !important; transform: translateX(5px); display: inline-block; }
+        }
+    </style>
+
+    <!-- CSS DÀNH RIÊNG CHO TRANG ĐIỀU KHOẢN -->
+    <style>
+        .policy-page-wrapper {
+            background-color: #fdfdfd;
+            padding: 60px 20px 100px 20px;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .policy-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .policy-title {
+            font-family: var(--font-heading, 'Playfair Display');
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: #111;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .policy-content h3 {
+            font-size: 1.4rem;
+            color: #111;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+
+        .policy-content h4 {
+            font-size: 1.1rem;
+            color: #222;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .policy-content p {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .policy-content ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .policy-content li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        /* Bảng hiển thị thông số */
+        .policy-table-wrapper {
+            overflow-x: auto;
+            margin: 30px 0;
+            border-radius: 8px;
+            border: 1px solid #eaeaea;
+        }
+
+        .policy-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            background: #fff;
+        }
+
+        .policy-table th, .policy-table td {
+            padding: 15px 20px;
+            text-align: center;
+            border: 1px solid #eaeaea;
+            font-size: 0.95rem;
+        }
+
+        .policy-table th {
+            background-color: #f9f9f9;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .policy-table tr:hover {
+            background-color: #fcfcfc;
+        }
+
+        .policy-highlight {
+            font-weight: 600;
+            color: #111;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toast" role="alert" aria-live="assertive"></div>
+    <div id="sidebar-overlay" aria-hidden="true" onclick="closeSidebars()"></div>
+
+    <!-- SIDEBAR GIỎ HÀNG & YÊU THÍCH -->
+    <div id="cart-sidebar" class="sidebar" role="dialog" aria-modal="true">
+        <div class="sidebar-header">
+            <h3>Giỏ Hàng (Cart)</h3>
+            <span class="close-sidebar" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="sidebar-content" id="cart-items"></div>
+        <div class="sidebar-footer">
+            <div class="cart-total">Tổng thanh toán: <span id="cart-total-price">0đ</span></div>
+            <button class="btn" style="width: 100%; background: var(--text-main); color: var(--bg-color); padding: 18px; border-radius: 8px;" onclick="window.location.href='index.html'">TIẾN HÀNH THANH TOÁN</button>
+        </div>
+    </div>
+
+    <div id="wishlist-sidebar" class="sidebar" role="dialog" aria-modal="true">
+        <div class="sidebar-header">
+            <h3>Mục Yêu Thích</h3>
+            <span class="close-sidebar" onclick="toggleWishlist()">&times;</span>
+        </div>
+        <div class="sidebar-content" id="wishlist-items"></div>
+    </div>
+
+    <!-- TOP BAR -->
+    <div class="announcement-bar" role="complementary">
+        <div class="top-bar-inner" style="justify-content: flex-end;">
+            <div class="top-bar-utilities">
+                <div class="top-bar-item" onclick="toggleTheme()">☀️ Theme</div>
+                <div class="top-bar-item" onclick="window.location.href='huong-dan-chon-size.html'">📏 Size Guide</div>
+                <div class="top-bar-item" onclick="window.location.href='index.html'">🚚 Tra cứu</div>
+                <div class="top-bar-item" onclick="toggleWishlist()">❤️ Yêu thích <span id="wishlist-count" class="wishlist-badge">0</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- HEADER -->
+    <header class="sticky-header" role="banner">
+        <nav class="nav-container" role="navigation">
+            <div class="hamburger" onclick="toggleMobileNav()">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+            
+            <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" onclick="toggleMobileNav()"></div>
+
+            <!-- MENU MOBILE RÚT GỌN CHO GIAO DIỆN PHỤ -->
+            <div class="mobile-nav-overlay" id="mobile-nav" role="dialog">
+                <div class="mobile-nav-header-drawer">
+                    <span class="mobile-close-btn" onclick="toggleMobileNav()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </span>
+                    <div class="logo" style="margin: 0; font-size: 1.2rem;" onclick="window.location.href='index.html'">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold">M</text>
+                        </svg>
+                        <span style="border-left: 1px solid var(--gold); padding-left: 5px; margin-left: 5px;">MinhHang</span>
+                    </div>
+                </div>
+                <ul class="accordion-menu">
+                    <li class="accordion-item"><div class="accordion-header" onclick="window.location.href='index.html'">TRANG CHỦ</div></li>
+                    <li class="accordion-item"><div class="accordion-header" onclick="window.location.href='index.html'">BỘ SƯU TẬP</div></li>
+                    <li class="accordion-item"><div class="accordion-header" onclick="window.location.href='index.html'">ÁO & QUẦN</div></li>
+                    <li class="accordion-item" style="border: none;"><div class="accordion-header" style="color: var(--gold);" onclick="window.location.href='index.html'">VIP - ĐĂNG NHẬP</div></li>
+                </ul>
+            </div>
+
+            <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold">M</text>
+                </svg>
+                <span>MINHHANG</span>
+            </div>
+
+            <!-- MEGA MENU BUNG FULL WIDTH CHUẨN XÁC -->
+            <ul class="main-menu">
+                <li class="sale-tag"><a href="index.html">SALE</a></li>
+                <li class="has-mega"><a href="index.html">BỘ SƯU TẬP ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-container">
+                            <div class="mega-col">
+                                <h4>THIẾT YẾU</h4>
+                                <ul><li><a href="index.html">BST Non-Branded</a></li><li><a href="index.html">BST Seventy Seven</a></li><li><a href="index.html">BST The Worker</a></li></ul>
+                                <h4 style="margin-top: 25px;">THỂ THAO</h4>
+                                <ul><li><a href="index.html">BST The Beginner</a></li><li><a href="index.html">BST The Trainer</a></li></ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>CÔNG NGHỆ</h4>
+                                <ul><li><a href="index.html">BST The Minimalist</a></li><li><a href="index.html">BST The CEO</a></li></ul>
+                                <h4 style="margin-top: 25px;">SIGNATURE</h4>
+                                <ul><li><a href="index.html">Khám Phá Signature</a></li></ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>TẬN HƯỞNG</h4>
+                                <ul><li><a href="index.html">BST The No Style</a></li><li><a href="index.html">BST The Weekend</a></li><li><a href="index.html">BST The Home Body</a></li></ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>JEAN (DENIM)</h4>
+                                <ul><li><a href="index.html">BST The Original Jean</a></li><li><a href="index.html">BST Tek Black Jean</a></li><li><a href="index.html">BST Multi Color Jean</a></li></ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="has-mega"><a href="index.html">ÁO ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-container" style="grid-template-columns: repeat(3, 1fr);">
+                            <div class="mega-col"><h4>👕 ÁO NAM</h4><ul><li><a href="index.html">Áo Thun / Polo</a></li><li><a href="index.html">Áo Sơ Mi</a></li><li><a href="index.html">Áo Khoác</a></li></ul></div>
+                            <div class="mega-col"><h4>👗 ÁO NỮ</h4><ul><li><a href="index.html">Áo Thun / Croptop</a></li><li><a href="index.html">Áo Sơ Mi / Blouse</a></li><li><a href="index.html">Áo Khoác Tweed</a></li></ul></div>
+                            <div class="mega-col"><h4>👫 ÁO ĐỒ ĐÔI</h4><ul><li><a href="index.html">Áo Thun Đôi</a></li><li><a href="index.html">Áo Khoác / Len Đôi</a></li></ul></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="has-mega"><a href="index.html">QUẦN ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-container" style="grid-template-columns: repeat(3, 1fr);">
+                            <div class="mega-col"><h4>👖 QUẦN NAM</h4><ul><li><a href="index.html">Quần Jeans</a></li><li><a href="index.html">Quần Tây / Chino</a></li><li><a href="index.html">Quần Short</a></li></ul></div>
+                            <div class="mega-col"><h4>👖 QUẦN & VÁY NỮ</h4><ul><li><a href="index.html">Quần Tây Công Sở</a></li><li><a href="index.html">Chân Váy</a></li><li><a href="index.html">Đầm Dạ Hội</a></li></ul></div>
+                            <div class="mega-col"><h4>👖 QUẦN UNISEX</h4><ul><li><a href="index.html">Quần Thể Thao Đôi</a></li><li><a href="index.html">Quần Jean Ống Thụng</a></li></ul></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="has-mega"><a href="index.html" style="color: var(--accent-red); font-weight: bold;">PHỤ KIỆN ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-container" style="grid-template-columns: repeat(4, 1fr);">
+                            <div class="mega-col"><h4>🧢 NÓN</h4><ul><li><a href="index.html">Nón Các Loại</a></li></ul><h4 style="margin-top: 25px;">🔗 DÂY NỊT</h4><ul><li><a href="index.html">Dây Nịt Da</a></li></ul></div>
+                            <div class="mega-col"><h4>👝 TÚI ĐEO</h4><ul><li><a href="index.html">Túi Đeo Chéo / Tote</a></li></ul><h4 style="margin-top: 25px;">🧦 VỚ</h4><ul><li><a href="index.html">Vớ Basic</a></li></ul></div>
+                            <div class="mega-col"><h4>🎒 BALO</h4><ul><li><a href="index.html">Balo Da / Laptop</a></li></ul><h4>🕶️ KÍNH MẮT</h4><ul><li><a href="index.html">Kính Phân Cực</a></li></ul></div>
+                            <div class="mega-col"><h4>🪪 VÍ & ĐỒNG HỒ</h4><ul><li><a href="index.html">Trang Sức / Đồng Hồ</a></li></ul><h4 style="margin-top: 25px;">👞 GIÀY</h4><ul><li><a href="index.html">Giày Oxford / Sneaker</a></li></ul></div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="index.html">CỬA HÀNG</a></li>
+                <li><a href="index.html" style="font-weight: bold; color: var(--gold);">VIP</a></li>
+            </ul>
+            
+            <div class="nav-icons" style="display: flex; gap: 15px;">
+                <svg title="Tài khoản" onclick="window.location.href='index.html'" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="cursor: pointer;">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <div style="position: relative; display: flex; align-items: center; cursor: pointer;" onclick="toggleCart()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="8" width="18" height="14" rx="2" ry="2"></rect>
+                        <path d="M8 8V6a4 4 0 0 1 8 0v2"></path>
+                    </svg>
+                    <span id="cart-count" class="cart-badge-svg">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- NỘI DUNG CHÍNH: ĐIỀU KHOẢN DỊCH VỤ -->
+    <main class="policy-page-wrapper">
+        <div class="policy-container">
+            <h1 class="policy-title">Điều khoản dịch vụ</h1>
+
+            <div class="policy-content">
+                <p>Chào mừng Quý khách đến với website thương mại điện tử Minh Hằng Store. Khi truy cập và sử dụng dịch vụ trên website, Quý khách được xem là đã đọc, hiểu và đồng ý tuân thủ toàn bộ các điều khoản dịch vụ dưới đây. Điều khoản dịch vụ này cấu thành một thỏa thuận pháp lý ràng buộc giữa khách hàng và Công ty TNHH Minh Hằng Store.</p>
+
+                <h3>THÔNG TIN ĐƠN VỊ CHỦ QUẢN</h3>
+                <p>Tên đơn vị: CÔNG TY TNHH MINH HẰNG STORE</p>
+                <p>Mã số doanh nghiệp: 0310874914 – Đăng ký lần đầu: 24/05/2011</p>
+                <p>Địa chỉ trụ sở chính: Quận 4, Thành Phố Hồ Chí Minh</p>
+                <p>Điện thoại: (028) 3868 4857 - Mua hàng: (028) 7307 1441 - Email: cskh@minhhang.vn</p>
+
+                <h3>CHƯƠNG I: CHÍNH SÁCH THÀNH VIÊN VIP</h3>
+                <p>Minh Hằng Store triển khai chương trình thành viên VIP nhằm tri ân những Khách Hàng thân thiết với các đặc quyền mua sắm áp dụng tại tất cả cửa hàng Minh Hằng Store trên toàn quốc.</p>
+                
+                <h4>1. Chính sách giảm giá tích lũy trọn đời</h4>
+                <p>Mức chiết khấu được tính dựa trên tổng giá trị mua hàng tích lũy trọn đời của tài khoản khách hàng:</p>
+
+                <div class="policy-table-wrapper">
+                    <table class="policy-table">
+                        <thead>
+                            <tr>
+                                <th>Chi tiêu tích lũy (VNĐ)</th>
+                                <th>Mức giảm giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0 - 999.999</td><td class="policy-highlight">5%</td></tr>
+                            <tr><td>1.000.000 - 1.999.999</td><td class="policy-highlight">6%</td></tr>
+                            <tr><td>2.000.000 - 2.999.999</td><td class="policy-highlight">7%</td></tr>
+                            <tr><td>3.000.000 - 3.999.999</td><td class="policy-highlight">8%</td></tr>
+                            <tr><td>4.000.000 - 4.999.999</td><td class="policy-highlight">9%</td></tr>
+                            <tr><td>5.000.000 - 5.999.999</td><td class="policy-highlight">10%</td></tr>
+                            <tr><td>6.000.000 - 6.999.999</td><td class="policy-highlight">11%</td></tr>
+                            <tr><td>7.000.000 - 7.999.999</td><td class="policy-highlight">12%</td></tr>
+                            <tr><td>8.000.000 - 8.999.999</td><td class="policy-highlight">13%</td></tr>
+                            <tr><td>9.000.000 - 9.999.999</td><td class="policy-highlight">14%</td></tr>
+                            <tr><td>10.000.000 trở lên</td><td class="policy-highlight">15%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4>2. Phân hạng thẻ và thời gian đổi hàng đặc quyền</h4>
+                <p>Hạng thẻ thành viên được xét dựa trên tổng chi tiêu tích lũy trong vòng 36 tháng gần nhất.<br>Thời gian hỗ trợ đổi hàng cũng được gia hạn tăng thêm tùy theo thứ hạng thẻ:</p>
+
+                <div class="policy-table-wrapper">
+                    <table class="policy-table">
+                        <thead>
+                            <tr>
+                                <th>Hạng thẻ VIP</th>
+                                <th>Chi tiêu tích lũy (VNĐ)</th>
+                                <th>Thời gian đổi hàng đặc quyền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>SLEEPING</td><td>Không mua hàng trong 36 tháng gần nhất</td><td>10 ngày</td></tr>
+                            <tr><td>MEMBER</td><td>1 - 999.999</td><td>10 ngày</td></tr>
+                            <tr><td>SILVER</td><td>1.000.000 - 4.999.999</td><td>15 ngày</td></tr>
+                            <tr><td>GOLD</td><td>5.000.000 - 9.999.999</td><td>15 ngày</td></tr>
+                            <tr><td>PLATINUM</td><td>10.000.000 - 19.999.999</td><td>30 ngày</td></tr>
+                            <tr><td>DIAMOND</td><td>20.000.000 trở lên</td><td>30 ngày</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>Mỗi hạng thẻ VIP có các đặc quyền riêng về dịch vụ: Ưu tiên mua sản phẩm đặc biệt với giá ưu đãi, giao hàng miễn phí, thử đồ tại nhà, quà tặng sinh nhật, tham gia sự kiện độc quyền.</p>
+
+                <h4>3. Quy trình Đăng ký, Lấy mã thẻ và Ví Voucher</h4>
+                <p><b>Hướng dẫn đăng nhập/đăng ký VIP:</b> Khách hàng truy cập website Minh Hằng Store, nhập số điện thoại cá nhân, đọc và tích chọn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật, sau đó nhập mã OTP được gửi qua Zalo để hoàn tất.</p>
+                <p><b>Sử dụng mã thẻ VIP tại cửa hàng:</b> Đăng nhập tài khoản VIP trên website và đưa mã thẻ VIP cho nhân viên thu ngân khi thanh toán để hưởng mức giảm tối đa đến 15%. Nếu chỉ đọc số điện thoại mà không xuất trình mã, mức giảm tối đa là 10%.</p>
+                <p><b>Sử dụng Ví voucher:</b> Thành viên VIP có thể kiểm tra các loại voucher đặc quyền trong ví tài khoản (Voucher sinh nhật, voucher hoàn tiền, voucher minigame/khuyến mãi) và đưa mã voucher cho nhân viên thu ngân để áp dụng.</p>
+                <p><b>Lưu ý thành viên:</b> Để cải thiện chất lượng dịch vụ, các chính sách ưu đãi thành viên có thể được điều chỉnh định kỳ. Mọi thay đổi sẽ được thông báo trước ít nhất 07 ngày trên website. Quyền lợi VIP gắn liền với số điện thoại chính chủ của khách hàng và không có giá trị chuyển nhượng.</p>
+
+                <h3>CHƯƠNG II: CHÍNH SÁCH ĐẶT HÀNG VÀ THANH TOÁN</h3>
+                <p>Minh Hằng Store cung cấp hai phương thức thanh toán an toàn cho tất cả giao dịch mua sắm trên website:</p>
+
+                <h4>1. Các phương thức thanh toán hợp pháp</h4>
+                <p><b>Thanh toán khi nhận hàng (COD):</b> Khách hàng đặt đơn hàng trực tuyến, lựa chọn phương thức COD tại trang thanh toán. Sau khi nhân viên CSKH của Minh Hằng Store liên hệ xác nhận đơn hàng thành công, hàng sẽ được đóng gói vận chuyển. Khách hàng thực hiện kiểm tra sản phẩm và thanh toán tiền mặt trực tiếp cho nhân viên giao hàng.</p>
+                <p><b>Thanh toán trực tuyến qua ví điện tử ZaloPay:</b> Khách hàng thanh toán ngay trên website thông qua ứng dụng ZaloPay (bằng số dư ví, tài khoản ngân hàng liên kết, thẻ nội địa hoặc thẻ quốc tế). Hệ thống hiển thị mã QR (trên máy tính) hoặc tự động chuyển hướng ứng dụng ZaloPay (trên điện thoại) để khách hàng xác thực giao dịch thành công trước khi đóng gói hàng hóa.</p>
+
+                <h4>2. Tiêu chuẩn bảo mật giao dịch</h4>
+                <p>Hệ thống Minh Hằng Store áp dụng giao thức mã hóa SSL (Secure Sockets Layer) để bảo vệ toàn vẹn dữ liệu giao dịch của khách hàng. Minh Hằng Store tuyệt đối không lưu trữ thông tin thẻ ngân hàng hoặc tài khoản ví điện tử của khách hàng. Toàn bộ quy trình thanh toán trực tuyến được xử lý trực tiếp bởi đối tác cổng thanh toán ZaloPay đáp ứng chuẩn bảo mật quốc tế PCI DSS.</p>
+
+                <h4>3. Cơ chế xử lý sự cố thanh toán và hoàn tiền</h4>
+                <p>Trong trường hợp tài khoản khách hàng đã bị trừ tiền thành công nhưng hệ thống website Minh Hằng Store gặp lỗi không ghi nhận đơn hàng: Khách hàng vui lòng liên hệ hotline (028) 7307 1441 hoặc gửi email đến cskh@minhhang.vn. Minh Hằng Store cam kết phối hợp cùng đối tác ZaloPay tra soát giao dịch trong vòng 24 giờ làm việc. Sau khi xác minh, Minh Hằng Store sẽ hỗ trợ tạo đơn hàng thủ công hoặc hoàn trả tiền về ví/tài khoản gốc của khách hàng trong thời gian từ 3 - 5 ngày làm việc (đối với ví điện tử/thẻ nội địa) hoặc từ 7 - 15 ngày làm việc (đối với thẻ quốc tế), tùy thuộc vào quy trình xử lý của ngân hàng liên quan.</p>
+
+                <h3>CHƯƠNG III: CHÍNH SÁCH VẬN CHUYỂN VÀ ĐỒNG KIỂM</h3>
+                
+                <h4>1. Phạm vi giao hàng và cước phí vận chuyển</h4>
+                <p>Minh Hằng Store chỉ tiếp nhận và xử lý giao hàng đối với các đơn hàng trực tuyến có tổng giá trị từ 50.000đ trở lên. Đồng thời, Minh Hằng Store miễn phí vận chuyển cho các đơn hàng đủ điều kiện này trên phạm vi toàn quốc. Các đơn hàng dưới 50.000đ hệ thống sẽ từ chối khởi tạo, quý khách vui lòng mua sắm trực tiếp tại hệ thống cửa hàng Minh Hằng Store.</p>
+
+                <h4>2. Thời gian giao hàng dự kiến</h4>
+                <p>Thời gian giao hàng bắt đầu được tính từ thời điểm Minh Hằng Store xác nhận đơn hàng thành công. Đối với khách hàng ngoài khu vực TP.HCM, thời gian nhận hàng dự kiến từ 3 - 5 ngày làm việc. Thời gian giao hàng có thể điều chỉnh do các yếu tố khách quan (thiên tai, thời tiết dịch bệnh, hoặc sự cố phía đối tác logistics). Trường hợp chậm trễ, Minh Hằng Store sẽ thông báo kịp thời. Nếu quý khách không đồng ý chờ đợi thêm, quý khách có toàn quyền yêu cầu hủy đơn hàng và Minh Hằng Store sẽ thực hiện hoàn trả 100% số tiền đã thanh toán trước (nếu có) trong vòng 3 ngày làm việc.</p>
+
+                <h4>3. Chính sách kiểm hàng (Đồng kiểm)</h4>
+                <p>Khi nhận sản phẩm, khách hàng có quyền yêu cầu nhân viên giao hàng mở gói hàng để kiểm tra sản phẩm trước khi thanh toán tiền mặt hoặc ký nhận đơn hàng. Trường hợp sản phẩm giao không đúng mẫu mã, quy cách đặt hàng, khách hàng có quyền từ chối nhận hàng và không phải thực hiện thanh toán. Đối với đơn hàng đã thanh toán trước nhưng bị giao sai lệch, khách hàng liên hệ hotline (028) 7307 1441 để được hỗ trợ giao lại đơn hàng mới hoặc hoàn tiền.</p>
+
+                <h4>4. Trách nhiệm đối với hàng hóa vận chuyển</h4>
+                <p>Minh Hằng Store chịu hoàn toàn trách nhiệm và rủi ro liên quan đến tình trạng mất mát, hư hỏng hoặc suy giảm chất lượng của sản phẩm trong suốt quá trình vận chuyển từ kho hàng của Minh Hằng Store đến tay khách hàng.</p>
+
+                <h3>CHƯƠNG VIII: ĐIỀU KHOẢN THI HÀNH VÀ KHIẾU NẠI</h3>
+                <p>Mọi tranh chấp phát sinh giữa Minh Hằng Store và khách hàng trong quá trình giao dịch thương mại điện tử trước hết sẽ được ưu tiên giải quyết trên tinh thần thương lượng, hòa giải và tôn trọng lợi ích lẫn nhau. Mọi khiếu nại liên quan đến dịch vụ và an toàn dữ liệu thông tin cá nhân sẽ được bộ phận CSKH của Minh Hằng Store tiếp nhận xử lý và phản hồi trong thời gian tối đa 3 ngày làm việc.</p>
+                <p>Trong trường hợp hai bên không thể tự đạt được thỏa thuận chung, tranh chấp sẽ được đưa ra giải quyết tại Cơ quan Nhà nước hoặc Tòa án có thẩm quyền theo quy định của pháp luật Việt Nam hiện hành để phân xử.</p>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER CHUẨN XÁC, ĐẦY ĐỦ NHẤT -->
+    <footer class="mh-mega-footer">
+        <style>
+            .mh-mega-footer { background-color: #0b0b0b; color: #fff; padding: 50px 0 40px; font-family: 'Poppins', sans-serif; border-top: 1px solid #222; }
+            .mh-footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+            .mh-footer-features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; border-bottom: 1px solid #222; padding-bottom: 40px; margin-bottom: 40px; }
+            @media(max-width: 992px) { .mh-footer-features { grid-template-columns: repeat(2, 1fr); row-gap: 30px; } }
+            @media(max-width: 576px) { .mh-footer-features { grid-template-columns: 1fr; } }
+            .mh-feat-item { display: flex; align-items: center; justify-content: center; gap: 15px; }
+            .mh-feat-text h5 { font-size: 1rem; font-weight: 700; text-transform: uppercase; margin: 0 0 3px 0; letter-spacing: 0.5px; }
+            .mh-feat-text p { font-size: 0.85rem; color: #888; margin: 0; }
+            .mh-footer-grid { display: grid; grid-template-columns: 1.2fr 1.2fr 1.5fr 1.2fr 1.5fr; gap: 30px; }
+            @media(max-width: 1024px) { .mh-footer-grid { grid-template-columns: repeat(3, 1fr); } }
+            @media(max-width: 768px) { .mh-footer-grid { grid-template-columns: repeat(2, 1fr); } }
+            @media(max-width: 480px) { .mh-footer-grid { grid-template-columns: 1fr; } }
+            .mh-footer-col h4 { font-size: 1.1rem; margin-bottom: 25px; font-weight: 700; color: #fff; text-transform: capitalize; }
+            .mh-footer-col ul { list-style: none; padding: 0; margin: 0; }
+            .mh-footer-col ul li { margin-bottom: 12px; }
+            .mh-footer-col a { color: #a0a0a0; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease; cursor: pointer; display: inline-block; }
+            .mh-footer-col a:hover { color: #fff; transform: translateX(3px); }
+            .mh-sub-heading { color: #fff; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin: 25px 0 10px 0; letter-spacing: 1px; }
+            .mh-sub-heading:first-of-type { margin-top: 0; }
+            .mh-social-icons { display: flex; gap: 15px; margin-top: 15px; }
+            .mh-social-icons svg { width: 22px; height: 22px; color: #fff; cursor: pointer; transition: 0.3s; }
+            .mh-social-icons svg:hover { color: var(--gold, #D4AF37); transform: translateY(-3px); }
+        </style>
+
+        <div class="mh-footer-container">
+            <div class="mh-footer-features">
+                <div class="mh-feat-item">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                    <div class="mh-feat-text"><h5>MIỄN PHÍ SHIP</h5><p>Toàn quốc</p></div>
+                </div>
+                <div class="mh-feat-item">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <polyline points="9 12 11 14 15 10"></polyline>
+                    </svg>
+                    <div class="mh-feat-text"><h5>BẢO HÀNH</h5><p>365 ngày</p></div>
+                </div>
+                <div class="mh-feat-item">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <div class="mh-feat-text"><h5>ĐỊA CHỈ</h5><p>Cửa hàng Minh Hằng</p></div>
+                </div>
+                <div class="mh-feat-item">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    <div class="mh-feat-text"><h5>TẠP CHÍ</h5><p>Thông tin thời trang</p></div>
+                </div>
+            </div>
+
+            <div class="mh-footer-grid">
+                <div class="mh-footer-col">
+                    <h4>Quần Áo</h4>
+                    <ul>
+                        <li><a href="index.html">Áo Thun Cổ Tròn</a></li>
+                        <li><a href="index.html">Áo Polo</a></li>
+                        <li><a href="index.html">Áo Khoác</a></li>
+                        <li><a href="index.html">Áo Sơ Mi</a></li>
+                        <li><a href="index.html">Quần Dài</a></li>
+                        <li><a href="index.html">Quần Short</a></li>
+                        <li><a href="index.html">Quần Jeans</a></li>
+                        <li><a href="index.html">Quần Lót</a></li>
+                    </ul>
+                </div>
+
+                <div class="mh-footer-col">
+                    <h4>Phụ Kiện</h4>
+                    <ul>
+                        <li><a href="index.html">Balo</a></li>
+                        <li><a href="index.html">Túi Đeo</a></li>
+                        <li><a href="index.html">Nón</a></li>
+                        <li><a href="index.html">Ví</a></li>
+                        <li><a href="index.html">Dây Nịt</a></li>
+                        <li><a href="index.html">Vớ</a></li>
+                        <li><a href="index.html">Giày</a></li>
+                        <li><a href="index.html">Dép</a></li>
+                        <li><a href="index.html">Phụ Kiện Cá Nhân</a></li>
+                        <li><a href="index.html">Phụ Kiện Thể Thao</a></li>
+                    </ul>
+                </div>
+
+                <div class="mh-footer-col">
+                    <h4>Trang Phục</h4>
+                    <div class="mh-sub-heading">THIẾT YẾU</div>
+                    <ul>
+                        <li><a href="index.html">BST Non-Branded</a></li>
+                        <li><a href="index.html">BST Seventy Seven</a></li>
+                        <li><a href="index.html">BST The Worker</a></li>
+                    </ul>
+                    
+                    <div class="mh-sub-heading">CÔNG NGHỆ</div>
+                    <ul>
+                        <li><a href="index.html">BST The Minimalist</a></li>
+                        <li><a href="index.html">BST The CEO</a></li>
+                    </ul>
+
+                    <div class="mh-sub-heading">TẬN HƯỞNG</div>
+                    <ul>
+                        <li><a href="index.html">BST The No Style</a></li>
+                        <li><a href="index.html">BST The Weekend</a></li>
+                        <li><a href="index.html">BST The Home Body</a></li>
+                    </ul>
+
+                    <div class="mh-sub-heading">JEAN (DENIM)</div>
+                    <ul>
+                        <li><a href="index.html">BST The Original Jean</a></li>
+                        <li><a href="index.html">BST Tek Black Jean</a></li>
+                        <li><a href="index.html">BST Multi-Color Jean</a></li>
+                    </ul>
+
+                    <div class="mh-sub-heading">THỂ THAO</div>
+                    <ul>
+                        <li><a href="index.html">BST The Beginner</a></li>
+                        <li><a href="index.html">BST The Trainer</a></li>
+                    </ul>
+                </div>
+
+                <div class="mh-footer-col">
+                    <h4>Chính Sách</h4>
+                    <ul>
+                        <li><a href="dieu-khoan.html" style="color:#fff;">Điều Khoản Dịch Vụ</a></li>
+                        <li><a href="index.html">Khách Hàng VIP</a></li>
+                        <li><a href="van-chuyen.html">Vận Chuyển</a></li>
+                        <li><a href="chinh-sach-bao-mat.html">Bảo Mật</a></li>
+                        <li><a href="index.html">Thanh Toán</a></li>
+                        <li><a href="chinh-sach-doi-tra.html">Đổi Trả</a></li>
+                        <li><a href="chinh-sach-bao-hanh.html">Bảo Hành</a></li>
+                        <li><a href="gioi-thieu.html">Giới Thiệu</a></li>
+                        <li><a href="cua-hang.html">Cửa Hàng</a></li>
+                        <li><a href="lien-he.html">Khiếu Nại/Góp Ý</a></li>
+                    </ul>
+                </div>
+
+                <div class="mh-footer-col">
+                    <h4>Blog</h4>
+                    <ul>
+                        <li><a href="gioi-thieu-san-pham.html">Giới Thiệu Sản Phẩm</a></li>
+                        <li><a href="index.html">Thông Tin Bộ Sưu Tập</a></li>
+                        <li><a href="mac-sao-cho-dung-gu.html">Mặc Sao Cho Đúng Gu</a></li>
+                        <li><a href="index.html">Kiến Thức Thời Trang</a></li>
+                        <li><a href="huong-dan-chon-size.html">Hướng Dẫn Chọn Size</a></li>
+                    </ul>
+
+                    <h4 style="margin-top: 35px; margin-bottom: 10px;">Cộng đồng Minh Hằng</h4>
+                    <div class="mh-social-icons">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px; padding-top: 25px; border-top: 1px solid #222; font-size: 0.8rem; color: #666; display: flex; flex-direction: column; gap: 8px; line-height: 1.5;">
+                <span>© 2026 - CÔNG TY TNHH MINH HẰNG STORE. Mã số DN: 0310874914 – Đăng ký lần đầu: 24/05/2011.</span>
+                <span>Địa chỉ trụ sở chính: Quận 4, TP.HCM. Điện thoại: (028) 3868 4857 - Mua hàng: (028) 7307 1441 - Email: cskh@minhhang.vn</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- THANH MENU MOBILE DƯỚI CÙNG -->
+    <div class="mobile-bottom-nav">
+        <div class="mobile-bottom-nav-inner">
+            <div class="bottom-nav-item" onclick="window.location.href='index.html'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span>Trang chủ</span>
+            </div>
+            <div class="bottom-nav-item" onclick="toggleMobileNav()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                <span>Menu</span>
+            </div>
+            <div class="bottom-nav-item" onclick="toggleCart()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="14" rx="2" ry="2"></rect><path d="M8 8V6a4 4 0 0 1 8 0v2"></path></svg>
+                <span>Giỏ hàng</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- KHUNG CHATBOT AI -->
+    <div id="chatbot-widget" class="chatbot-container" style="position: fixed; bottom: 30px; right: 30px; z-index: 10000; display: flex; flex-direction: column; align-items: flex-end;">
+        <button id="chatbot-toggle-btn" class="chatbot-toggle-btn" onclick="toggleChat()" aria-label="Mở chat" style="background-color: var(--gold); color: #111; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); border: none; outline: none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </button>
+        <div id="chat-box" class="chatbot-window" style="width: 350px; max-width: calc(100vw - 40px); height: 500px; background: var(--card-bg); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; flex-direction: column; overflow: hidden; margin-bottom: 15px; border: 1px solid var(--border-color); position: relative;">
+            <div class="chatbot-header" style="background: var(--text-main); color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); z-index: 5;">
+                <div><h4 style="margin: 0; color: #fff; font-size: 1rem;">CSKH Minh Hằng</h4></div>
+                <button class="chatbot-close" onclick="toggleChat()" style="background: transparent; border: none; color: #fff; cursor: pointer;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+            </div>
+            <div id="chat-body" class="chatbot-messages" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; background: var(--bg-color); font-size: 0.9rem;">
+                <div class="chat-msg bot-msg" style="padding: 12px 16px; border-radius: 16px; max-width: 85%; line-height: 1.5; background: #EAEAEA; color: #111; align-self: flex-start;">Dạ, nếu Quý khách có bất kỳ thắc mắc nào về Điều Khoản Dịch Vụ, hãy nhắn tin cho bên em nhé!</div>
+            </div>
+            <div class="chatbot-input-area" style="display: flex; padding: 10px 15px; background: var(--card-bg); border-top: 1px solid var(--border-color);">
+                <input type="text" id="chat-input" placeholder="Nhập câu hỏi..." style="flex: 1; border: none; padding: 10px; outline: none; background: transparent;">
+                <button onclick="sendChatMessage()" style="background: var(--text-main); border: none; color: #fff; cursor: pointer; padding: 8px; border-radius: 50%;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Hướng Dẫn Giặt Ủi - Minh Hằng Store</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="chatbot.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS DÀNH RIÊNG CHO MEGA MENU FULL MÀN HÌNH -->
+    <style>
+        @media (min-width: 993px) {
+            header.sticky-header { 
+                position: relative !important; 
+            }
+            nav.nav-container, ul.main-menu, li.has-mega { 
+                position: static !important; 
+            }
+            
+            .mega-menu { 
+                position: absolute !important; 
+                left: 0 !important; 
+                right: 0 !important; 
+                width: 100% !important; 
+                transform: none !important; 
+                padding: 40px 0 !important; 
+                background: #fff !important; 
+                border-top: 1px solid #eaeaea; 
+                box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
+                z-index: 999;
+            }
+            
+            .mega-container {
+                max-width: 1200px !important;
+                margin: 0 auto !important;
+                padding: 0 20px !important;
+                text-align: left !important;
+                display: grid !important;
+                gap: 30px !important;
+            }
+
+            .mega-col h4 { 
+                font-family: 'Poppins', sans-serif; 
+                font-size: 0.85rem !important; 
+                font-weight: 700 !important; 
+                text-transform: uppercase; 
+                margin-bottom: 20px !important; 
+                color: #111 !important; 
+                letter-spacing: 0.5px; 
+            }
+            .mega-col ul { 
+                display: flex; 
+                flex-direction: column; 
+                gap: 12px !important; 
+                list-style: none; 
+                padding: 0; 
+                margin: 0; 
+            }
+            .mega-col ul li a { 
+                font-size: 0.9rem !important; 
+                color: #666 !important; 
+                transition: 0.2s; 
+                font-weight: 400 !important; 
+                text-decoration: none; 
+                cursor: pointer; 
+            }
+            .mega-col ul li a:hover { 
+                color: var(--gold, #d4af37) !important; 
+                font-weight: 500 !important; 
+                transform: translateX(5px); 
+                display: inline-block; 
+            }
+        }
+    </style>
+
+    <!-- CSS DÀNH RIÊNG CHO TRANG HƯỚNG DẪN GIẶT ỦI -->
+    <style>
+        .laundry-page-wrapper {
+            background-color: #f8f9fa;
+            padding: 40px 20px 80px 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .laundry-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .page-main-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: #111;
+            margin-bottom: 40px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .laundry-hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .hero-main-article {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+        
+        .hero-main-article:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+        }
+
+        .hero-main-article img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .hero-main-title {
+            font-size: 1.5rem;
+            color: #111;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-top: 20px;
+            transition: 0.2s;
+        }
+
+        .hero-main-article:hover .hero-main-title { 
+            color: var(--gold); 
+        }
+
+        .hero-side-list { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+        }
+
+        .side-article {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            background: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+
+        .side-article:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transform: translateX(5px);
+        }
+
+        .side-article img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .side-article-title {
+            font-size: 0.95rem;
+            color: #222;
+            font-weight: 500;
+            line-height: 1.5;
+            transition: 0.2s;
+        }
+
+        .side-article:hover .side-article-title { 
+            color: var(--gold); 
+        }
+
+        .laundry-v-list { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+        }
+
+        .v-list-item {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .v-list-item:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+        }
+
+        .v-list-item img {
+            width: 280px;
+            height: 180px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .v-list-title {
+            padding: 30px;
+            font-size: 1.15rem;
+            color: #111;
+            font-weight: 500;
+            line-height: 1.5;
+            transition: 0.2s;
+        }
+
+        .v-list-item:hover .v-list-title { 
+            color: var(--gold); 
+        }
+
+        @media (max-width: 768px) {
+            .laundry-hero-grid { grid-template-columns: 1fr; }
+            .v-list-item { flex-direction: column; align-items: stretch; }
+            .v-list-item img { width: 100%; height: 200px; }
+            .v-list-title { padding: 20px; font-size: 1.05rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toast" role="alert" aria-live="assertive"></div>
+    <div id="sidebar-overlay" aria-hidden="true" onclick="closeSidebars()"></div>
+
+    <!-- SIDEBAR GIỎ HÀNG -->
+    <div id="cart-sidebar" class="sidebar" role="dialog" aria-modal="true">
+        <div class="sidebar-header">
+            <h3>Giỏ Hàng (Cart)</h3>
+            <span class="close-sidebar" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="sidebar-content" id="cart-items"></div>
+        <div class="sidebar-footer">
+            <div class="cart-total">
+                Tổng thanh toán: <span id="cart-total-price">0đ</span>
+            </div>
+            <button class="btn" style="width: 100%; background: var(--text-main); color: var(--bg-color); padding: 18px; border-radius: 8px;" onclick="window.location.href='index.html'">TIẾN HÀNH THANH TOÁN</button>
+        </div>
+    </div>
+
+    <!-- SIDEBAR YÊU THÍCH -->
+    <div id="wishlist-sidebar" class="sidebar" role="dialog" aria-modal="true">
+        <div class="sidebar-header">
+            <h3>Mục Yêu Thích</h3>
+            <span class="close-sidebar" onclick="toggleWishlist()">&times;</span>
+        </div>
+        <div class="sidebar-content" id="wishlist-items"></div>
+    </div>
+
+    <!-- TOP BAR -->
+    <div class="announcement-bar" role="complementary">
+        <div class="top-bar-inner" style="justify-content: flex-end;">
+            <div class="top-bar-utilities">
+                <div class="top-bar-item" onclick="toggleTheme()">☀️ Theme</div>
+                <div class="top-bar-item" onclick="window.location.href='huong-dan-chon-size.html'">📏 Size Guide</div>
+                <div class="top-bar-item" onclick="window.location.href='index.html'">🚚 Tra cứu</div>
+                <div class="top-bar-item" onclick="toggleWishlist()">❤️ Yêu thích <span id="wishlist-count" class="wishlist-badge">0</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- HEADER -->
+    <header class="sticky-header" role="banner">
+        <nav class="nav-container" role="navigation">
+            <div class="hamburger" onclick="toggleMobileNav()">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+            
+            <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" onclick="toggleMobileNav()"></div>
+
+            <!-- MENU DI ĐỘNG -->
+            <div class="mobile-nav-overlay" id="mobile-nav" role="dialog">
+                <div class="mobile-nav-header-drawer">
+                    <span class="mobile-close-btn" onclick="toggleMobileNav()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </span>
+                    <div class="logo" style="margin: 0; font-size: 1.2rem;" onclick="window.location.href='index.html'">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold">M</text>
+                        </svg>
+                        <span style="border-left: 1px solid var(--gold); padding-left: 5px; margin-left: 5px;">MinhHang</span>
+                    </div>
+                </div>
+                <ul class="accordion-menu">
+                    <li class="accordion-item"><div class="accordion-header" onclick="window.location.href='index.html'">TRANG CHỦ</div></li>
+                    <li class="accordion-item"><div class="accordion-header" onclick="window.location.href='index.html'">BỘ SƯU TẬP</div></li>
+                    <li class="accordion-item"><div class="accordion-header" onclick="window.location.href='index.html'">ÁO & QUẦN</div></li>
+                    <li class="accordion-item" style="border: none;"><div class="accordion-header" style="color: var(--gold);" onclick="window.location.href='index.html'">VIP - ĐĂNG NHẬP</div></li>
+                </ul>
+            </div>
+
+            <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold">M</text>
+                </svg>
+                <span>MINHHANG</span>
+            </div>
+
+            <!-- MEGA MENU BUNG FULL WIDTH CHUẨN XÁC -->
+            <ul class="main-menu">
+                <li class="sale-tag">
+                    <a href="index.html">SALE</a>
+                </li>
+                <li class="has-mega">
+                    <a href="index.html">BỘ SƯU TẬP ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-container">
+                            <div class="mega-col">
+                                <h4>THIẾT YẾU</h4>
+                                <ul>
+                                    <li><a href="index.html">BST Non-Branded</a></li>
+                                    <li><a href="index.html">BST Seventy Seven</a></li>
+                                    <li><a href="index.html">BST The Worker</a></li>
+                                </ul>
+                                <h4 style="margin-top: 25px;">THỂ THAO</h4>
+                                <ul>
+                                    <li><a href="index.html">BST The Beginner</a></li>
+                                    <li><a href="index.html">BST The Trainer</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>CÔNG NGHỆ</h4>
+                                <ul>
+                                    <li><a href="index.html">BST The Minimalist</a></li>
+                                    <li><a href="index.html">BST The CEO</a></li>
+                                </ul>
+                                <h4 style="margin-top: 25px;">SIGNATURE</h4>
+                                <ul>
+                                    <li><a href="index.html">Khám Phá Signature</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>TẬN HƯỞNG</h4>
+                                <ul>
+                                    <li><a href="index.html">BST The No Style</a></li>
+                                    <li><a href="index.html">BST The Weekend</a></li>
+                                    <li><a href="index.html">BST The Home Body</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>JEAN (DENIM)</h4>
+                                <ul>
+                                    <li><a href="index.html">BST The Original Jean</a></li>
+                                    <li><a href="index.html">BST Tek Black Jean</a></li>
+                                    <li><a href="index.html">BST Multi Color Jean</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="has-mega">
+                    <a href="index.html">ÁO ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-container" style="grid-template-columns: repeat(3, 1fr);">
+                            <div class="mega-col">
+                                <h4>👕 ÁO NAM</h4>
+                                <ul>
+                                    <li><a href="index.html">Áo Thun / Polo</a></li>
+                                    <li><a href="index.html">Áo Sơ Mi</a></li>
+                                    <li><a href="index.html">Áo Khoác Nam</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>👗 ÁO NỮ</h4>
+                                <ul>
+                                    <li><a href="index.html">Áo Thun Nữ</a></li>
+                                    <li><a href="index.html">Áo Sơ Mi / Blouse</a></li>
+                                    <li><a href="index.html">Áo Khoác Nữ</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>👫 ÁO ĐỒ ĐÔI</h4>
+                                <ul>
+                                    <li><a href="index.html">Áo Thun Đôi</a></li>
+                                    <li><a href="index.html">Áo Khoác / Len Đôi</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="has-mega">
+                    <a href="index.html">QUẦN ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-container" style="grid-template-columns: repeat(3, 1fr);">
+                            <div class="mega-col">
+                                <h4>👖 QUẦN NAM</h4>
+                                <ul>
+                                    <li><a href="index.html">Quần Jeans</a></li>
+                                    <li><a href="index.html">Quần Tây / Chino</a></li>
+                                    <li><a href="index.html">Quần Short</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>👖 QUẦN & VÁY NỮ</h4>
+                                <ul>
+                                    <li><a href="index.html">Quần Tây Nữ</a></li>
+                                    <li><a href="index.html">Quần Jeans Nữ</a></li>
+                                    <li><a href="index.html">Chân Váy</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>👖 QUẦN UNISEX</h4>
+                                <ul>
+                                    <li><a href="index.html">Quần Thể Thao Đôi</a></li>
+                                    <li><a href="index.html">Quần Jean Ống Thụng</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="has-mega">
+                    <a href="index.html" style="color: var(--accent-red); font-weight: bold;">PHỤ KIỆN ▾</a>
+                    <div class="mega-menu">
+                        <div class="mega-container" style="grid-template-columns: repeat(4, 1fr);">
+                            <div class="mega-col">
+                                <h4>🧢 NÓN</h4>
+                                <ul><li><a href="index.html">Nón Các Loại</a></li></ul>
+                                <h4 style="margin-top: 25px;">🔗 DÂY NỊT</h4>
+                                <ul><li><a href="index.html">Dây Nịt Da</a></li></ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>👝 TÚI ĐEO</h4>
+                                <ul><li><a href="index.html">Túi Đeo Chéo / Tote</a></li></ul>
+                                <h4 style="margin-top: 25px;">🧦 VỚ</h4>
+                                <ul><li><a href="index.html">Vớ Basic</a></li></ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>🎒 BALO</h4>
+                                <ul><li><a href="index.html">Balo Da / Laptop</a></li></ul>
+                                <h4>🕶️ KÍNH MẮT</h4>
+                                <ul><li><a href="index.html">Kính Phân Cực</a></li></ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>🪪 VÍ & ĐỒNG HỒ</h4>
+                                <ul><li><a href="index.html">Trang Sức / Đồng Hồ</a></li></ul>
+                                <h4 style="margin-top: 25px;">👞 GIÀY</h4>
+                                <ul><li><a href="index.html">Giày Oxford / Sneaker</a></li></ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="index.html">CỬA HÀNG</a>
+                </li>
+            </ul>
+            
+            <div class="nav-icons" style="display: flex; gap: 15px;">
+                <svg title="Tài khoản" onclick="window.location.href='index.html'" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="cursor: pointer;">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <div style="position: relative; display: flex; align-items: center; cursor: pointer;" onclick="toggleCart()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="8" width="18" height="14" rx="2" ry="2"></rect>
+                        <path d="M8 8V6a4 4 0 0 1 8 0v2"></path>
+                    </svg>
+                    <span id="cart-count" class="cart-badge-svg">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="laundry-page-wrapper">
+        <div class="laundry-container">
+            <a href="index.html" style="display: inline-block; color: var(--gold); text-decoration: none; font-size: 0.95rem; font-weight: 500; margin-bottom: 20px;">
+                ← Trở về Trang Chủ
+            </a>
+            <h1 class="page-main-title">Tạp Chí: Mẹo Giặt Ủi & Bảo Quản</h1>
+
+            <div class="laundry-hero-grid">
+                <div class="hero-main-article">
+                    <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=600" alt="Dép đi mưa">
+                    <h2 class="hero-main-title">Dép đi mưa về phơi nắng dễ bung keo, cứ quăng vô xó kẹt cho ráo nước, đế trấu hay xốp siêu nhẹ lau giấy là sạch bong.</h2>
+                </div>
+                <div class="hero-side-list">
+                    <div class="side-article">
+                        <img src="https://images.unsplash.com/photo-1551446591-142875a901a1?auto=format&fit=crop&q=80&w=300" alt="Gấp quần áo du lịch">
+                        <h3 class="side-article-title">Cách gấp quần áo bỏ vào balo đi du lịch cực gọn, lấy ra không bị nhăn 2026.</h3>
+                    </div>
+                    <div class="side-article">
+                        <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&q=80&w=300" alt="Túi lưới đa năng">
+                        <h3 class="side-article-title">Phân loại đồ dơ/sạch khi du lịch bằng túi lưới đa năng, hoặc thêm lót giày để bàn chân luôn khô ráo.</h3>
+                    </div>
+                    <div class="side-article">
+                        <img src="https://images.unsplash.com/photo-1584865288642-42078afe6942?auto=format&fit=crop&q=80&w=300" alt="Đồ lót thể thao">
+                        <h3 class="side-article-title">Nam giới có nên mặc đồ lót ôm sát bí bách khi chơi thể thao không?</h3>
+                    </div>
+                    <div class="side-article">
+                        <img src="https://images.unsplash.com/photo-1506152983158-b4a74a01c721?auto=format&fit=crop&q=80&w=300" alt="Quần lót Seamless">
+                        <h3 class="side-article-title">Mặc quần lót dệt khối Seamless/Bamboo nhanh khô, lỡ mắc mưa về giặt phơi 1 đêm là mai có đồ mặc liền.</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="laundry-v-list">
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&q=80&w=400" alt="Tẩy vết ố vàng">
+                    <h3 class="v-list-title">Bí quyết tẩy sạch vết ố vàng ở nách áo thun nam màu trắng.</h3>
+                </div>
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&q=80&w=400" alt="Máy giặt túi lưới">
+                    <h3 class="v-list-title">Quăng áo quần lót vô máy giặt xoắn rối nùi rách lủng, bỏ vô túi lưới kéo zip lại là bền gấp đôi.</h3>
+                </div>
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400" alt="Lau mồ hôi gym">
+                    <h3 class="v-list-title">Cách lau mồ hôi tập gym khô ráo tức thì mà không rát mặt.</h3>
+                </div>
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&q=80&w=400" alt="Phơi quần áo">
+                    <h3 class="v-list-title">Phơi quần áo trong nhà: cách tránh ẩm mốc và mùi hôi</h3>
+                </div>
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=400" alt="Ủi áo khoác">
+                    <h3 class="v-list-title">Ủi áo khoác blazer đúng cách: tránh bóng vải và hằn dấu</h3>
+                </div>
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?auto=format&fit=crop&q=80&w=400" alt="Nước giặt">
+                    <h3 class="v-list-title">Hướng dẫn chọn nước giặt enzyme và nước giặt sinh học</h3>
+                </div>
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1583947581924-860bda6a45df?auto=format&fit=crop&q=80&w=400" alt="Tẩy vết bẩn">
+                    <h3 class="v-list-title">Tẩy vết nhựa đường và dầu xe trên quần áo làm việc</h3>
+                </div>
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&q=80&w=400" alt="Sửa chữa quần áo">
+                    <h3 class="v-list-title">Sửa chữa vết rách nhỏ trên quần áo trước khi giặt để không to thêm</h3>
+                </div>
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&q=80&w=400" alt="Túi giặt">
+                    <h3 class="v-list-title">Dùng túi giặt và quả bóng giặt: nên hay không?</h3>
+                </div>
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&q=80&w=400" alt="Khử mùi máy giặt">
+                    <h3 class="v-list-title">Cách khử mùi ẩm mốc trong máy giặt và máy sấy tại nhà</h3>
+                </div>
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=400" alt="Xử lý bọt xà phòng">
+                    <h3 class="v-list-title">Xử lý quần áo dính nước xả quá nhiều: khử bọt và mùi hương nồng</h3>
+                </div>
+                <div class="v-list-item">
+                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=400" alt="Giặt vest">
+                    <h3 class="v-list-title">Mẹo giặt áo gile, vest mà không mất form</h3>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER MỚI NHẤT Y HỆT INDEX -->
+    <footer class="mh-mega-footer" style="background-color: #0b0b0b; color: #fff; padding: 50px 0 40px; font-family: 'Poppins', sans-serif; border-top: 1px solid #222;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+                <div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 25px; font-weight: 700; color: #fff;">Quần Áo</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Áo Thun / Polo</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Áo Khoác</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Quần Jeans / Quần Tây</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Quần Lót</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 25px; font-weight: 700; color: #fff;">Phụ Kiện</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Balo / Túi Đeo</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Giày / Dép</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Nón / Thắt Lưng / Ví</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 25px; font-weight: 700; color: #fff;">Blog</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 12px;"><a href="mac-sao-cho-dung-gu.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Mặc Sao Cho Đúng Gu</a></li>
+                        <!-- ĐÃ BỎ LỖI PHÁT SÁNG CỦA HƯỚNG DẪN GIẶT ỦI -->
+                        <li style="margin-bottom: 12px;"><a href="huong-dan-giat-ui.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Hướng Dẫn Giặt, Ủi</a></li>
+                        <li style="margin-bottom: 12px;"><a href="ho-tro-tin-tuc.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Hỗ Trợ Và Tin Tức</a></li>
+                        <li style="margin-bottom: 12px;"><a href="huong-dan-chon-size.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Hướng Dẫn Chọn Size</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px; padding-top: 25px; border-top: 1px solid #222; font-size: 0.8rem; color: #666; display: flex; flex-direction: column; gap: 8px;">
+                <span>© 2026 - CÔNG TY TNHH MINH HẰNG STORE.</span>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js" defer></script>
+</body>
+</html>

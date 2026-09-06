@@ -27,6 +27,289 @@
     
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="chatbot.css">
+
+    <!-- CSS DÀNH RIÊNG CHO MEGA MENU FULL MÀN HÌNH CHUẨN XÁC -->
+    <style>
+        @media (min-width: 993px) {
+            header.sticky-header { 
+                position: relative !important; 
+            }
+            nav.nav-container, ul.main-menu, li.has-mega { 
+                position: static !important; 
+            }
+            
+            .mega-menu { 
+                position: absolute !important; 
+                left: 0 !important; 
+                right: 0 !important; 
+                width: 100% !important; 
+                transform: none !important; 
+                padding: 40px 0 !important; 
+                background: #fff !important; 
+                border-top: 1px solid #eaeaea; 
+                box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
+                z-index: 999;
+            }
+            
+            .mega-container {
+                max-width: 1200px !important;
+                margin: 0 auto !important;
+                padding: 0 20px !important;
+                text-align: left !important;
+                display: grid !important;
+                gap: 30px !important;
+            }
+
+            .mega-col h4 { 
+                font-family: 'Poppins', sans-serif; 
+                font-size: 0.85rem !important; 
+                font-weight: 700 !important; 
+                text-transform: uppercase; 
+                margin-bottom: 20px !important; 
+                color: #111 !important; 
+                letter-spacing: 0.5px; 
+            }
+            .mega-col ul { 
+                display: flex; 
+                flex-direction: column; 
+                gap: 12px !important; 
+                list-style: none; 
+                padding: 0; 
+                margin: 0; 
+            }
+            .mega-col ul li a { 
+                font-size: 0.9rem !important; 
+                color: #666 !important; 
+                transition: 0.2s; 
+                font-weight: 400 !important; 
+                text-decoration: none; 
+                cursor: pointer; 
+            }
+            .mega-col ul li a:hover { 
+                color: var(--gold, #d4af37) !important; 
+                font-weight: 500 !important; 
+                transform: translateX(5px); 
+                display: inline-block; 
+            }
+        }
+    </style>
+
+    <!-- CSS DÀNH RIÊNG CHO TRANG ĐĂNG NHẬP VIP (CHUẨN YAME) -->
+    <style>
+        #vip-auth-page {
+            background-color: #111;
+            color: #fff;
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            z-index: 10000;
+            overflow-y: auto;
+            display: none;
+            font-family: 'Poppins', sans-serif;
+        }
+        .vip-header-bar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 15px 30px; 
+            border-bottom: 1px solid #222; 
+            background-color: #111; 
+        }
+        .vip-header-logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .vip-header-logo svg { color: #fff; }
+        .vip-header-text { line-height: 1.2; }
+        .vip-header-text strong { 
+            font-size: 1.1rem; 
+            letter-spacing: 1px; 
+            color: #fff; 
+        }
+        .vip-header-text span { 
+            font-size: 0.75rem; 
+            color: #aaa; 
+        }
+        .vip-back-btn { 
+            background: transparent; 
+            border: 1px solid #555; 
+            color: #fff; 
+            padding: 6px 15px; 
+            border-radius: 20px; 
+            font-size: 0.85rem; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+            transition: 0.2s; 
+        }
+        .vip-back-btn:hover { background: #333; }
+        
+        .vip-main-content { 
+            max-width: 480px; 
+            margin: 50px auto; 
+            padding: 0 20px; 
+            text-align: left; 
+        }
+        .vip-main-content h4 { 
+            color: #888; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            margin-bottom: 10px; 
+            letter-spacing: 0.5px; 
+            text-transform: uppercase; 
+        }
+        .vip-main-content h2 { 
+            font-size: 1.8rem; 
+            font-weight: 600; 
+            margin-bottom: 15px; 
+            color: #fff; 
+        }
+        .vip-main-content > p { 
+            font-size: 0.95rem; 
+            color: #aaa; 
+            line-height: 1.6; 
+            margin-bottom: 30px; 
+        }
+        .vip-main-content > p b { color: #fff; }
+        
+        .vip-input-wrap { margin-bottom: 20px; }
+        .vip-input-wrap label { 
+            display: block; 
+            font-size: 0.9rem; 
+            color: #fff; 
+            margin-bottom: 10px; 
+            font-weight: 500; 
+        }
+        .vip-input-box { 
+            display: flex; 
+            align-items: center; 
+            background-color: #111; 
+            border: 1px solid #444; 
+            border-radius: 8px; 
+            padding: 12px 15px; 
+            transition: border-color 0.2s; 
+        }
+        .vip-input-box:focus-within { border-color: #888; }
+        .vip-prefix { 
+            color: #aaa; 
+            padding-right: 15px; 
+            margin-right: 15px; 
+            border-right: 1px solid #444; 
+            font-weight: 500; 
+        }
+        .vip-input-box input { 
+            background: transparent; 
+            border: none; 
+            color: #fff; 
+            font-size: 1rem; 
+            outline: none; 
+            flex: 1; 
+            font-family: 'Poppins', sans-serif; 
+        }
+        
+        .vip-agree-wrap { 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 10px; 
+            margin-bottom: 25px; 
+            cursor: pointer; 
+        }
+        .vip-agree-wrap input { margin-top: 4px; cursor: pointer; }
+        .vip-agree-wrap span { font-size: 0.9rem; color: #aaa; line-height: 1.5; }
+        
+        .vip-submit-btn { 
+            background-color: #fff; 
+            color: #111; 
+            font-weight: 600; 
+            font-size: 1rem; 
+            width: 100%; 
+            padding: 14px; 
+            border-radius: 8px; 
+            border: none; 
+            cursor: pointer; 
+            transition: opacity 0.2s; 
+            margin-bottom: 25px; 
+            font-family: 'Poppins', sans-serif; 
+        }
+        .vip-submit-btn:hover { opacity: 0.8; }
+        
+        .vip-alt-method { font-size: 0.9rem; color: #aaa; }
+        .vip-alt-method b { color: #fff; }
+        .vip-alt-method a { 
+            color: #888; 
+            text-decoration: underline; 
+            cursor: pointer; 
+            transition: color 0.2s; 
+            display: inline-block; 
+            margin-top: 5px; 
+        }
+        .vip-alt-method a:hover { color: #fff; }
+        
+        .vip-benefits-list { 
+            margin-top: 60px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+        .vip-benefit-item { 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 15px; 
+        }
+        .vip-benefit-icon { 
+            color: #fff; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 24px; 
+            height: 24px; 
+            margin-top: 2px; 
+        }
+        .vip-benefit-info h5 { 
+            font-size: 1rem; 
+            color: #fff; 
+            font-weight: 600; 
+            margin: 0 0 5px 0; 
+        }
+        .vip-benefit-info p { 
+            font-size: 0.85rem; 
+            color: #888; 
+            margin: 0; 
+            line-height: 1.5; 
+        }
+        
+        .vip-footer-text { 
+            font-size: 0.75rem; 
+            color: #666; 
+            margin-top: 40px; 
+            line-height: 1.6; 
+        }
+        .vip-footer-text a { 
+            color: #888; 
+            text-decoration: underline; 
+        }
+        
+        .vip-absolute-footer { 
+            border-top: 1px solid #222; 
+            padding: 20px 30px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-size: 0.8rem; 
+            color: #555; 
+            margin-top: 50px; 
+        }
+        .vip-absolute-footer a { 
+            color: #555; 
+            text-decoration: none; 
+            transition: 0.2s; 
+        }
+        .vip-absolute-footer a:hover { color: #888; }
+    </style>
 </head>
 <body>
 
@@ -36,13 +319,17 @@
     </div>
 
     <canvas id="confetti-canvas"></canvas>
+    
     <div id="toast" role="alert" aria-live="assertive"></div>
+    
     <div id="sidebar-overlay" aria-hidden="true" onclick="closeSidebars()"></div>
 
+    <!-- MODAL BỘ LỌC CHUẨN XÁC -->
     <div class="login-modal" id="filter-modal" role="dialog" aria-modal="true" onclick="closeFilter(event)">
         <div class="login-box" onclick="event.stopPropagation()" style="max-width: 400px; padding: 30px;">
             <span class="close-login" tabindex="0" aria-label="Đóng" onclick="document.getElementById('filter-modal').style.display='none'; toggleNoScroll(false);">&times;</span>
             <h2 style="font-family: var(--font-heading); margin-bottom: 20px; font-size: 1.5rem;">Lọc và sắp xếp</h2>
+            
             <div class="input-group">
                 <label>Mức giá</label>
                 <select id="filter-price">
@@ -52,6 +339,7 @@
                     <option value="over1000">Trên 1.000.000đ</option>
                 </select>
             </div>
+            
             <div class="input-group">
                 <label>Sắp xếp theo</label>
                 <select id="sort-select">
@@ -60,137 +348,170 @@
                     <option value="price-desc">Giá giảm dần</option>
                 </select>
             </div>
+            
             <button class="btn-login" style="background: var(--text-main); color: #fff;" onclick="applyFiltersAndClose()">Xem kết quả</button>
         </div>
     </div>
 
-    <!-- 1. TRANG ĐĂNG NHẬP THƯỜNG -->
+    <!-- TRANG ĐĂNG NHẬP THƯỜNG -->
     <div id="standard-auth-page" class="full-page-overlay" aria-hidden="true">
         <div class="std-auth-container">
             <div class="std-header">
                 <span class="std-back-btn" onclick="closeAuthPages()">←</span>
                 <div class="std-logo">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                        <text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold" font-family="sans-serif">M</text>
+                        <text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold">M</text>
                     </svg>
                     <span>MINHHANG</span>
                 </div>
             </div>
-
+            
             <h2 class="std-title">Đăng nhập</h2>
             <p class="std-subtitle">Đăng nhập hoặc tạo tài khoản</p>
-
+            
             <div class="std-social-grid">
                 <div class="std-social-btn" onclick="processEmailLogin(true, 'Quang Anh Trần', 'tranquanganh27012007@gmail.com')">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="22px" height="22px" aria-hidden="true"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="22px" height="22px">
+                        <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+                        <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+                        <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+                        <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+                    </svg>
                     <span class="hint">Sử dụng lần cuối</span>
                 </div>
+                
                 <div class="std-social-btn" onclick="processEmailLogin(true, 'Facebook User', 'user@facebook.com')">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22px" height="22px" aria-hidden="true"><path fill="#1877F2" d="M17.525,9H14V7c0-1.032,0.084-1.682,1.563-1.682h1.868v-3.18C16.522,2.044,15.608,1.998,14.693,2 C11.98,2,10,3.657,10,6.699V9H7v4l3-0.001V22h4v-9.003l3.066-0.001L17.525,9z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22px" height="22px">
+                        <path fill="#1877F2" d="M17.525,9H14V7c0-1.032,0.084-1.682,1.563-1.682h1.868v-3.18C16.522,2.044,15.608,1.998,14.693,2 C11.98,2,10,3.657,10,6.699V9H7v4l3-0.001V22h4v-9.003l3.066-0.001L17.525,9z"/>
+                    </svg>
                 </div>
             </div>
-
+            
             <div class="std-divider">hoặc</div>
-
+            
             <div class="std-input-wrapper">
                 <input type="email" id="std-email-input" placeholder="Email">
                 <span class="arrow-icon" onclick="processEmailLogin(false)">→</span>
             </div>
-
+            
             <label class="std-checkbox">
                 <input type="checkbox" checked>
                 <span>Gửi cho tôi tin tức và ưu đãi qua email</span>
             </label>
-
+            
             <div class="std-terms">
-                Bằng cách tiếp tục, bạn đồng ý với <a href="javascript:void(0)">Điều khoản dịch vụ</a> của chúng tôi
+                Bằng cách tiếp tục, bạn đồng ý với <a href="dieu-khoan.html">Điều khoản dịch vụ</a> của chúng tôi
             </div>
-
-            <a href="javascript:void(0)" class="std-footer-link">Chính sách quyền riêng tư</a>
+            
+            <a href="chinh-sach-quyen-rieng-tu.html" class="std-footer-link">Chính sách quyền riêng tư</a>
         </div>
     </div>
 
-    <!-- 2. TRANG ĐĂNG NHẬP VIP (ZALO/SMS OTP) -->
-    <div id="vip-auth-page" class="full-page-overlay" aria-hidden="true">
-        <div class="vip-top-header">
-            <div class="vip-logo-box">
-                <div class="vip-logo-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                </div>
-                <div>
-                    <div class="vip-logo-text">Minh Hằng</div>
-                    <div class="vip-logo-sub">Thành viên VIP</div>
+    <!-- GIAO DIỆN VIP HOÀN TOÀN MỚI CHUẨN YAME -->
+    <div id="vip-auth-page" aria-hidden="true">
+        <div class="vip-header-bar">
+            <div class="vip-header-logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <div class="vip-header-text">
+                    <strong>Minh Hằng</strong><br>
+                    <span>Thành viên VIP</span>
                 </div>
             </div>
             <button class="vip-back-btn" onclick="closeAuthPages()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
                 trở về SHOP online
             </button>
         </div>
 
-        <div class="vip-login-wrapper">
-            <div class="vip-login-card">
-                <div class="vip-body">
-                    <h4>ĐĂNG NHẬP / ĐĂNG KÝ VIP</h4>
-                    <h2>Sử dụng OTP qua Zalo / SMS</h2>
-                    <p>Nhập số điện thoại để nhận mã OTP. Nếu bạn chưa có thẻ VIP, hệ thống sẽ tạo tự động và nhận ngay <b style="color: #fff;">giảm giá 5%</b> cho thẻ mới!</p>
-                    
-                    <div class="vip-input-group">
-                        <label>Số điện thoại</label>
-                        <div class="phone-input-wrapper">
-                            <div class="phone-prefix">+84</div>
-                            <input type="tel" id="auth-phone-input" placeholder="Nhập số điện thoại của bạn" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
-                        </div>
+        <div class="vip-main-content">
+            <h4>ĐĂNG NHẬP / ĐĂNG KÝ VIP</h4>
+            <h2>Sử dụng OTP qua Zalo / SMS</h2>
+            <p>Nhập số điện thoại để nhận mã OTP. Nếu bạn chưa có thẻ VIP, hệ thống sẽ tạo tự động và nhận ngay <b>giảm giá 5%</b> cho thẻ mới!</p>
+            
+            <div class="vip-input-wrap">
+                <label>Số điện thoại</label>
+                <div class="vip-input-box">
+                    <span class="vip-prefix">+84</span>
+                    <input type="tel" id="auth-phone-input" placeholder="Nhập số điện thoại của bạn" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                </div>
+            </div>
+
+            <label class="vip-agree-wrap">
+                <input type="checkbox" checked id="vip-promo-agree">
+                <span>Tôi đồng ý nhận thông tin, khuyến mãi từ Minh Hằng Store qua Email/Zalo.</span>
+            </label>
+
+            <!-- Nút Trắng Chữ Đen theo chuẩn -->
+            <button class="vip-submit-btn" onclick="processPhoneLogin('zalo')">
+                Gửi mã OTP qua Zalo
+            </button>
+
+            <div class="vip-alt-method">
+                Số điện thoại của bạn <b>không sử dụng Zalo</b>?<br>
+                <a onclick="processPhoneLogin('sms')">Nhận OTP qua SMS</a>
+            </div>
+
+            <div class="vip-benefits-list">
+                <div class="vip-benefit-item">
+                    <div class="vip-benefit-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                            <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                        </svg>
                     </div>
-
-                    <label class="vip-checkbox">
-                        <input type="checkbox" checked id="vip-promo-agree">
-                        <span>Tôi đồng ý nhận thông tin, khuyến mãi từ Minh Hằng Store qua Email/Zalo.</span>
-                    </label>
-
-                    <button class="btn-zalo" onclick="processPhoneLogin('zalo')">Gửi mã OTP qua Zalo</button>
-
-                    <div class="vip-alt-login">
-                        Số điện thoại của bạn <b style="color: #fff;">không sử dụng Zalo</b>?<br>
-                        <a onclick="processPhoneLogin('sms')" href="javascript:void(0)">Nhận OTP qua SMS</a>
+                    <div class="vip-benefit-info">
+                        <h5>Giảm ngay 5%</h5>
+                        <p>Dành cho thành viên mới.</p>
                     </div>
                 </div>
-
-                <div class="vip-benefits">
-                    <div class="benefit-item">
-                        <div class="benefit-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg></div>
-                        <div class="benefit-text">
-                            <h5>Giảm ngay 5%</h5>
-                            <p>Dành cho thành viên mới.</p>
-                        </div>
+                <div class="vip-benefit-item">
+                    <div class="vip-benefit-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line>
+                        </svg>
                     </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg></div>
-                        <div class="benefit-text">
-                            <h5>Theo dõi đơn hàng</h5>
-                            <p>Xem lịch sử mua và điểm tích lũy.</p>
-                        </div>
+                    <div class="vip-benefit-info">
+                        <h5>Theo dõi đơn hàng</h5>
+                        <p>Xem lịch sử mua và điểm tích lũy.</p>
                     </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
-                        <div class="benefit-text">
-                            <h5>Tích lũy / Giảm giá thành viên</h5>
-                            <p>Ưu đãi lên đến <b>57%</b>.</p>
-                        </div>
+                </div>
+                <div class="vip-benefit-item">
+                    <div class="vip-benefit-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
                     </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1" ry="1"></rect><line x1="12" y1="8" x2="12" y2="21"></line><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg></div>
-                        <div class="benefit-text">
-                            <h5>Voucher riêng</h5>
-                            <p>Voucher sinh nhật & các ưu đãi khác.</p>
-                        </div>
+                    <div class="vip-benefit-info">
+                        <h5>Tích lũy / Giảm giá thành viên</h5>
+                        <p>Ưu đãi lên đến <b>57%</b>.</p>
                     </div>
-                    <div class="vip-footer-note">
-                        Bằng việc tiếp tục, bạn đồng ý với <a href="javascript:void(0)">Điều khoản sử dụng</a> và <a href="javascript:void(0)">Chính sách bảo mật</a> của Minh Hằng. Tài khoản có thể được bảo vệ bởi reCAPTCHA/Google.
+                </div>
+                <div class="vip-benefit-item">
+                    <div class="vip-benefit-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="8" width="18" height="4" rx="1" ry="1"></rect><line x1="12" y1="8" x2="12" y2="21"></line><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path>
+                        </svg>
+                    </div>
+                    <div class="vip-benefit-info">
+                        <h5>Voucher riêng</h5>
+                        <p>Voucher sinh nhật & các ưu đãi khác.</p>
                     </div>
                 </div>
             </div>
+
+            <div class="vip-footer-text">
+                Bằng việc tiếp tục, bạn đồng ý với <a href="dieu-khoan.html">Điều khoản sử dụng</a> và <a href="chinh-sach-bao-mat.html">Chính sách bảo mật</a> của Minh Hằng Store. Tài khoản có thể được bảo vệ bởi reCAPTCHA/Google.
+            </div>
+        </div>
+
+        <div class="vip-absolute-footer">
+            <span>© 2026 Minh Hằng Store - Trang thẻ VIP dành cho thành viên.</span>
+            <a href="lien-he.html">Trợ giúp</a>
         </div>
     </div>
 
@@ -198,11 +519,17 @@
     <div id="profile-page" class="full-page-overlay" aria-hidden="true">
         <div class="profile-header">
             <div class="logo" style="margin: 0; cursor: pointer;" onclick="closeProfilePage()">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold" font-family="sans-serif">M</text></svg>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold" font-family="sans-serif">M</text>
+                </svg>
                 <span>MINHHANG</span>
             </div>
             <div class="profile-avatar">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
             </div>
         </div>
 
@@ -215,7 +542,6 @@
             </div>
 
             <div class="profile-content">
-                
                 <style>
                     .pro-profile-wrapper { font-family: 'Poppins', sans-serif; color: #111; animation: fadeIn 0.3s ease; }
                     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -242,8 +568,8 @@
                     .pro-link { color: var(--text-light, #888); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
                     .pro-link:hover { color: #111; text-decoration: underline; }
                 </style>
+                
                 <div id="tab-profile" class="pro-profile-wrapper">
-                    <!-- Khối 1: Thông tin cá nhân -->
                     <div class="pro-card">
                         <div class="pro-card-header">
                             <h4 class="pro-title">Thông tin cá nhân</h4>
@@ -261,7 +587,6 @@
                         </div>
                     </div>
 
-                    <!-- Khối 2: Địa chỉ -->
                     <div class="pro-card">
                         <div class="pro-card-header">
                             <h4 class="pro-title">Sổ địa chỉ</h4>
@@ -270,14 +595,16 @@
                         <div class="pro-content">
                             <div class="pro-flex-box" style="justify-content: flex-start; gap: 15px; background: #fafafa; border-style: dashed;">
                                 <div style="background: #e0e0e0; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: #555;">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
                                 </div>
                                 <span style="color: #666; font-size: 0.95rem;">Chưa có địa chỉ giao hàng nào được lưu.</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Khối 3: Cài đặt thông báo -->
                     <div class="pro-card">
                         <div class="pro-card-header">
                             <h4 class="pro-title">Cài đặt thông báo</h4>
@@ -285,7 +612,10 @@
                         <div class="pro-content">
                             <div class="pro-flex-box" style="border: none; padding: 0; background: transparent;">
                                 <div style="display: flex; align-items: center; gap: 12px; color: #111;">
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
                                     <div style="text-align: left;">
                                         <div style="font-weight: 600; font-size: 0.95rem;">Nhận bản tin khuyến mãi</div>
                                         <div style="font-size: 0.8rem; color: #888; margin-top: 2px;">Cập nhật deal hot, mã giảm giá qua Email</div>
@@ -299,14 +629,12 @@
                         </div>
                     </div>
 
-                    <!-- Khối 4: Action -->
                     <div class="pro-actions">
                         <button class="pro-logout-btn" onclick="handleLogout()">Đăng xuất</button>
-                        <a href="javascript:void(0)" class="pro-link" onclick="handleLogout(); showToast('Đã đăng xuất khỏi tất cả thiết bị an toàn!')">Đăng xuất khỏi mọi thiết bị</a>
+                        <a role="button" tabindex="0" class="pro-link" style="cursor: pointer;" onclick="handleLogout(); showToast('Đã đăng xuất khỏi tất cả thiết bị an toàn!')">Đăng xuất khỏi mọi thiết bị</a>
                     </div>
                 </div>
                 
-                <!-- Tab: Orders -->
                 <div id="tab-orders" style="display: none;">
                     <div class="orders-welcome-card">
                         <div class="orders-welcome-text">
@@ -320,60 +648,78 @@
         </div>
 
         <div class="profile-footer-links">
-            <a href="chinh-sach-doi-tra.html">Chính sách đổi trả</a>
-            <a href="javascript:void(0)">Vận chuyển</a>
-            <a href="javascript:void(0)">Chính sách quyền riêng tư</a>
-            <a href="javascript:void(0)">Điều khoản dịch vụ</a>
-            <a href="javascript:void(0)">Thông liên hệ</a>
+            <a href="chinh-sach-hoan-tien.html">Chính sách hoàn tiền</a>
+            <a href="van-chuyen.html">Vận chuyển</a>
+            <a href="chinh-sach-quyen-rieng-tu.html">Chính sách quyền riêng tư</a>
+            <a href="dieu-khoan.html">Điều khoản dịch vụ</a>
+            <a href="thong-tin-lien-he.html">Thông tin liên hệ</a>
         </div>
     </div>
 
     <!-- SIDEBAR GIỎ HÀNG -->
     <div id="cart-sidebar" class="sidebar" role="dialog" aria-modal="true" aria-label="Giỏ hàng">
         <div class="sidebar-header">
-            <h3 data-translate="cartTitle">Giỏ Hàng (Cart)</h3>
+            <h3>Giỏ Hàng (Cart)</h3>
             <span class="close-sidebar" role="button" aria-label="Đóng giỏ hàng" tabindex="0" onclick="toggleCart()">&times;</span>
         </div>
-        <div class="sidebar-content" id="cart-items"></div>
+        <div class="sidebar-content" id="cart-items">
+            <!-- Nội dung giỏ hàng hiển thị ở đây -->
+        </div>
         <div class="sidebar-footer">
             <div class="coupon-box">
                 <input type="text" id="coupon-input" aria-label="Mã giảm giá" placeholder="Mã giảm giá (VD: VIP10)">
                 <button onclick="applyCoupon()" aria-label="Áp dụng mã giảm giá">Áp dụng</button>
             </div>
-            <div class="cart-total" id="discount-display" style="display:none; font-size: 1rem; color: #28a745;">Giảm giá: <span>0đ</span></div>
-            <div class="cart-total"><span data-translate="totalAmount">Tổng thanh toán:</span> <span id="cart-total-price">0đ</span></div>
-            <button class="btn" style="width: 100%; background: var(--text-main); color: var(--bg-color); margin-top: 0; padding: 18px; border-radius: 8px;" onclick="openCheckout()" data-translate="checkoutBtn">TIẾN HÀNH THANH TOÁN</button>
+            <div class="cart-total" id="discount-display" style="display:none; font-size: 1rem; color: #28a745;">
+                Giảm giá: <span>0đ</span>
+            </div>
+            <div class="cart-total">
+                <span>Tổng thanh toán:</span> <span id="cart-total-price">0đ</span>
+            </div>
+            <button class="btn" style="width: 100%; background: var(--text-main); color: var(--bg-color); margin-top: 0; padding: 18px; border-radius: 8px;" onclick="openCheckout()">TIẾN HÀNH THANH TOÁN</button>
         </div>
     </div>
 
     <!-- SIDEBAR YÊU THÍCH -->
     <div id="wishlist-sidebar" class="sidebar" role="dialog" aria-modal="true" aria-label="Mục yêu thích">
         <div class="sidebar-header">
-            <h3 data-translate="wishlistTitle">Mục Yêu Thích (Wishlist)</h3>
+            <h3>Mục Yêu Thích (Wishlist)</h3>
             <span class="close-sidebar" role="button" aria-label="Đóng mục yêu thích" tabindex="0" onclick="toggleWishlist()">&times;</span>
         </div>
-        <div class="sidebar-content" id="wishlist-items"></div>
+        <div class="sidebar-content" id="wishlist-items">
+            <!-- Nội dung wishlist hiển thị ở đây -->
+        </div>
     </div>
 
+    <!-- KHU VỰC TOP BAR -->
     <div class="announcement-bar" role="complementary">
-        <div class="top-bar-inner">
-            <div class="top-bar-promo" data-translate="announce">
-                Miễn phí vận chuyển toàn quốc đơn từ 500.000đ | Giao hỏa tốc nội thành TP.HCM trong 2H
-            </div>
+        <div class="top-bar-inner" style="justify-content: flex-end;">
             <div class="top-bar-utilities">
-                <div class="top-bar-item" title="Ngôn ngữ" onclick="toggleLanguage()"><span id="lang-toggle">🇻🇳</span> VN</div>
-                <div class="top-bar-item" title="Chế độ tối/sáng" onclick="toggleTheme()"><span id="theme-toggle">☀️</span> Theme</div>
-                <div class="top-bar-item" title="Gợi ý Size" onclick="openSizeGuide()">📏 Size Guide</div>
-                <div class="top-bar-item" title="Tra cứu đơn hàng" onclick="openTracking()">🚚 Tra cứu</div>
-                <div class="top-bar-item" title="Wishlist" onclick="toggleWishlist()">❤️ Yêu thích <span id="wishlist-count" class="wishlist-badge">0</span></div>
+                <div class="top-bar-item" title="Chế độ tối/sáng" onclick="toggleTheme()">
+                    <span id="theme-toggle">☀️</span> Theme
+                </div>
+                <div class="top-bar-item" title="Gợi ý Size" onclick="window.location.href='huong-dan-chon-size.html'">
+                    📏 Size Guide
+                </div>
+                <div class="top-bar-item" title="Tra cứu đơn hàng" onclick="openTracking()">
+                    🚚 Tra cứu
+                </div>
+                <div class="top-bar-item" title="Wishlist" onclick="toggleWishlist()">
+                    ❤️ Yêu thích <span id="wishlist-count" class="wishlist-badge">0</span>
+                </div>
             </div>
         </div>
     </div>
     
+    <!-- HEADER CHÍNH -->
     <header class="sticky-header" role="banner">
         <nav class="nav-container" role="navigation" aria-label="Main navigation">
             <div class="hamburger" role="button" aria-label="Mở menu" tabindex="0" onclick="toggleMobileNav()">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
             </div>
             
             <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" onclick="toggleMobileNav()"></div>
@@ -382,7 +728,10 @@
             <div class="mobile-nav-overlay" id="mobile-nav" role="dialog" aria-modal="true" aria-label="Menu di động">
                 <div class="mobile-nav-header-drawer">
                     <span class="mobile-close-btn" role="button" tabindex="0" aria-label="Đóng menu" onclick="toggleMobileNav()">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
                     </span>
                     <div class="logo" style="margin: 0; font-size: 1.2rem;" onclick="window.scrollTo(0,0); toggleMobileNavCloseOnly();">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -392,8 +741,14 @@
                         <span style="border-left: 1px solid var(--gold); padding-left: 5px; margin-left: 5px;">MinhHang</span>
                     </div>
                     <div style="display: flex; gap: 15px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="toggleSearchBox(event)" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="toggleCart()" aria-hidden="true"><rect x="3" y="8" width="18" height="14" rx="2" ry="2"></rect><path d="M8 8V6a4 4 0 0 1 8 0v2"></path></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="toggleSearchBox(event)" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="toggleCart()" aria-hidden="true">
+                            <rect x="3" y="8" width="18" height="14" rx="2" ry="2"></rect>
+                            <path d="M8 8V6a4 4 0 0 1 8 0v2"></path>
+                        </svg>
                     </div>
                 </div>
                 
@@ -412,17 +767,31 @@
                         <div class="accordion-content">
                             <div class="sub-group">
                                 <h5>THIẾT YẾU</h5>
-                                <a onclick="filterByCategory('đầm|phông|canvas', 'Bộ Sưu Tập Non Branded', 'all')">Bộ Sưu Tập Non Branded</a>
-                                <a onclick="filterByCategory('cổ điển|classic', 'Bộ Sưu Tập Seventy Seven', 'all')">Bộ Sưu Tập Seventy Seven</a>
+                                <a onclick="filterByCategory('đầm|phông', 'BST Non-Branded', 'all')">Bộ Sưu Tập Non Branded (Không Logo)</a>
+                                <a onclick="filterByCategory('classic', 'BST Seventy Seven', 'all')">Bộ Sưu Tập Seventy Seven (Không Lỗi Mốt)</a>
+                                <a onclick="filterByCategory('công sở', 'BST The Worker', 'all')">Bộ Sưu Tập The Worker (Bền, Nhiều Túi)</a>
                             </div>
                             <div class="sub-group">
                                 <h5>CÔNG NGHỆ</h5>
-                                <a onclick="filterByCategory('tối giản|balo', 'Bộ Sưu Tập The Minimalist', 'all')">Bộ Sưu Tập The Minimalist</a>
-                                <a onclick="filterByCategory('smartwatch|đồng hồ thông minh|smartband', 'Đồng Hồ Thông Minh', 'cong-nghe')">Đồng Hồ Thông Minh</a>
+                                <a onclick="filterByCategory('tối giản', 'BST The Minimalist', 'all')">Bộ Sưu Tập The Minimalist (Tối Giản)</a>
+                                <a onclick="filterByCategory('sơ mi', 'BST The CEO', 'all')">Bộ Sưu Tập The CEO (Sang Trọng)</a>
                             </div>
                             <div class="sub-group">
                                 <h5>TẬN HƯỞNG</h5>
-                                <a onclick="filterByCategory('đi biển|dạo phố', 'Bộ Sưu Tập The Weekend', 'all')">Bộ Sưu Tập The Weekend</a>
+                                <a onclick="filterByCategory('dạo phố', 'BST The No Style', 'all')">Bộ Sưu Tập The No Style (Cá Tính)</a>
+                                <a onclick="filterByCategory('đi biển', 'BST The Weekend', 'all')">Bộ Sưu Tập The Weekend (Thích Chill)</a>
+                                <a onclick="filterByCategory('oversize', 'BST The Home Body', 'all')">Bộ Sưu Tập The Home Body (Mặc Nhà)</a>
+                            </div>
+                            <div class="sub-group">
+                                <h5>JEAN (DENIM)</h5>
+                                <a onclick="filterByCategory('jean', 'BST The Original Jean', 'all')">Bộ Sưu Tập The Original Jean (Giá Tốt)</a>
+                                <a onclick="filterByCategory('jean đen', 'BST Tek Black Jean', 'all')">Bộ Sưu Tập Tek Black Jean (Đen Bền Màu)</a>
+                                <a onclick="filterByCategory('jean màu', 'BST Multi Color Jean', 'all')">Bộ Sưu Tập Multi Color Jean (Đa Sắc)</a>
+                            </div>
+                            <div class="sub-group">
+                                <h5>THỂ THAO</h5>
+                                <a onclick="filterByCategory('thể thao', 'BST The Beginner', 'all')">Bộ Sưu Tập The Beginner (Mới Bắt Đầu)</a>
+                                <a onclick="filterByCategory('gym|chạy bộ', 'BST The Trainer', 'all')">Bộ Sưu Tập The Trainer (Chuyên Nghiệp)</a>
                             </div>
                         </div>
                     </li>
@@ -433,12 +802,12 @@
                                 <h5>NAM</h5>
                                 <a onclick="filterByCategory('thun|polo', 'Áo Thun & Polo Nam', 'nam')">Áo Thun Nam</a>
                                 <a onclick="filterByCategory('sơ mi', 'Áo Sơ Mi Nam', 'nam')">Áo Sơ Mi Nam</a>
-                                <a onclick="filterByCategory('khoác|jacket|bomber|suit', 'Áo Khoác Nam', 'nam')">Áo Khoác Nam</a>
+                                <a onclick="filterByCategory('khoác|jacket|bomber', 'Áo Khoác Nam', 'nam')">Áo Khoác Nam</a>
                             </div>
                             <div class="sub-group">
                                 <h5>NỮ</h5>
-                                <a onclick="filterByCategory('thun|phông|croptop|camisole', 'Áo Thun Nữ', 'nu')">Áo Thun Nữ</a>
-                                <a onclick="filterByCategory('sơ mi|blouse|voan', 'Áo Sơ Mi Nữ', 'nu')">Áo Sơ Mi / Blouse</a>
+                                <a onclick="filterByCategory('thun|phông|croptop', 'Áo Thun Nữ', 'nu')">Áo Thun Nữ</a>
+                                <a onclick="filterByCategory('sơ mi|blouse', 'Áo Sơ Mi Nữ', 'nu')">Áo Sơ Mi / Blouse</a>
                                 <a onclick="filterByCategory('khoác|blazer|tweed', 'Áo Khoác Nữ', 'nu')">Áo Khoác Nữ</a>
                             </div>
                         </div>
@@ -448,8 +817,8 @@
                         <div class="accordion-content">
                             <div class="sub-group">
                                 <h5>NAM</h5>
-                                <a onclick="filterByCategory('jean|denim', 'Quần Jeans Nam', 'nam')">Quần Jeans</a>
-                                <a onclick="filterByCategory('tây|chino|kaki', 'Quần Tây Nam', 'nam')">Quần Tây / Chino</a>
+                                <a onclick="filterByCategory('jean', 'Quần Jeans Nam', 'nam')">Quần Jeans</a>
+                                <a onclick="filterByCategory('tây|chino', 'Quần Tây Nam', 'nam')">Quần Tây / Chino</a>
                                 <a onclick="filterByCategory('short', 'Quần Short Nam', 'nam')">Quần Short</a>
                             </div>
                             <div class="sub-group">
@@ -466,7 +835,7 @@
                             <div class="sub-group">
                                 <h5>NÓN & DÂY NỊT</h5>
                                 <a onclick="filterByCategory('nón|mũ', 'Nón & Mũ', 'phu-kien')">Nón Các Loại</a>
-                                <a onclick="filterByCategory('nịt|thắt lưng', 'Dây Nịt & Thắt Lưng', 'phu-kien')">Dây Nịt Da</a>
+                                <a onclick="filterByCategory('nịt|thắt lưng', 'Dây Nịt Da', 'phu-kien')">Dây Nịt Da</a>
                             </div>
                             <div class="sub-group">
                                 <h5>BALO & TÚI</h5>
@@ -480,104 +849,215 @@
                             </div>
                         </div>
                     </li>
-                    <li class="accordion-item" style="border: none;"><div class="accordion-header" onclick="toggleMobileNavCloseOnly(); handleFooterLink('Hệ thống cửa hàng');">CỬA HÀNG</div></li>
-                    <li class="accordion-item" style="border: none;"><div class="accordion-header" style="color: var(--gold);" onclick="openVipAuthPage()">VIP - ĐĂNG NHẬP</div></li>
+                    <li class="accordion-item" style="border: none;">
+                        <div class="accordion-header" onclick="toggleMobileNavCloseOnly(); handleFooterLink('Hệ thống cửa hàng');">CỬA HÀNG</div>
+                    </li>
+                    <li class="accordion-item" style="border: none;">
+                        <div class="accordion-header" style="color: var(--gold);" onclick="openVipAuthPage()">VIP - ĐĂNG NHẬP</div>
+                    </li>
                 </ul>
             </div>
 
             <div class="logo" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold" font-family="sans-serif">M</text></svg>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold" font-family="sans-serif">M</text>
+                </svg>
                 <span>MINHHANG</span>
             </div>
 
+            <!-- MEGA MENU BUNG FULL WIDTH CHUẨN XÁC -->
             <ul class="main-menu">
-                <li class="sale-tag"><a onclick="filterByCategory('all', 'Khuyến Mãi & Flash Sale', 'flash-sale')">SALE</a></li>
+                <li class="sale-tag">
+                    <a onclick="filterByCategory('all', 'Khuyến Mãi & Flash Sale', 'flash-sale')">SALE</a>
+                </li>
                 
-                <li class="has-mega"><a onclick="filterByCategory('all', 'Toàn Bộ Sưu Tập', 'all')">BỘ SƯU TẬP ▾</a>
+                <li class="has-mega">
+                    <a onclick="filterByCategory('all', 'Toàn Bộ Sưu Tập', 'all')">BỘ SƯU TẬP ▾</a>
                     <div class="mega-menu">
-                        <div class="mega-container" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="mega-container">
                             <div class="mega-col">
-                                <h4>⭐ THIẾT YẾU</h4>
+                                <h4>THIẾT YẾU</h4>
                                 <ul>
-                                    <li><a onclick="filterByCategory('đầm|phông|canvas', 'Bộ Sưu Tập Non Branded', 'all')">Non Branded (Không Logo)</a></li>
-                                    <li><a onclick="filterByCategory('cổ điển|classic', 'Bộ Sưu Tập Seventy Seven', 'all')">Seventy Seven (Không Lỗi Mốt)</a></li>
+                                    <li><a onclick="filterByCategory('đầm|phông', 'BST Non-Branded', 'all')">Bộ Sưu Tập Non Branded (Không Logo)</a></li>
+                                    <li><a onclick="filterByCategory('classic', 'BST Seventy Seven', 'all')">Bộ Sưu Tập Seventy Seven (Không Lỗi Mốt)</a></li>
+                                    <li><a onclick="filterByCategory('công sở', 'BST The Worker', 'all')">Bộ Sưu Tập The Worker (Bền, Nhiều Túi)</a></li>
+                                </ul>
+                                <h4 style="margin-top: 35px;">THỂ THAO</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('thể thao', 'BST The Beginner', 'all')">Bộ Sưu Tập The Beginner (Mới Bắt Đầu)</a></li>
+                                    <li><a onclick="filterByCategory('gym|chạy bộ', 'BST The Trainer', 'all')">Bộ Sưu Tập The Trainer (Chuyên Nghiệp)</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
-                                <h4>💻 CÔNG NGHỆ</h4>
+                                <h4>CÔNG NGHỆ</h4>
                                 <ul>
-                                    <li><a onclick="filterByCategory('tối giản|balo', 'Bộ Sưu Tập The Minimalist', 'all')">The Minimalist (Tối Giản)</a></li>
-                                    <li><a onclick="filterByCategory('smartwatch|đồng hồ thông minh|smartband', 'Đồng Hồ Thông Minh', 'cong-nghe')">Đồng Hồ Thông Minh</a></li>
+                                    <li><a onclick="filterByCategory('tối giản', 'BST The Minimalist', 'all')">Bộ Sưu Tập The Minimalist (Tối Giản)</a></li>
+                                    <li><a onclick="filterByCategory('sơ mi', 'BST The CEO', 'all')">Bộ Sưu Tập The CEO (Sang Trọng)</a></li>
+                                </ul>
+                                <h4 style="margin-top: 35px;">SIGNATURE (SẢN PHẨM ĐẶC TRƯNG)</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('đặc trưng', 'BST Signature', 'all')">Khám Phá Signature</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
-                                <h4>🌴 TẬN HƯỞNG</h4>
+                                <h4>TẬN HƯỞNG</h4>
                                 <ul>
-                                    <li><a onclick="filterByCategory('đi biển|dạo phố', 'Bộ Sưu Tập The Weekend', 'all')">The Weekend (Thích Chill)</a></li>
+                                    <li><a onclick="filterByCategory('dạo phố', 'BST The No Style', 'all')">Bộ Sưu Tập The No Style (Cá Tính)</a></li>
+                                    <li><a onclick="filterByCategory('đi biển', 'BST The Weekend', 'all')">Bộ Sưu Tập The Weekend (Thích Chill)</a></li>
+                                    <li><a onclick="filterByCategory('oversize', 'BST The Home Body', 'all')">Bộ Sưu Tập The Home Body (Mặc Nhà)</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>JEAN (DENIM)</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('jean', 'BST The Original Jean', 'all')">Bộ Sưu Tập The Original Jean (Giá Tốt)</a></li>
+                                    <li><a onclick="filterByCategory('jean đen', 'BST Tek Black Jean', 'all')">Bộ Sưu Tập Tek Black Jean (Đen Bền Màu)</a></li>
+                                    <li><a onclick="filterByCategory('jean màu', 'BST Multi Color Jean', 'all')">Bộ Sưu Tập Multi Color Jean (Đa Sắc)</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </li>
                 
-                <li class="has-mega"><a onclick="filterByCategory('all', 'Thời Trang Áo', 'all')">ÁO ▾</a>
+                <li class="has-mega">
+                    <a onclick="filterByCategory('all', 'Thời Trang Áo', 'all')">ÁO ▾</a>
                     <div class="mega-menu">
                         <div class="mega-container" style="grid-template-columns: repeat(3, 1fr);">
-                            <div class="mega-col"><h4>👕 ÁO NAM</h4><ul><li><a onclick="filterByCategory('thun|polo', 'Áo Thun & Polo Nam', 'nam')">Áo Thun / Polo</a></li><li><a onclick="filterByCategory('sơ mi', 'Áo Sơ Mi Nam', 'nam')">Áo Sơ Mi</a></li><li><a onclick="filterByCategory('khoác|jacket|bomber|suit', 'Áo Khoác Nam', 'nam')">Áo Khoác</a></li></ul></div>
-                            <div class="mega-col"><h4>👗 ÁO NỮ</h4><ul><li><a onclick="filterByCategory('thun|phông|croptop|camisole', 'Áo Thun Nữ', 'nu')">Áo Thun / Croptop</a></li><li><a onclick="filterByCategory('sơ mi|blouse|voan', 'Áo Sơ Mi Nữ', 'nu')">Áo Sơ Mi / Blouse</a></li><li><a onclick="filterByCategory('khoác|blazer|tweed', 'Áo Khoác Nữ', 'nu')">Áo Khoác Tweed</a></li></ul></div>
-                            <div class="mega-col"><h4>👫 ÁO ĐỒ ĐÔI</h4><ul><li><a onclick="filterByCategory('thun|polo', 'Áo Đôi', 'unisex')">Áo Thun Đôi</a></li><li><a onclick="filterByCategory('khoác|nỉ|len|sweater', 'Đồ Mùa Đông Đôi', 'unisex')">Áo Khoác / Len Đôi</a></li></ul></div>
+                            <div class="mega-col">
+                                <h4>👕 ÁO NAM</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('thun|polo', 'Áo Thun & Polo Nam', 'nam')">Áo Thun / Polo</a></li>
+                                    <li><a onclick="filterByCategory('sơ mi', 'Áo Sơ Mi Nam', 'nam')">Áo Sơ Mi</a></li>
+                                    <li><a onclick="filterByCategory('khoác|jacket|bomber', 'Áo Khoác Nam', 'nam')">Áo Khoác</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>👗 ÁO NỮ</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('thun|phông|croptop', 'Áo Thun Nữ', 'nu')">Áo Thun / Croptop</a></li>
+                                    <li><a onclick="filterByCategory('sơ mi|blouse', 'Áo Sơ Mi Nữ', 'nu')">Áo Sơ Mi / Blouse</a></li>
+                                    <li><a onclick="filterByCategory('khoác|blazer|tweed', 'Áo Khoác Nữ', 'nu')">Áo Khoác Tweed</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>👫 ÁO ĐỒ ĐÔI</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('thun|polo', 'Áo Đôi', 'unisex')">Áo Thun Đôi</a></li>
+                                    <li><a onclick="filterByCategory('khoác|nỉ|len|sweater', 'Đồ Mùa Đông Đôi', 'unisex')">Áo Khoác / Len Đôi</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </li>
 
-                <li class="has-mega"><a onclick="filterByCategory('all', 'Thời Trang Quần', 'all')">QUẦN ▾</a>
+                <li class="has-mega">
+                    <a onclick="filterByCategory('all', 'Thời Trang Quần', 'all')">QUẦN ▾</a>
                     <div class="mega-menu">
                         <div class="mega-container" style="grid-template-columns: repeat(3, 1fr);">
-                            <div class="mega-col"><h4>👖 QUẦN NAM</h4><ul><li><a onclick="filterByCategory('jean|denim', 'Quần Jeans Nam', 'nam')">Quần Jeans</a></li><li><a onclick="filterByCategory('tây|chino|kaki', 'Quần Tây Nam', 'nam')">Quần Tây / Chino</a></li><li><a onclick="filterByCategory('short', 'Quần Short Nam', 'nam')">Quần Short</a></li></ul></div>
-                            <div class="mega-col"><h4>👖 QUẦN & VÁY NỮ</h4><ul><li><a onclick="filterByCategory('tây|culottes', 'Quần Tây Nữ', 'nu')">Quần Tây Công Sở</a></li><li><a onclick="filterByCategory('váy', 'Chân Váy Nữ', 'nu')">Chân Váy</a></li><li><a onclick="filterByCategory('đầm|jumpsuit', 'Đầm / Váy Dài', 'nu')">Đầm Dạ Hội</a></li></ul></div>
-                            <div class="mega-col"><h4>👖 QUẦN UNISEX</h4><ul><li><a onclick="filterByCategory('jogger|thể thao', 'Quần Jogger Unisex', 'unisex')">Quần Thể Thao Đôi</a></li><li><a onclick="filterByCategory('túi hộp|jean', 'Quần Jean / Kaki Unisex', 'unisex')">Quần Jean Ống Thụng</a></li></ul></div>
+                            <div class="mega-col">
+                                <h4>👖 QUẦN NAM</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('jean', 'Quần Jeans Nam', 'nam')">Quần Jeans</a></li>
+                                    <li><a onclick="filterByCategory('tây|chino|kaki', 'Quần Tây Nam', 'nam')">Quần Tây / Chino</a></li>
+                                    <li><a onclick="filterByCategory('short', 'Quần Short Nam', 'nam')">Quần Short</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>👖 QUẦN & VÁY NỮ</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('tây|culottes', 'Quần Tây Nữ', 'nu')">Quần Tây Công Sở</a></li>
+                                    <li><a onclick="filterByCategory('váy', 'Chân Váy Nữ', 'nu')">Chân Váy</a></li>
+                                    <li><a onclick="filterByCategory('đầm|jumpsuit', 'Đầm / Váy Dài', 'nu')">Đầm Dạ Hội</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>👖 QUẦN UNISEX</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('jogger|thể thao', 'Quần Jogger Unisex', 'unisex')">Quần Thể Thao Đôi</a></li>
+                                    <li><a onclick="filterByCategory('túi hộp|jean', 'Quần Jean / Kaki Unisex', 'unisex')">Quần Jean Ống Thụng</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </li>
 
-                <li class="has-mega"><a onclick="filterByCategory('all', 'Thế Giới Phụ Kiện', 'phu-kien')" style="color: var(--accent-red); font-weight: bold;">PHỤ KIỆN ▾</a>
+                <li class="has-mega">
+                    <a onclick="filterByCategory('all', 'Thế Giới Phụ Kiện', 'phu-kien')" style="color: var(--accent-red); font-weight: bold;">PHỤ KIỆN ▾</a>
                     <div class="mega-menu">
                         <div class="mega-container" style="grid-template-columns: repeat(4, 1fr);">
                             <div class="mega-col">
-                                <h4>🧢 NÓN</h4><ul><li><a onclick="filterByCategory('nón|mũ', 'Nón & Mũ', 'phu-kien')">Nón Các Loại</a></li></ul>
-                                <h4 style="margin-top: 25px;">🔗 DÂY NỊT</h4><ul><li><a onclick="filterByCategory('nịt|thắt lưng', 'Dây Nịt & Thắt Lưng', 'phu-kien')">Dây Nịt / Cà Vạt</a></li></ul>
+                                <h4>🧢 NÓN</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('nón|mũ', 'Nón & Mũ', 'phu-kien')">Nón Các Loại</a></li>
+                                </ul>
+                                <h4 style="margin-top: 35px;">🔗 DÂY NỊT</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('nịt|thắt lưng', 'Dây Nịt Da', 'phu-kien')">Dây Nịt Da</a></li>
+                                </ul>
                             </div>
                             <div class="mega-col">
-                                <h4>👝 TÚI ĐEO</h4><ul><li><a onclick="filterByCategory('túi', 'Túi Đeo Chéo', 'phu-kien')">Túi Đeo Chéo / Tote</a></li></ul>
-                                <h4 style="margin-top: 25px;">🧦 VỚ</h4><ul><li><a onclick="filterByCategory('vớ', 'Vớ / Tất', 'phu-kien')">Vớ Basic</a></li></ul>
+                                <h4>👝 TÚI ĐEO</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('túi', 'Túi Đeo Chéo', 'phu-kien')">Túi Đeo Chéo / Tote</a></li>
+                                </ul>
+                                <h4 style="margin-top: 35px;">🧦 VỚ</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('vớ', 'Vớ / Tất', 'phu-kien')">Vớ Basic</a></li>
+                                </ul>
                             </div>
                             <div class="mega-col">
-                                <h4>🎒 BALO</h4><ul><li><a onclick="filterByCategory('balo', 'Balo', 'phu-kien')">Balo Da / Laptop</a></li></ul>
-                                <h4>🕶️ KÍNH MẮT</h4><ul><li><a onclick="filterByCategory('kính', 'Kính Mắt', 'phu-kien')">Kính Phân Cực</a></li></ul>
+                                <h4>🎒 BALO</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('balo', 'Balo', 'phu-kien')">Balo Da / Laptop</a></li>
+                                </ul>
+                                <h4>🕶️ KÍNH MẮT</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('kính', 'Kính Mắt', 'phu-kien')">Kính Phân Cực</a></li>
+                                </ul>
                             </div>
                             <div class="mega-col">
-                                <h4>🪪 VÍ & ĐỒNG HỒ</h4><ul><li><a onclick="filterByCategory('nhẫn|đồng hồ', 'Trang Sức', 'phu-kien')">Trang Sức / Đồng Hồ</a></li></ul>
-                                <h4 style="margin-top: 25px;">👞 GIÀY</h4><ul><li><a onclick="filterByCategory('giày', 'Giày Dép', 'phu-kien')">Giày Oxford / Sneaker</a></li></ul>
+                                <h4>🪪 VÍ & ĐỒNG HỒ</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('nhẫn|đồng hồ', 'Trang Sức', 'phu-kien')">Trang Sức / Đồng Hồ</a></li>
+                                </ul>
+                                <h4 style="margin-top: 35px;">👞 GIÀY</h4>
+                                <ul>
+                                    <li><a onclick="filterByCategory('giày', 'Giày Dép', 'phu-kien')">Giày Oxford / Sneaker</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </li>
                 
-                <li><a onclick="handleFooterLink('Hệ thống cửa hàng')">CỬA HÀNG</a></li>
-                <li><a onclick="openVipAuthPage()" style="font-weight: bold; color: var(--gold);">VIP</a></li>
+                <li>
+                    <a onclick="handleFooterLink('Hệ thống cửa hàng')">CỬA HÀNG</a>
+                </li>
+                <li>
+                    <a onclick="openVipAuthPage()" style="font-weight: bold; color: var(--gold);">VIP</a>
+                </li>
             </ul>
             
             <div class="nav-icons">
                 <div class="search-container" id="search-box" role="search" aria-label="Tìm kiếm sản phẩm">
                     <input type="text" id="search-input" placeholder="Nhập từ khoá..." aria-label="Nhập từ khoá tìm kiếm" onkeyup="executeSearch()">
-                    <svg class="search-icon" aria-label="Nút tìm kiếm" role="button" tabindex="0" onclick="toggleSearchBox(event)" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <svg class="search-icon" aria-label="Nút tìm kiếm" role="button" tabindex="0" onclick="toggleSearchBox(event)" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
                     <div id="search-dropdown" class="search-dropdown"></div>
                 </div>
 
-                <svg title="Tài khoản" aria-label="Tài khoản" role="button" tabindex="0" onclick="openAuthPage()" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <svg title="Tài khoản" aria-label="Tài khoản" role="button" tabindex="0" onclick="openAuthPage()" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
 
                 <div style="position: relative; display: flex; align-items: center; cursor: pointer;" role="button" aria-label="Giỏ hàng" tabindex="0" onclick="toggleCart()" title="Giỏ hàng">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="14" rx="2" ry="2"></rect><path d="M8 8V6a4 4 0 0 1 8 0v2"></path></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="8" width="18" height="14" rx="2" ry="2"></rect>
+                        <path d="M8 8V6a4 4 0 0 1 8 0v2"></path>
+                    </svg>
                     <span id="cart-count" class="cart-badge-svg">0</span>
                 </div>
             </div>
@@ -586,11 +1066,19 @@
 
     <main>
         <section class="hero" aria-label="Banner chính">
-            <div class="hero-half hero-left"><div class="hero-content"><a onclick="filterByCategory('all', 'Thời Trang Nữ', 'nu')" class="btn" data-translate="btnWomen">Mua sắm cho nữ</a></div></div>
-            <div class="hero-half hero-right"><div class="hero-content"><a onclick="filterByCategory('all', 'Thời Trang Nam', 'nam')" class="btn" data-translate="btnMen">Mua sắm cho nam</a></div></div>
+            <div class="hero-half hero-left">
+                <div class="hero-content">
+                    <a onclick="filterByCategory('all', 'Thời Trang Nữ', 'nu')" class="btn">Mua sắm cho nữ</a>
+                </div>
+            </div>
+            <div class="hero-half hero-right">
+                <div class="hero-content">
+                    <a onclick="filterByCategory('all', 'Thời Trang Nam', 'nam')" class="btn">Mua sắm cho nam</a>
+                </div>
+            </div>
             <div class="hero-center-text">
-                <h1 data-translate="heroTitle">BƯỚC VÀO MÙA HÈ RỰC RỠ CÙNG MINH HẰNG STORE</h1>
-                <p data-translate="heroDesc">Khám phá Bộ sưu tập Xuân - Hè. Sự giao thoa hoàn hảo giữa nét thanh lịch vượt thời gian và sự tự do của nhịp sống hiện đại.</p>
+                <h1>BƯỚC VÀO MÙA HÈ RỰC RỠ CÙNG MINH HẰNG STORE</h1>
+                <p>Khám phá Bộ sưu tập Xuân - Hè. Sự giao thoa hoàn hảo giữa nét thanh lịch vượt thời gian và sự tự do của nhịp sống hiện đại.</p>
             </div>
         </section>
 
@@ -599,16 +1087,20 @@
             <div class="tools-bar" id="danh-muc-san-pham">
                 <div class="filter-controls" style="display: flex; align-items: center; cursor: pointer;" onclick="openFilterModal()">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;" aria-hidden="true">
-                        <line x1="8" y1="8" x2="21" y2="8"></line><circle cx="5" cy="8" r="2"></circle>
-                        <line x1="3" y1="16" x2="16" y2="16"></line><circle cx="19" cy="16" r="2"></circle>
+                        <line x1="8" y1="8" x2="21" y2="8"></line>
+                        <circle cx="5" cy="8" r="2"></circle>
+                        <line x1="3" y1="16" x2="16" y2="16"></line>
+                        <circle cx="19" cy="16" r="2"></circle>
                     </svg>
                     <span style="font-weight: 500; font-size: 1rem; color: var(--text-main);">Lọc và sắp xếp</span>
                 </div>
-                <div style="cursor: pointer; font-size: 0.9rem; color: var(--text-light); display: inline-flex; align-items: center;" role="button" tabindex="0" onclick="openCompareModal()" data-translate="compareText">⚖️ So sánh</div>
+                <div style="cursor: pointer; font-size: 0.9rem; color: var(--text-light); display: inline-flex; align-items: center;" role="button" tabindex="0" onclick="openCompareModal()">
+                    ⚖️ So sánh
+                </div>
             </div>
 
-            <h2 class="section-title" data-translate="catalogTitle">Danh Mục Sản Phẩm</h2>
-            <p class="section-subtitle" data-translate="catalogDesc">Hiển thị toàn bộ các thiết kế tinh hoa nhất được tuyển chọn kĩ lưỡng</p>
+            <h2 class="section-title">Danh Mục Sản Phẩm</h2>
+            <p class="section-subtitle">Hiển thị toàn bộ các thiết kế tinh hoa nhất được tuyển chọn kĩ lưỡng</p>
 
             <article class="category-wrapper" id="flash-sale" style="background: linear-gradient(135deg, #fff0f0, #ffcccc); border: 2px solid var(--accent-red); padding-top: 30px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
@@ -691,7 +1183,6 @@
             </div>
         </div>
 
-        <!-- MODAL THANH TOÁN (ĐÃ NÂNG CẤP ZALO QR CODE) -->
         <div class="login-modal" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-heading" onclick="closeCheckout(event)">
             <div class="login-box" onclick="event.stopPropagation()" style="max-width: 550px;">
                 <span class="close-login" role="button" tabindex="0" aria-label="Đóng thanh toán" onclick="document.getElementById('checkout-modal').style.display='none'; toggleNoScroll(false);">&times;</span>
@@ -710,7 +1201,6 @@
                     <textarea id="chk-address" rows="2" placeholder="Số nhà, Tên đường, Phường/Xã, Quận/Huyện, Tỉnh/TP" aria-required="true"></textarea>
                 </div>
 
-                <!-- PHƯƠNG THỨC THANH TOÁN -->
                 <div class="input-group">
                     <label>Phương thức thanh toán</label>
                     <div class="payment-methods-checkout" style="display: flex; flex-direction: column; gap: 12px; margin-top: 5px;">
@@ -725,12 +1215,9 @@
                     </div>
                 </div>
 
-                <!-- KHUNG MÃ QR SẼ HIỂN THỊ KHI CHỌN ZALO -->
                 <div id="qr-payment-box" class="qr-box-container" style="display: none; text-align: center; margin-bottom: 20px; background: var(--bg-color); padding: 20px; border-radius: 12px; border: 1.5px solid var(--gold); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.1);">
                     <p style="font-weight: 600; color: var(--text-main); margin-bottom: 10px;">Quét mã QR để thanh toán</p>
-                    
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ZaloPay:0337278528" alt="QR ZaloPay" class="qr-image" style="width: 160px; height: 160px; border-radius: 8px; border: 2px solid var(--border-color); margin-bottom: 10px; padding: 5px; background: #fff;" loading="lazy">
-                    
                     <p style="font-size: 0.95rem; color: var(--text-main);">ZaloPay: <b style="color: var(--accent-red); font-size: 1.2rem;">0337278528</b></p>
                     <div style="background: rgba(212, 175, 55, 0.1); border: 1px dashed var(--gold); padding: 10px; margin-top: 10px; border-radius: 6px;">
                         <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 5px;">Nội dung chuyển khoản:</p>
@@ -750,17 +1237,6 @@
                 <h2 id="reward-heading" style="font-family: var(--font-heading); color: var(--gold); margin-bottom: 15px;">Đặt Hàng Thành Công!</h2>
                 <div style="background: var(--bg-color); border: 2px dashed var(--gold); padding: 15px; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; color: var(--text-main); margin-bottom: 20px; border-radius: 8px;">NEXT15</div>
                 <button class="btn" style="background: var(--text-main); width: 100%; color: var(--bg-color);" onclick="copyRewardCode()">COPY MÃ & ĐÓNG</button>
-            </div>
-        </div>
-
-        <div class="size-modal" id="size-modal" role="dialog" aria-modal="true" aria-labelledby="size-heading" onclick="document.getElementById('size-modal').style.display='none'; toggleNoScroll(false);">
-            <div class="size-box-content" onclick="event.stopPropagation()">
-                <span class="close-login" role="button" tabindex="0" onclick="document.getElementById('size-modal').style.display='none'; toggleNoScroll(false);">&times;</span>
-                <h2 id="size-heading" style="font-family: var(--font-heading); margin-bottom: 20px;">Gợi Ý Size Thông Minh</h2>
-                <input type="number" class="size-input" id="height" placeholder="Chiều cao (cm)">
-                <input type="number" class="size-input" id="weight" placeholder="Cân nặng (kg)">
-                <button class="btn" style="width: 100%; background: var(--gold); color: #111; margin-top: 10px;" onclick="calculateSize()">XEM SIZE CỦA BẠN</button>
-                <p id="size-result" style="margin-top: 20px; font-weight: bold; font-size: 1.2rem; color: var(--accent-red);"></p>
             </div>
         </div>
 
@@ -785,76 +1261,181 @@
             </div>
         </div>
 
-        <!-- KHU VỰC MIX & MATCH SANG VÙNG CHỨA ĐỘNG -->
+        <!-- KHU VỰC MIX & MATCH -->
         <section class="container" style="margin-bottom: 80px;" id="tap-chi" aria-label="Góc Tạp Chí">
             <h2 class="section-title">Góc Mix & Match / Shop The Look</h2>
-            
-            <!-- Vùng chứa động, JS sẽ tự động lấy data từ file data.js và vẽ vào đây -->
             <div id="mix-match-container"></div>
-            
         </section>
         
         <section class="container recently-viewed-wrapper" id="recently-viewed-section" aria-label="Sản phẩm vừa xem">
-            <h2 class="section-title" style="font-size: 2rem; margin-top: 0;" data-translate="rvTitle">Sản Phẩm Bạn Vừa Xem</h2>
+            <h2 class="section-title" style="font-size: 2rem; margin-top: 0;">Sản Phẩm Bạn Vừa Xem</h2>
             <div class="rv-grid" id="rv-grid-container"></div>
         </section>
     </main>
 
-    <!-- CHÂN TRANG (MEGA FOOTER PHONG CÁCH DARK THEME) -->
+    <!-- CHÂN TRANG MEGA FOOTER SIÊU ĐẦY ĐỦ -->
     <footer class="mh-mega-footer" role="contentinfo">
         <style>
-            .mh-mega-footer { background-color: #0b0b0b; color: #fff; padding: 50px 0 40px; font-family: 'Poppins', sans-serif; border-top: 1px solid #222; }
-            .mh-footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-            /* Dải Tiện Ích Top Bar */
-            .mh-footer-features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; border-bottom: 1px solid #222; padding-bottom: 40px; margin-bottom: 40px; }
-            @media(max-width: 992px) { .mh-footer-features { grid-template-columns: repeat(2, 1fr); row-gap: 30px; } }
-            @media(max-width: 576px) { .mh-footer-features { grid-template-columns: 1fr; } }
-            .mh-feat-item { display: flex; align-items: center; justify-content: center; gap: 15px; }
-            .mh-feat-text h5 { font-size: 1rem; font-weight: 700; text-transform: uppercase; margin: 0 0 3px 0; letter-spacing: 0.5px; }
-            .mh-feat-text p { font-size: 0.85rem; color: #888; margin: 0; }
-            /* Lưới Mega Menu 5 cột */
-            .mh-footer-grid { display: grid; grid-template-columns: 1.2fr 1.2fr 1.5fr 1.2fr 1.5fr; gap: 30px; }
-            @media(max-width: 1024px) { .mh-footer-grid { grid-template-columns: repeat(3, 1fr); } }
-            @media(max-width: 768px) { .mh-footer-grid { grid-template-columns: repeat(2, 1fr); } }
-            @media(max-width: 480px) { .mh-footer-grid { grid-template-columns: 1fr; } }
-            .mh-footer-col h4 { font-size: 1.1rem; margin-bottom: 25px; font-weight: 700; color: #fff; text-transform: capitalize; }
-            .mh-footer-col ul { list-style: none; padding: 0; margin: 0; }
-            .mh-footer-col ul li { margin-bottom: 12px; }
-            .mh-footer-col a { color: #a0a0a0; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease; cursor: pointer; display: inline-block; }
-            .mh-footer-col a:hover { color: #fff; transform: translateX(3px); }
-            /* Tiêu đề phụ (Sub-heading) trong cột */
-            .mh-sub-heading { color: #fff; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin: 25px 0 10px 0; letter-spacing: 1px; }
-            .mh-sub-heading:first-of-type { margin-top: 0; }
-            /* Cột Mạng xã hội */
-            .mh-social-icons { display: flex; gap: 15px; margin-top: 15px; }
-            .mh-social-icons svg { width: 22px; height: 22px; color: #fff; cursor: pointer; transition: 0.3s; }
-            .mh-social-icons svg:hover { color: var(--gold, #D4AF37); transform: translateY(-3px); }
+            .mh-mega-footer { 
+                background-color: #0b0b0b; 
+                color: #fff; 
+                padding: 50px 0 40px; 
+                font-family: 'Poppins', sans-serif; 
+                border-top: 1px solid #222; 
+            }
+            .mh-footer-container { 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 0 20px; 
+            }
+            .mh-footer-features { 
+                display: grid; 
+                grid-template-columns: repeat(4, 1fr); 
+                gap: 20px; 
+                border-bottom: 1px solid #222; 
+                padding-bottom: 40px; 
+                margin-bottom: 40px; 
+            }
+            @media(max-width: 992px) { 
+                .mh-footer-features { grid-template-columns: repeat(2, 1fr); row-gap: 30px; } 
+            }
+            @media(max-width: 576px) { 
+                .mh-footer-features { grid-template-columns: 1fr; } 
+            }
+            .mh-feat-item { 
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+                gap: 15px; 
+            }
+            .mh-feat-text h5 { 
+                font-size: 1rem; 
+                font-weight: 700; 
+                text-transform: uppercase; 
+                margin: 0 0 3px 0; 
+                letter-spacing: 0.5px; 
+            }
+            .mh-feat-text p { 
+                font-size: 0.85rem; 
+                color: #888; 
+                margin: 0; 
+            }
+            .mh-footer-grid { 
+                display: grid; 
+                grid-template-columns: 1.2fr 1.2fr 1.5fr 1.2fr 1.5fr; 
+                gap: 30px; 
+            }
+            @media(max-width: 1024px) { 
+                .mh-footer-grid { grid-template-columns: repeat(3, 1fr); } 
+            }
+            @media(max-width: 768px) { 
+                .mh-footer-grid { grid-template-columns: repeat(2, 1fr); } 
+            }
+            @media(max-width: 480px) { 
+                .mh-footer-grid { grid-template-columns: 1fr; } 
+            }
+            .mh-footer-col h4 { 
+                font-size: 1.1rem; 
+                margin-bottom: 25px; 
+                font-weight: 700; 
+                color: #fff; 
+                text-transform: capitalize; 
+            }
+            .mh-footer-col ul { 
+                list-style: none; 
+                padding: 0; 
+                margin: 0; 
+            }
+            .mh-footer-col ul li { 
+                margin-bottom: 12px; 
+            }
+            .mh-footer-col a { 
+                color: #a0a0a0; 
+                text-decoration: none; 
+                font-size: 0.9rem; 
+                transition: color 0.3s ease; 
+                cursor: pointer; 
+                display: inline-block; 
+            }
+            .mh-footer-col a:hover { 
+                color: #fff; 
+                transform: translateX(3px); 
+            }
+            .mh-sub-heading { 
+                color: #fff; 
+                font-size: 0.85rem; 
+                font-weight: 700; 
+                text-transform: uppercase; 
+                margin: 25px 0 10px 0; 
+                letter-spacing: 1px; 
+            }
+            .mh-sub-heading:first-of-type { 
+                margin-top: 0; 
+            }
+            .mh-social-icons { 
+                display: flex; 
+                gap: 15px; 
+                margin-top: 15px; 
+            }
+            .mh-social-icons svg { 
+                width: 22px; 
+                height: 22px; 
+                color: #fff; 
+                cursor: pointer; 
+                transition: 0.3s; 
+            }
+            .mh-social-icons svg:hover { 
+                color: var(--gold, #D4AF37); 
+                transform: translateY(-3px); 
+            }
         </style>
 
         <div class="mh-footer-container">
-            <!-- 1. DẢI TIỆN ÍCH TRÊN CÙNG -->
             <div class="mh-footer-features">
                 <div class="mh-feat-item">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                    <div class="mh-feat-text"><h5>MIỄN PHÍ SHIP</h5><p>Toàn quốc</p></div>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                    <div class="mh-feat-text">
+                        <h5>MIỄN PHÍ SHIP</h5>
+                        <p>Toàn quốc</p>
+                    </div>
                 </div>
                 <div class="mh-feat-item">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
-                    <div class="mh-feat-text"><h5>BẢO HÀNH</h5><p>365 ngày</p></div>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <polyline points="9 12 11 14 15 10"></polyline>
+                    </svg>
+                    <div class="mh-feat-text">
+                        <h5>BẢO HÀNH</h5>
+                        <p>365 ngày</p>
+                    </div>
                 </div>
                 <div class="mh-feat-item">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                    <div class="mh-feat-text"><h5>ĐỊA CHỈ</h5><p>Cửa hàng Minh Hằng</p></div>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <div class="mh-feat-text">
+                        <h5>ĐỊA CHỈ</h5>
+                        <p>Cửa hàng Minh Hằng</p>
+                    </div>
                 </div>
                 <div class="mh-feat-item">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                    <div class="mh-feat-text"><h5>TẠP CHÍ</h5><p>Thông tin thời trang</p></div>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    <div class="mh-feat-text">
+                        <h5>TẠP CHÍ</h5>
+                        <p>Thông tin thời trang</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- 2. LƯỚI MENU 5 CỘT -->
             <div class="mh-footer-grid">
-                <!-- Cột 1: Quần Áo -->
                 <div class="mh-footer-col">
                     <h4>Quần Áo</h4>
                     <ul>
@@ -865,11 +1446,10 @@
                         <li><a onclick="filterByCategory('tây|kaki', 'Quần Dài', 'all'); window.scrollTo(0,0);">Quần Dài</a></li>
                         <li><a onclick="filterByCategory('short', 'Quần Short', 'all'); window.scrollTo(0,0);">Quần Short</a></li>
                         <li><a onclick="filterByCategory('jean', 'Quần Jeans', 'all'); window.scrollTo(0,0);">Quần Jeans</a></li>
-                        <li><a onclick="handleFooterLink('Sitemap')">Sitemap</a></li>
+                        <li><a onclick="filterByCategory('lót|sịp', 'Quần Lót', 'nam'); window.scrollTo(0,0);">Quần Lót</a></li>
                     </ul>
                 </div>
 
-                <!-- Cột 2: Phụ Kiện -->
                 <div class="mh-footer-col">
                     <h4>Phụ Kiện</h4>
                     <ul>
@@ -880,59 +1460,67 @@
                         <li><a onclick="filterByCategory('nịt|thắt lưng', 'Dây Nịt', 'phu-kien'); window.scrollTo(0,0);">Dây Nịt</a></li>
                         <li><a onclick="filterByCategory('vớ', 'Vớ / Tất', 'phu-kien'); window.scrollTo(0,0);">Vớ</a></li>
                         <li><a onclick="filterByCategory('giày', 'Giày', 'phu-kien'); window.scrollTo(0,0);">Giày</a></li>
-                        <li><a onclick="filterByCategory('kính|nhẫn|đồng hồ', 'Phụ Kiện Cá Nhân', 'phu-kien'); window.scrollTo(0,0);">Phụ Kiện Cá Nhân</a></li>
+                        <li><a onclick="filterByCategory('dép|sandal', 'Dép', 'phu-kien'); window.scrollTo(0,0);">Dép</a></li>
                     </ul>
                 </div>
 
-                <!-- Cột 3: Trang Phục -->
                 <div class="mh-footer-col">
                     <h4>Trang Phục</h4>
                     <div class="mh-sub-heading">THIẾT YẾU</div>
                     <ul>
-                        <li><a onclick="filterByCategory('đầm|phông|canvas', 'BST Non-Branded', 'all'); window.scrollTo(0,0);">BST Non-Branded</a></li>
-                        <li><a onclick="filterByCategory('cổ điển|classic', 'BST Seventy Seven', 'all'); window.scrollTo(0,0);">BST Seventy Seven</a></li>
+                        <li><a onclick="filterByCategory('đầm|phông', 'BST Non-Branded', 'all'); window.scrollTo(0,0);">BST Non-Branded</a></li>
+                        <li><a onclick="filterByCategory('classic', 'BST Seventy Seven', 'all'); window.scrollTo(0,0);">BST Seventy Seven</a></li>
+                        <li><a onclick="filterByCategory('công sở', 'BST The Worker', 'all'); window.scrollTo(0,0);">BST The Worker</a></li>
                     </ul>
                     
                     <div class="mh-sub-heading">CÔNG NGHỆ</div>
                     <ul>
-                        <li><a onclick="filterByCategory('tối giản|balo', 'BST The Minimalist', 'all'); window.scrollTo(0,0);">BST The Minimalist</a></li>
-                        <li><a onclick="filterByCategory('smartwatch|đồng hồ', 'Đồng Hồ Thông Minh', 'cong-nghe'); window.scrollTo(0,0);">BST Công Nghệ</a></li>
+                        <li><a onclick="filterByCategory('tối giản', 'BST The Minimalist', 'all'); window.scrollTo(0,0);">BST The Minimalist</a></li>
+                        <li><a onclick="filterByCategory('sơ mi', 'BST The CEO', 'all'); window.scrollTo(0,0);">BST The CEO</a></li>
                     </ul>
 
                     <div class="mh-sub-heading">TẬN HƯỞNG</div>
                     <ul>
-                        <li><a onclick="filterByCategory('đi biển|dạo phố', 'BST The Weekend', 'all'); window.scrollTo(0,0);">BST The Weekend</a></li>
-                        <li><a onclick="filterByCategory('thoải mái|oversize', 'BST The Home Body', 'all'); window.scrollTo(0,0);">BST The Home Body</a></li>
+                        <li><a onclick="filterByCategory('dạo phố', 'BST The No Style', 'all'); window.scrollTo(0,0);">BST The No Style</a></li>
+                        <li><a onclick="filterByCategory('đi biển', 'BST The Weekend', 'all'); window.scrollTo(0,0);">BST The Weekend</a></li>
+                        <li><a onclick="filterByCategory('oversize', 'BST The Home Body', 'all'); window.scrollTo(0,0);">BST The Home Body</a></li>
+                    </ul>
+
+                    <div class="mh-sub-heading">JEAN (DENIM)</div>
+                    <ul>
+                        <li><a onclick="filterByCategory('jean', 'BST The Original Jean', 'all'); window.scrollTo(0,0);">BST The Original Jean</a></li>
+                        <li><a onclick="filterByCategory('jean đen', 'BST Tek Black Jean', 'all'); window.scrollTo(0,0);">BST Tek Black Jean</a></li>
                     </ul>
                 </div>
 
-                <!-- Cột 4: Chính Sách -->
                 <div class="mh-footer-col">
                     <h4>Chính Sách</h4>
                     <ul>
-                        <li><a onclick="handleFooterLink('Điều khoản dịch vụ')">Điều Khoản Dịch Vụ</a></li>
-                        <li><a onclick="openVipAuthPage()">Khách Hàng VIP</a></li>
-                        <li><a onclick="openTracking()">Vận Chuyển</a></li>
-                        <li><a onclick="handleFooterLink('Bảo mật thông tin')">Bảo Mật</a></li>
-                        <li><a onclick="handleFooterLink('Thanh toán')">Thanh Toán</a></li>
-                        <li><a href="chinh-sach-doi-tra.html">Chính sách đổi trả</a></li>
-                        <li><a href="chinh-sach-bao-hanh.html">Chính sách bảo hành</a></li>
-                        <li><a onclick="handleFooterLink('Giới thiệu Minh Hằng Store')">Giới Thiệu</a></li>
-                        <li><a onclick="handleFooterLink('Hệ thống cửa hàng')">Cửa Hàng</a></li>
-                        <li><a onclick="openVipAuthPage()">Đăng Nhập VIP</a></li>
-                        <li><a onclick="handleFooterLink('Email: cskh@minhhangstore.com')">Khiếu Nại/Góp Ý</a></li>
+                        <li><a href="dieu-khoan.html">Điều Khoản Dịch Vụ</a></li>
+                        <li><a role="button" tabindex="0" onclick="openVipAuthPage()">Khách Hàng VIP</a></li>
+                        <li><a href="van-chuyen.html">Vận Chuyển</a></li>
+                        <li><a href="chinh-sach-bao-mat.html">Bảo Mật</a></li>
+                        <li><a role="button" tabindex="0" onclick="handleFooterLink('Thanh toán')">Thanh Toán</a></li>
+                        <li><a href="chinh-sach-doi-tra.html">Đổi Trả</a></li>
+                        <li><a href="chinh-sach-bao-hanh.html">Bảo Hành</a></li>
+                        <li><a href="gioi-thieu.html">Giới Thiệu</a></li>
+                        <li><a href="cua-hang.html">Cửa Hàng</a></li>
+                        <li><a role="button" tabindex="0" onclick="openVipAuthPage()">Đăng Nhập VIP</a></li>
+                        <li><a href="lien-he.html">Khiếu Nại/Góp Ý</a></li>
                     </ul>
                 </div>
 
-                <!-- Cột 5: Blog & Cộng đồng -->
                 <div class="mh-footer-col">
+                    <!-- 🚀 ĐÃ XÓA STYLE "PHÁT SÁNG" VÀ CẬP NHẬT ĐẦY ĐỦ CÁC LINK MỚI 🚀 -->
                     <h4>Blog</h4>
                     <ul>
-                        <li><a onclick="handleFooterLink('Giới Thiệu Sản Phẩm')">Giới Thiệu Sản Phẩm</a></li>
-                        <li><a onclick="handleFooterLink('Thông Tin Bộ Sưu Tập')">Thông Tin Bộ Sưu Tập</a></li>
-                        <li><a onclick="handleFooterLink('Hướng Dẫn Mặc Đẹp')">Hướng Dẫn Mặc Đẹp</a></li>
-                        <li><a onclick="handleFooterLink('Kiến Thức Thời Trang')">Kiến Thức Thời Trang</a></li>
-                        <li><a onclick="openSizeGuide()">Hướng Dẫn Chọn Size</a></li>
+                        <li><a href="gioi-thieu-san-pham.html">Giới Thiệu Sản Phẩm Minh Hằng</a></li>
+                        <li><a role="button" tabindex="0" onclick="handleFooterLink('Thông Tin Bộ Sưu Tập')">Thông Tin Bộ Sưu Tập</a></li>
+                        <li><a href="mac-sao-cho-dung-gu.html">Mặc Sao Cho Đúng Gu</a></li>
+                        <li><a role="button" tabindex="0" onclick="handleFooterLink('Kiến Thức Thời Trang')">Kiến Thức Thời Trang</a></li>
+                        <li><a href="huong-dan-giat-ui.html">Hướng Dẫn Giặt, Ủi</a></li>
+                        <li><a href="ho-tro-tin-tuc.html">Hỗ Trợ Và Tin Tức</a></li>
+                        <li><a href="huong-dan-chon-size.html">Hướng Dẫn Chọn Size</a></li>
                     </ul>
 
                     <h4 style="margin-top: 35px; margin-bottom: 10px;">Cộng đồng Minh Hằng</h4>
@@ -944,6 +1532,11 @@
                     </div>
                 </div>
             </div>
+            
+            <div style="text-align: center; margin-top: 40px; padding-top: 25px; border-top: 1px solid #222; font-size: 0.8rem; color: #666; display: flex; flex-direction: column; gap: 8px; line-height: 1.5;">
+                <span>© 2026 - CÔNG TY TNHH MINH HẰNG STORE. Mã số DN: 0310874914 – Đăng ký lần đầu: 24/05/2011.</span>
+                <span>Địa chỉ trụ sở chính: Quận 4, TP.HCM. Điện thoại: (028) 3868 4857 - Mua hàng: (028) 7307 1441 - Email: cskh@minhhang.vn</span>
+            </div>
         </div>
     </footer>
 
@@ -951,58 +1544,109 @@
     <div class="mobile-bottom-nav">
         <div class="mobile-bottom-nav-inner">
             <div class="bottom-nav-item active" onclick="filterByCategory('all', 'Danh Mục Sản Phẩm', 'all'); window.scrollTo(0,0);">
-                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
                 <span>Trang chủ</span>
             </div>
             <div class="bottom-nav-item" onclick="filterByCategory('all', 'Khuyến Mãi & Flash Sale', 'flash-sale')">
-                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                    <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                </svg>
                 <span>Sale</span>
             </div>
             <div class="bottom-nav-item" onclick="toggleMobileNav()">
-                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
                 <span>Menu</span>
             </div>
             <div class="bottom-nav-item" style="position: relative;" onclick="toggleCart()">
-                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="14" rx="2" ry="2"></rect><path d="M8 8V6a4 4 0 0 1 8 0v2"></path></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="8" width="18" height="14" rx="2" ry="2"></rect>
+                    <path d="M8 8V6a4 4 0 0 1 8 0v2"></path>
+                </svg>
                 <span>Giỏ hàng</span>
             </div>
             <div class="bottom-nav-item" onclick="handleFooterLink('Hệ thống cửa hàng')">
-                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
                 <span>Cửa hàng</span>
             </div>
         </div>
     </div>
 
-    <!-- KHUNG GIAO DIỆN CHATBOT AI -->
+    <!-- KHUNG CHATBOT AI -->
     <div id="chatbot-widget" class="chatbot-container" style="position: fixed; bottom: 30px; right: 30px; z-index: 10000; display: flex; flex-direction: column; align-items: flex-end;">
         <button id="chatbot-toggle-btn" class="chatbot-toggle-btn" onclick="toggleChat()" aria-label="Mở chat" style="background-color: var(--gold); color: #111; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); border: none; outline: none; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
         </button>
-        
-        <div id="chat-box" class="chatbot-window" style="width: 350px; height: 450px; background: var(--card-bg); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; flex-direction: column; overflow: hidden; margin-bottom: 15px; border: 1px solid var(--border-color);">
-            <div class="chatbot-header" style="background: var(--text-main); color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold);">
+        <div id="chat-box" class="chatbot-window" style="width: 350px; max-width: calc(100vw - 40px); height: 500px; background: var(--card-bg); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; flex-direction: column; overflow: hidden; margin-bottom: 15px; border: 1px solid var(--border-color); position: relative;">
+            <div class="chatbot-header" style="background: var(--text-main); color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); z-index: 5;">
                 <div>
-                    <h4 style="margin: 0; color: #fff;">Minh Hằng AI Assistant</h4>
+                    <h4 style="margin: 0; color: #fff; font-size: 1rem;">Stylist AI Tư Vấn</h4>
                     <span style="font-size: 0.75rem; color: #ddd;">Trực tuyến 24/7</span>
                 </div>
-                <span class="chatbot-close" onclick="toggleChat()" style="cursor: pointer; font-size: 1.5rem; transition: color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#fff'">&times;</span>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <button onclick="toggleChatTrack()" title="Tra cứu đơn hàng" style="background: transparent; border: none; color: #fff; cursor: pointer; padding: 0; display: flex; transition: 0.3s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#fff'">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="3" width="15" height="13"></rect>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                        </svg>
+                    </button>
+                    <button class="chatbot-close" onclick="toggleChat()" style="background: transparent; border: none; color: #fff; cursor: pointer; display: flex; transition: 0.3s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#fff'">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
             </div>
-            
             <div id="chat-body" class="chatbot-messages" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; background: var(--bg-color); font-size: 0.9rem; scroll-behavior: smooth;">
-                <div class="chat-msg bot-msg" style="padding: 10px 15px; border-radius: 12px; max-width: 85%; line-height: 1.4; background: #EAEAEA; color: #111; align-self: flex-start; border-bottom-left-radius: 2px;">Chào bạn! Tôi là trợ lý AI của Minh Hằng Store. Tôi có thể giúp gì cho bạn hôm nay?</div>
+                <div style="text-align: center; font-size: 0.75rem; color: var(--text-light); margin-bottom: -5px;">Stylist AI Tư Vấn - Sẵn sàng</div>
+                <div class="chat-msg bot-msg" style="padding: 12px 16px; border-radius: 16px; max-width: 85%; line-height: 1.5; background: #EAEAEA; color: #111; align-self: flex-start; border-bottom-left-radius: 4px;">
+                    Dạ Minh Hằng Store xin chào! Mình có thể giúp gì cho bạn?
+                </div>
             </div>
-            
-            <!-- NÚT MICRO CHO CHATBOT ĐƯỢC CHÈN VÀO ĐÂY -->
-            <div class="chatbot-input-area" style="display: flex; padding: 10px 15px; background: var(--card-bg); border-top: 1px solid var(--border-color); align-items: center;">
+            <div class="chatbot-input-area" style="position: relative; display: flex; padding: 10px 15px; background: var(--card-bg); border-top: 1px solid var(--border-color); align-items: center; z-index: 5;">
+                <button onclick="toggleEmojiPicker(event)" title="Thêm Emoji" style="background: transparent; border: none; color: #888; cursor: pointer; padding: 5px; transition: 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#888'">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                        <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                        <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                    </svg>
+                </button>
                 <input type="text" id="chat-input" placeholder="Nhập câu hỏi..." autocomplete="off" onkeypress="if(event.key === 'Enter') sendChatMessage()" style="flex: 1; border: none; padding: 10px; font-family: var(--font-body); font-size: 0.95rem; outline: none; background: transparent; color: var(--text-main);">
-                
-                <button onclick="startVoiceSearch('chat-input', sendChatMessage)" title="Nói để chat" style="background: transparent; border: none; color: #888; cursor: pointer; padding: 5px; transition: 0.2s; margin-right: 5px;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#888'">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                <button id="chatbot-send-btn" onclick="sendChatMessage()" aria-label="Gửi tin nhắn" style="background: var(--text-main); border: none; color: #fff; cursor: pointer; padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.background='var(--gold)'; this.style.color='#111'" onmouseout="this.style.background='var(--text-main)'; this.style.color='#fff'">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
                 </button>
-                
-                <button id="chatbot-send-btn" onclick="sendChatMessage()" aria-label="Gửi tin nhắn" style="background: transparent; border: none; color: var(--gold); cursor: pointer; padding: 5px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </button>
+                <div id="emoji-picker-popup" class="emoji-picker-container"></div>
+            </div>
+            <div id="chat-track-modal" class="chat-track-overlay">
+                <div class="chat-track-box">
+                    <span class="chat-track-close" onclick="toggleChatTrack()">&times;</span>
+                    <h4>Track order</h4>
+                    <div class="chat-track-group"><label>Order number</label><input type="text" id="track-chat-code"></div>
+                    <div class="chat-track-radio-group">
+                        <label><input type="radio" name="chat_track_type" checked> Email address</label>
+                        <label><input type="radio" name="chat_track_type"> Phone number</label>
+                    </div>
+                    <div class="chat-track-group"><input type="text" id="track-chat-contact"></div>
+                    <button class="chat-track-submit" onclick="submitChatTrack()">Send</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1018,11 +1662,7 @@
             window.toggleQR = function() {
                 const methodInputs = document.querySelectorAll('input[name="payment_method"]');
                 let selectedMethod = 'cod';
-                
-                methodInputs.forEach(input => {
-                    if (input.checked) selectedMethod = input.value;
-                });
-
+                methodInputs.forEach(input => { if (input.checked) selectedMethod = input.value; });
                 const qrBox = document.getElementById('qr-payment-box');
                 if (selectedMethod === 'zalo') {
                     qrBox.style.display = 'block';
@@ -1031,15 +1671,11 @@
                     qrBox.style.display = 'none';
                 }
             };
-
             window.updateTransferContent = function() {
                 const phoneInput = document.getElementById('chk-phone').value.trim();
                 const contentBox = document.getElementById('ck-content');
-                if (phoneInput && /^\d+$/.test(phoneInput)) {
-                    contentBox.innerText = 'MHS ' + phoneInput;
-                } else {
-                    contentBox.innerText = 'MHS SDT';
-                }
+                if (phoneInput && /^\d+$/.test(phoneInput)) { contentBox.innerText = 'MHS ' + phoneInput; } 
+                else { contentBox.innerText = 'MHS SDT'; }
             };
         });
     </script>

@@ -254,7 +254,7 @@ function renderRecentlyViewed() {
 }
 
 // =================================================================
-// 6. GIỎ HÀNG & WISHLIST LOGIC
+// 6. GIỎ HÀNG & WISHLIST LOGIC (NÂNG CẤP UX)
 // =================================================================
 function updateCartBadge() {
     const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
@@ -313,12 +313,21 @@ function renderCart() {
     }
 }
 
+// BẢN NÂNG CẤP: Smart Cart UX
 function updateQty(index, delta) { 
     if (cart[index].qty + delta > 0) {
         cart[index].qty += delta; 
-        localStorage.setItem('mh_cart', JSON.stringify(cart)); 
-        updateCartBadge(); renderCart(); 
+    } else {
+        // Tối ưu UX: Khi giảm về 0, tự động hỏi người dùng có muốn xóa không
+        if(confirm('Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?')) {
+            cart.splice(index, 1);
+        } else {
+            return; // Nếu bấm Cancel thì giữ nguyên giỏ hàng
+        }
     }
+    localStorage.setItem('mh_cart', JSON.stringify(cart)); 
+    updateCartBadge(); 
+    renderCart(); 
 }
 
 function removeFromCart(index) { 
@@ -399,7 +408,6 @@ function moveWishlistToCart(index) {
 // =================================================================
 let searchTimeout;
 
-// Thuật toán Fuzzy Match (Tìm kiếm sai chính tả)
 function fuzzyMatch(queryWord, targetText) {
     let q = removeAccents(queryWord.toLowerCase()).trim();
     let t = removeAccents(targetText.toLowerCase()).trim();
@@ -424,7 +432,6 @@ function fuzzyMatch(queryWord, targetText) {
     return false;
 }
 
-// Bơm AI sai chính tả & Vá lỗi đường dẫn hình ảnh tìm kiếm
 function executeSearch() {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
@@ -451,7 +458,6 @@ function executeSearch() {
                     const exactName = pName.innerText;
                     if (!seen.has(exactName)) {
                         seen.add(exactName); matchCount++;
-                        // BẢN VÁ LỖI: Dùng getAttribute('src') thay vì .src để chạy trên mọi máy
                         const img = card.querySelector('.product-img').getAttribute('src'); 
                         const price = card.querySelector('.product-price').innerText; 
                         dropdown.innerHTML += `
@@ -730,34 +736,11 @@ window.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
-// =================================================================
-// 10. VOICE SEARCH & PWA (TÍNH NĂNG PROMAX)
-// =================================================================
+// 10. TÍNH NĂNG PWA (PROMAX) 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
-        .then(reg => console.log('Đã đăng ký PWA thành công! Sẵn sàng làm App.'))
+        .then(reg => console.log('Đã đăng ký PWA thành công! Sẵn sàng cài đặt làm App.'))
         .catch(err => console.log('PWA đăng ký thất bại: ', err));
     });
-}
-
-function startVoiceSearch(targetInputId, triggerFunction) {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) { 
-        showToast("Trình duyệt không hỗ trợ (Hãy dùng Google Chrome/Edge)!"); 
-        return; 
-    }
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'vi-VN'; 
-    recognition.start();
-    showToast("🎙️ Đang nghe... Hãy nói tên sản phẩm bạn muốn!");
-    
-    recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        document.getElementById(targetInputId).value = transcript;
-        showToast(`Đã nhận diện: <b>${transcript}</b>`);
-        if(typeof triggerFunction === 'function') triggerFunction();
-    };
-    recognition.onerror = (e) => { showToast("Không nghe rõ, vui lòng thử lại!"); };
 }

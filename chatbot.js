@@ -265,3 +265,97 @@ function analyzeAndRespond(userInput) {
     Để được hỗ trợ tốt nhất và giải đáp mọi thắc mắc, bạn hãy nhắn tin trực tiếp với chủ shop qua 
     <a href="https://zalo.me/03372788528" target="_blank" style="color: var(--gold, #D4AF37); font-weight: bold; text-decoration: underline;">Zalo CSKH: 03372788528</a> nhé! Sẽ có nhân viên thật hỗ trợ bạn ngay lập tức ạ.`;
 }
+/* =========================================================
+   TÍNH NĂNG NÂNG CẤP: EMOJI PICKER & TRACK ORDER (PROMAX)
+========================================================= */
+
+// --- 1. XỬ LÝ BẢNG EMOJI ---
+const aiEmojis = ['😀','😂','😍','🥰','😎','😋','🤔','🙄','😪','😴','😷','🤧','🤢','🤮','🥵','🤠','🥳','🤫','🤥','🤡','🤓','😈','👻','💀','👽','🤖','💩','😺','😸','😹'];
+
+function initEmojiPicker() {
+    const popup = document.getElementById('emoji-picker-popup');
+    if(!popup) return;
+    // Tự động sinh emoji từ mảng dữ liệu
+    popup.innerHTML = aiEmojis.map(e => `<div class="emoji-item" onclick="insertEmoji('${e}')">${e}</div>`).join('');
+}
+
+function toggleEmojiPicker(e) {
+    e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
+    const popup = document.getElementById('emoji-picker-popup');
+    if(popup) {
+        popup.style.display = (popup.style.display === 'none' || popup.style.display === '') ? 'grid' : 'none';
+    }
+}
+
+function insertEmoji(emoji) {
+    const input = document.getElementById('chat-input');
+    if(input) {
+        input.value += emoji;
+        input.focus(); // Đưa con trỏ chuột về lại thanh chat
+    }
+}
+
+// Lắng nghe sự kiện click toàn trang để đóng Emoji Box khi click ra ngoài
+document.addEventListener('click', function(e) {
+    const popup = document.getElementById('emoji-picker-popup');
+    if (popup && popup.style.display === 'grid' && !e.target.closest('.chatbot-input-area')) {
+        popup.style.display = 'none';
+    }
+});
+
+// Chạy hàm khởi tạo Emoji ngay khi trang vừa tải xong
+window.addEventListener('DOMContentLoaded', initEmojiPicker);
+
+
+// --- 2. XỬ LÝ POPUP TRACK ORDER TRONG CHATBOT ---
+function toggleChatTrack() {
+    const modal = document.getElementById('chat-track-modal');
+    if(modal) {
+        if(modal.style.display === 'none' || modal.style.display === '') {
+            modal.style.display = 'flex';
+            // Đóng bảng emoji nếu nó vô tình đang mở
+            const emojiPopup = document.getElementById('emoji-picker-popup');
+            if(emojiPopup) emojiPopup.style.display = 'none';
+        } else {
+            modal.style.display = 'none';
+        }
+    }
+}
+
+function submitChatTrack() {
+    const codeInput = document.getElementById('track-chat-code');
+    const contactInput = document.getElementById('track-chat-contact');
+    
+    const code = codeInput ? codeInput.value.trim() : '';
+    
+    // Validate nhanh xem khách có nhập mã chưa
+    if(!code) {
+        if(typeof showToast === 'function') showToast("Vui lòng nhập mã đơn hàng (Order number)!");
+        else alert("Vui lòng nhập mã đơn hàng!");
+        return;
+    }
+
+    toggleChatTrack(); // Đóng popup
+    if(typeof showToast === 'function') showToast(`Đang kết nối hệ thống tra cứu đơn: <b>${code}</b>...`);
+    
+    // Giả lập xử lý dữ liệu và AI phản hồi (Tạo cảm giác chân thực)
+    setTimeout(() => {
+        const chatBody = document.getElementById('chat-body');
+        if(chatBody) { 
+            const time = new Date().toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+            
+            chatBody.innerHTML += `
+                <div style="text-align: center; font-size: 0.75rem; color: var(--text-light); margin-bottom: -5px; margin-top: 15px;">Stylist AI Tư Vấn - ${time}</div>
+                <div class="chat-msg bot-msg" style="padding: 12px 16px; border-radius: 16px; max-width: 85%; line-height: 1.5; background: #EAEAEA; color: #111; align-self: flex-start; border-bottom-left-radius: 4px;">
+                    Đơn hàng <b>${code}</b> của bạn hiện đang ở trạng thái: <b>Đang đóng gói và chờ giao cho đơn vị vận chuyển</b>. Dự kiến sẽ giao đến trong 1-2 ngày tới nhé! Đội ngũ Minh Hằng Store cảm ơn bạn!
+                </div>
+            `;
+            // Tự động cuộn chuột xuống tin nhắn mới nhất
+            chatBody.scrollTop = chatBody.scrollHeight; 
+            
+            // Xóa nội dung trong ô input sau khi gửi
+            if(codeInput) codeInput.value = '';
+            if(contactInput) contactInput.value = '';
+        }
+    }, 1200); // Đợi 1.2s rồi AI mới trả lời
+}

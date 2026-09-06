@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Chính sách vận chuyển - Minh Hằng Store</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="chatbot.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        .policy-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 50px 60px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+            position: relative; /* Thêm relative để canh chỉnh bên trong */
+        }
+        .policy-content h3 { font-size: 1.15rem; font-weight: 600; margin-top: 35px; margin-bottom: 15px; color: var(--text-main); }
+        .policy-content p { margin-bottom: 15px; color: var(--text-light); line-height: 1.8; }
+        .policy-content ul { margin-bottom: 15px; padding-left: 20px; color: var(--text-light); line-height: 1.8; }
+        .policy-content li { margin-bottom: 8px; list-style-type: disc; }
+        @media (max-width: 768px) { .policy-container { padding: 30px 20px; } }
+    </style>
+</head>
+<body>
+
+    <!-- GIỮ NGUYÊN CÁC MODAL HỆ THỐNG -->
+    <div id="toast" role="alert" aria-live="assertive"></div>
+    <div id="sidebar-overlay" aria-hidden="true" onclick="closeSidebars()"></div>
+
+    <div id="cart-sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>Giỏ Hàng (Cart)</h3>
+            <span class="close-sidebar" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="sidebar-content" id="cart-items"></div>
+        <div class="sidebar-footer">
+            <div class="cart-total">Tổng thanh toán: <span id="cart-total-price">0đ</span></div>
+            <button class="btn" style="width: 100%; background: var(--text-main); color: var(--bg-color); padding: 18px; border-radius: 8px;" onclick="window.location.href='index.html'">TIẾN HÀNH THANH TOÁN</button>
+        </div>
+    </div>
+
+    <!-- ANNOUNCEMENT BAR & HEADER Y HỆT TRANG CHỦ -->
+    <div class="announcement-bar">
+        <div class="top-bar-inner">
+            <div class="top-bar-promo">Miễn phí vận chuyển toàn quốc đơn từ 500.000đ | Giao hỏa tốc nội thành TP.HCM trong 2H</div>
+            <div class="top-bar-utilities">
+                <div class="top-bar-item" onclick="toggleTheme()"><span id="theme-toggle">☀️</span> Theme</div>
+                <div class="top-bar-item" onclick="window.location.href='index.html'">🚚 Tra cứu</div>
+            </div>
+        </div>
+    </div>
+    
+    <header class="sticky-header" role="banner">
+        <nav class="nav-container" role="navigation">
+            <div class="hamburger" onclick="toggleMobileNav()">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </div>
+            
+            <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><text x="12" y="15" font-size="10" text-anchor="middle" fill="currentColor" stroke="none" font-weight="bold" font-family="sans-serif">M</text></svg>
+                <span>MINHHANG</span>
+            </div>
+
+            <ul class="main-menu">
+                <li class="sale-tag"><a href="index.html">SALE</a></li>
+                <li class="has-mega"><a href="index.html">BỘ SƯU TẬP ▾</a></li>
+                <li class="has-mega"><a href="index.html">ÁO ▾</a></li>
+                <li class="has-mega"><a href="index.html">QUẦN ▾</a></li>
+                <li class="has-mega"><a href="index.html" style="color: var(--accent-red); font-weight: bold;">PHỤ KIỆN ▾</a></li>
+                <li><a href="index.html">CỬA HÀNG</a></li>
+                <li><a href="index.html" style="font-weight: bold; color: var(--gold);">VIP</a></li>
+            </ul>
+            
+            <div class="nav-icons" style="display: flex; align-items: center; gap: 15px;">
+                <!-- ĐÃ XÓA NÚT ĐỎ Ở ĐÂY ĐỂ ĐƯA VÀO BÊN TRONG THEO Ý BẠN -->
+                <svg title="Tài khoản" onclick="window.location.href='index.html'" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="cursor:pointer;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <div style="position: relative; display: flex; align-items: center; cursor: pointer;" onclick="toggleCart()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="14" rx="2" ry="2"></rect><path d="M8 8V6a4 4 0 0 1 8 0v2"></path></svg>
+                    <span id="cart-count" class="cart-badge-svg" style="display:none;">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- NỘI DUNG CHÍNH (Đã đưa nút Trở về vào bên trong khung) -->
+    <main style="padding-top: 50px; padding-bottom: 80px; background-color: var(--bg-color); min-height: 70vh;">
+        <div class="policy-container">
+            
+            <!-- ĐÂY CHÍNH LÀ NÚT QUAY LẠI GIỐNG ẢNH BẠN GỬI -->
+            <a href="index.html" style="display: inline-block; color: var(--gold); text-decoration: none; font-size: 0.95rem; font-weight: 500; margin-bottom: 20px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+                ← Trở về Trang Chủ
+            </a>
+
+            <h1 style="font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 2.5rem); text-align: center; margin-top: 10px; margin-bottom: 40px; color: var(--text-main); font-weight: 700;">Chính sách vận chuyển</h1>
+            
+            <div class="policy-content">
+                <h3>1. Phạm Vi Giao Hàng</h3>
+                <p>Minh Hằng Store hỗ trợ giao hàng trên toàn quốc, tới tất cả tỉnh thành trong lãnh thổ Việt Nam.</p>
+
+                <h3>2. Phí Giao Hàng và Giá Trị Đơn Hàng Tối Thiểu</h3>
+                <p>Minh Hằng Store chỉ tiếp nhận và xử lý giao hàng đối với các đơn hàng trực tuyến có tổng giá trị từ 50.000đ trở lên. Đồng thời, Minh Hằng Store miễn phí vận chuyển cho các đơn hàng đủ điều kiện này trên phạm vi toàn quốc. Các đơn hàng dưới 50.000đ hệ thống sẽ từ chối khởi tạo, quý khách vui lòng mua sắm trực tiếp tại hệ thống cửa hàng Minh Hằng Store.</p>
+
+                <h3>3. Thời Gian Giao Hàng</h3>
+                <p>Thời gian giao hàng được tính từ lúc chúng tôi xác nhận đơn hàng thành công. Nhân viên bán hàng của Minh Hằng Store sẽ tư vấn và hẹn thời gian giao hàng dự kiến cho quý khách.</p>
+                <p>Đối với khách hàng ở các tỉnh thành ngoài TP.HCM, thời gian nhận hàng dự kiến từ 3 - 5 ngày sau khi đơn hàng được xác nhận.</p>
+                <p><strong>Lưu ý:</strong> Thời gian giao hàng có thể thay đổi do các yếu tố khách quan (thời tiết thiên tai, dịch bệnh, hoặc sự cố từ phía đối tác vận chuyển). Trong trường hợp phát sinh chậm trễ, Minh Hằng Store sẽ thông báo kịp thời và đưa ra thời gian dự kiến mới. Nếu quý khách không đồng ý đợi thêm, quý khách có quyền yêu cầu hủy đơn hàng và Minh Hằng Store sẽ hoàn trả 100% số tiền đã thanh toán trước (nếu có) trong vòng 3 ngày làm việc.</p>
+
+                <h3>4. Chính Sách Kiểm Hàng (Đồng kiểm)</h3>
+                <p>Khi nhận hàng, quý khách có quyền yêu cầu nhân viên giao hàng mở gói hàng để kiểm tra sản phẩm trước khi thanh toán hoặc ký nhận.</p>
+                <p>Nếu sản phẩm không đúng với đơn hàng đã đặt, quý khách có quyền từ chối nhận hàng và không thanh toán.</p>
+                <p>Trong trường hợp quý khách đã thanh toán trước nhưng đơn hàng giao không chính xác, vui lòng liên hệ ngay với chúng tôi qua hotline <strong>(028) 7307 1441</strong> để được hỗ trợ hoàn tiền hoặc giao lại đơn hàng mới.</p>
+
+                <h3>5. Trách Nhiệm Với Hàng Hóa</h3>
+                <p>Minh Hằng Store chịu trách nhiệm hoàn toàn đối với sự mất mát, hư hỏng hoặc suy giảm chất lượng của hàng hóa trong suốt quá trình vận chuyển từ kho của chúng tôi đến địa chỉ nhận hàng của quý khách.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- MEGA FOOTER GIỐNG TRANG CHỦ -->
+    <footer class="mh-mega-footer" style="background-color: #0b0b0b; color: #fff; padding: 50px 0 40px; font-family: 'Poppins', sans-serif; border-top: 1px solid #222;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+                <div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 25px; font-weight: 700; color: #fff;">Về Chúng Tôi</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Giới thiệu Minh Hằng</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Tuyển dụng</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Hệ thống cửa hàng</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 25px; font-weight: 700; color: #fff;">Chính Sách</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 12px;"><a href="van-chuyen.html" style="color: #fff; text-decoration: none; font-size: 0.9rem;">Chính sách vận chuyển</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Chính sách đổi trả</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.9rem;">Chính sách bảo mật</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 25px; font-weight: 700; color: #fff;">Tổng Đài Hỗ Trợ</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 12px; color: #a0a0a0; font-size: 0.9rem;">Gọi mua: 0901.234.567</li>
+                        <li style="margin-bottom: 12px; color: #a0a0a0; font-size: 0.9rem;">Khiếu nại: (028) 7307 1441</li>
+                        <li style="margin-bottom: 12px; color: #a0a0a0; font-size: 0.9rem;">Email: cskh@minhhang.vn</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #333; font-size: 0.8rem; color: #666;">
+                © 2026 Minh Hằng Store. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- THANH MENU MOBILE -->
+    <div class="mobile-bottom-nav">
+        <div class="mobile-bottom-nav-inner">
+            <div class="bottom-nav-item" onclick="window.location.href='index.html'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span>Trang chủ</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- KHUNG CHATBOT AI VỚI EMOJI VÀ TRACK ORDER NHƯ TRANG CHỦ -->
+    <div id="chatbot-widget" class="chatbot-container" style="position: fixed; bottom: 30px; right: 30px; z-index: 10000; display: flex; flex-direction: column; align-items: flex-end;">
+        <button id="chatbot-toggle-btn" class="chatbot-toggle-btn" onclick="toggleChat()" style="background-color: var(--gold); color: #111; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); border: none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </button>
+        
+        <div id="chat-box" class="chatbot-window" style="width: 350px; height: 500px; background: var(--card-bg); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; flex-direction: column; overflow: hidden; margin-bottom: 15px; border: 1px solid var(--border-color); position: relative;">
+            <div class="chatbot-header" style="background: var(--text-main); color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); z-index: 5;">
+                <div><h4 style="margin: 0; font-size: 1rem;">Stylist AI Tư Vấn</h4><span style="font-size: 0.75rem; color: #ddd;">Trực tuyến 24/7</span></div>
+                <div style="display: flex; gap: 15px;">
+                    <button onclick="toggleChatTrack()" style="background:transparent; border:none; color:#fff; cursor:pointer;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></button>
+                    <button onclick="toggleChat()" style="background:transparent; border:none; color:#fff; cursor:pointer;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                </div>
+            </div>
+            
+            <div id="chat-body" class="chatbot-messages" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; background: var(--bg-color); font-size: 0.9rem;">
+                <div class="chat-msg bot-msg" style="padding: 12px 16px; border-radius: 16px; max-width: 85%; background: #EAEAEA; color: #111; align-self: flex-start; border-bottom-left-radius: 4px;">Dạ Minh Hằng Store xin chào! Mình có thể giúp gì cho bạn?</div>
+            </div>
+            
+            <div class="chatbot-input-area" style="position: relative; display: flex; padding: 10px 15px; background: var(--card-bg); border-top: 1px solid var(--border-color); align-items: center; z-index: 5;">
+                <button onclick="toggleEmojiPicker(event)" style="background:transparent; border:none; color:#888; cursor:pointer; padding:5px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg></button>
+                <input type="text" id="chat-input" placeholder="Nhập câu hỏi..." autocomplete="off" onkeypress="if(event.key === 'Enter') sendChatMessage()" style="flex: 1; border: none; padding: 10px; font-family: inherit; font-size: 0.95rem; outline: none; background: transparent; color: var(--text-main);">
+                <button onclick="sendChatMessage()" style="background: var(--text-main); border: none; color: #fff; cursor: pointer; padding: 8px; border-radius: 50%;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
+                <div id="emoji-picker-popup" class="emoji-picker-container"></div>
+            </div>
+
+            <!-- MODAL TRACK ORDER -->
+            <div id="chat-track-modal" class="chat-track-overlay">
+                <div class="chat-track-box">
+                    <span class="chat-track-close" onclick="toggleChatTrack()">&times;</span>
+                    <h4 style="text-align: center; margin-bottom: 20px;">Track order</h4>
+                    <div style="margin-bottom: 15px;"><label style="font-size:0.8rem;">Order number</label><input type="text" id="track-chat-code" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;"></div>
+                    <div style="display:flex; gap:15px; margin-bottom:15px; font-size:0.85rem;"><label><input type="radio" name="chat_track_type" checked> Email</label><label><input type="radio" name="chat_track_type"> Phone</label></div>
+                    <div style="margin-bottom: 20px;"><input type="text" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;"></div>
+                    <button onclick="submitChatTrack()" style="width:100%; padding:12px; background:#111; color:#fff; border:none; border-radius:6px; cursor:pointer;">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kết nối các file Javascript để Giỏ hàng, Chatbot hoạt động -->
+    <script src="script.js" defer></script>
+    <script src="chatbot.js" defer></script>
+    
+    <script>
+        // Gọi riêng toggleTheme để setup màu sắc khi tải trang phụ
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if(savedTheme) { 
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                const themeBtn = document.getElementById('theme-toggle');
+                if(themeBtn) themeBtn.innerText = savedTheme === 'dark' ? '🌙' : '☀️';
+            }
+        });
+    </script>
+</body>
+</html>
